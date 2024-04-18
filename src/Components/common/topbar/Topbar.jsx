@@ -1,34 +1,35 @@
 import React from 'react';
 import '../header/Header.css';
-import logo from './logo.png'
+import logo from '../header/logo.png'
 import { Navbar } from '../../common';
 import Search from '../search/Search';
+
+
 function Topbar() {
-  return (
-    <div>
+    return (
+        <div className="top">
       
-<section className="header-top">
+            <section className="header-top">
             
-            <section className="header-top__logo">
-              {/*<a href="/" className="header-logo">LOGO</a>*/}
-              <img src={logo} alt="Logo" />
-            
-            </section>
+                <div className="logo">
+                    {/*<a href="/" className="header-logo">LOGO</a>*/}
+                        <img className="logo" src={logo} alt='logo'/>
+
+                </div>
             
             <section className="header-top__navbar">
             
-            
             <section className="header-top__navigation">
             
-              <Search/>
+                <Search/>
             
-            <Navbar />
+                <Navbar />
             </section>
             
             </section>
             </section>
-    </div>
-  )
+        </div>
+    );
 }
 
 export default Topbar

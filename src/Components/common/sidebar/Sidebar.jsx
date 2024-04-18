@@ -41,7 +41,7 @@ function Sidebar(){
       {title:"submenu 1       "},
       {title:"submenu 2       "},
       {title:"submenu 3       "},
-      {title:"submenu 4 "},
+      {title:"submenu 4       "},
      ],
     },
     {title: "Billing",icon:<FaMoneyBillTransfer />},

@@ -1,6 +1,8 @@
 import React from 'react';
 import { FaBell, FaSignOutAlt,FaHome } from 'react-icons/fa';
 import './Navbar.css';
+import '../../ClaimManage/ClaimForm.css'
+import '../../UpdateClaim/UpdateForm.css'
 
 import { IoPersonOutline } from "react-icons/io5";
 function Navbar() {

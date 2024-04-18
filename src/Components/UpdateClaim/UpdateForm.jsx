@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import logo from '../common/header/logo.png'
+import Topbar from '../common/topbar/Topbar.jsx'
 import icon_prof from '../ClaimManage/icon_prof.png'
 import notify from '../ClaimManage/notify.png'
 import '../../App.css'
 import '../ClaimManage/ClaimForm.css'
 import './UpdateForm.css'
 import video from '../../LoginAssets/video.mp4'
+import Sidebar from '../common/sidebar/Sidebar.jsx'
 
 import { Link } from 'react-router-dom';
 
@@ -27,19 +29,14 @@ const UpdateForm = () => {
 
     return (
         <body>
-            <div className="top">
-                  <div className="logo">
-                      <img className="logo" src={logo} alt='logo'/>
-                      <h4 className='h4'>Modify Claim</h4>
-                  </div>
-
-                  <div className="d">
-                    <img className="profButton" src={notify} alt='notify' onClick={myNotifications} />
-                    <img className="profButton" src={icon_prof} alt='icon_prof' onClick={myProf} />
-                  </div>
+            <div>
+                 <Topbar />
             </div>
 
             <div className="main-body">
+                <div>
+                    <Sidebar />
+                </div>
                 <div className="video-anime">
                     <div>
                         <video autoPlay muted loop src={video}></video>

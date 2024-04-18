@@ -6,20 +6,22 @@
     
   }
   
-  .header-top {
+.header-top {
     display: flex;
     width: 100%;
-    height: 80px;
+    height: auto;
     background-color: #02072D;
-  }
+
+}
   
-  .header-top__logo {
+.header-top__logo {
     display: flex;
     justify-content:left;
-    width:18%;
+    width: 100%;
+    height: auto;
     margin-right: 1px;
     margin-left: 40px;
-  }
+}
   
   .header-logo {
     color: inherit;
@@ -37,7 +39,7 @@
   .header-top__seperator {
     width: 100%;
     border: none;
-    height: 2px;
+    height: auto;
     margin-top: 2px;
     background-color: black;
   }
@@ -71,7 +73,7 @@
     display: flex;
     left: -5px;
     width: 30px;
-    height: 30px; 
+    height: auto;
   }
   /*hol up*/
   .header-bottom__bag-count {
@@ -88,10 +90,9 @@
     border-radius: 10px;
     color: white;
   }
-  .Logo{
+.Logo{
     background-image: url(/src/components/common/header/logo.png);
-    
-  }
+}
   /* ... existing styles ... */
 
 .flex {
