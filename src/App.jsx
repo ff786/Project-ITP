@@ -12,6 +12,10 @@ import ClaimForm from './Components/ClaimManage/ClaimForm'
 import UpdateForm from './Components/UpdateClaim/UpdateForm'
 import OverviewClaim from './Components/ClaimOverview/OverviewClaim'
 
+import ActivityLog from './Components/User/ActivityLog'
+import User from './Components/User/User'
+import UserMenu from './Components/User/UserMenu'
+
 import {
   createBrowserRouter,
   RouterProvider
@@ -66,7 +70,20 @@ const router = createBrowserRouter([
   {
     path: '/ClaimOverview',
     element: <div><OverviewClaim /> </div>
-  }
+  },
+
+  {
+    path: '/User',
+    element: <div><User /> </div>
+  },
+  {
+    path: '/UserMenu',
+    element: <div><UserMenu /> </div>
+  },
+  {
+    path: '/ActivityLog',
+    element: <div><ActivityLog /> </div>
+  },
 
 ])
 
