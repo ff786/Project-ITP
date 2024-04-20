@@ -51,7 +51,7 @@ function Sidebar(){
     
   ];
     return(
-        <section className="header">
+        <section className="flex">
           
       {/**
       <div className="thisfill">
