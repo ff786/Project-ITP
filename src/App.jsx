@@ -9,10 +9,12 @@ import  Schedule  from  './Components/Schedule/Schedule'
 import Scheduleinsurance from './Components/Scheduleinsurance/Scheduleinsurance'
 import UpdateAppointment from './Components/UpdateAppointment/UpdateAppointment'
 import DisplayAppointment from './Components/DisplayAppointment/DisplayAppointment'
+import DisplayScheduled from './Components/DisplayScheduled/DisplayScheduled'
 import {
   createBrowserRouter,
   RouterProvider
 } from 'react-router-dom'
+
 
 const router = createBrowserRouter([
   {
@@ -50,9 +52,14 @@ const router = createBrowserRouter([
   {
     path: '/updateapp',
     element: <div><UpdateAppointment/> </div>
-  },{
+  },
+  {
     path: '/displayappointment',
     element: <div><DisplayAppointment/> </div>
+  },
+  {
+    path: '/displayscheduled',
+    element: <div><DisplayScheduled/> </div>
   },
   
 

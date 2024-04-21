@@ -2,12 +2,85 @@ import React from "react";
 import Topbar from "../common/topbar/Topbar";
 import "./Schedule.css";
 import Sidebar from "../common/sidebar/Sidebar";
+import {useState } from 'react';
+import axios from "axios";
 function Schedule() {
-	const handleSubmit = () => {
+	// const handleSubmit = () => {
 		// Add any form submission logic here
+		// const [appointmentId,setId] = useState('');
+		const [firstname, setFirstname] = useState('');
+		const [lastname, setLastname] = useState('');
+		const [special_message, setSpecialMessage] = useState('');
+		const [member_id, setMemberId] = useState('');
+		const [date, setDate] = useState('');
+		const [doctors_specialization, setDoctorsSpecialization] = useState('');
+		const [doctor_id, setDoctorId] = useState('');
+		const [phone_number, setPhoneNumber] = useState('');
+		const [mail, setMail] = useState('');
+		// const [appointment,setAppointment]= useState([]);
 		// For example, you can send data to a server or perform validation
-		console.log("Form submitted!");
-	};
+		// console.log("Form submitted!");
+
+		// useEffect(()=>{
+		// 	(async () => await)
+		// })
+
+
+async function create(event)
+{
+	event.preventDefault();
+	console.log("Firstname:", firstname);
+    console.log("Lastname:", lastname);
+    console.log("Special Message:", special_message);
+    console.log("Member ID:", member_id);
+    console.log("Date:", date);
+    console.log("Doctors Specialization:", doctors_specialization);
+    console.log("Doctor ID:", doctor_id);
+    console.log("Phone Number:", phone_number);
+    console.log("Mail:", mail);
+	try{
+		await axios.post("https://dulanga.sliit.xyz/api/innobothealth/appointment/create",
+		{
+			firstname : firstname,
+			lastname  : lastname,
+			special_message : special_message,
+			member_id : member_id,
+			date  : date,
+			doctors_specialization: doctors_specialization,
+			doctor_id  : doctor_id,
+			phone_number  : phone_number,
+			mail  : mail
+
+
+		},
+		{
+			
+				headers: {
+				  'Content-Type': 'application/json',
+				  'Access-Control-Allow-Origin': '*',
+				  'Accept':	'application/json'
+				}
+		}
+	);
+		alert("Appointment Registration Sucessfull");
+		// setId("");
+		setFirstname("");
+		setLastname("");
+		setSpecialMessage("");
+		setMemberId("");
+		setDate("");
+		setDoctorsSpecialization("");
+		setDoctorId("");
+		setPhoneNumber("");
+		setMail("");
+	}catch(err){
+			alert("Appointment Registration Failed");
+	}
+}
+
+
+
+	
 	return (
 		<div>
 			<Topbar />
@@ -36,9 +109,15 @@ function Schedule() {
 									</label>
 									<input
 										className="appearance-none block w-full bg-light-white text-black border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-										id="grid-first-name"
+										id="firstname"
 										type="text"
+
 										placeholder="Enter Your First Name"
+										value={firstname}
+										onChange={(event)=>
+										{
+											setFirstname(event.target.value);
+										}}
 									/>
 									{<p className="text-red-500 text-xs italic">Please fill out this field.</p>}
 								</div>
@@ -51,9 +130,13 @@ function Schedule() {
 									</label>
 									<input
 										className="appearance-none block w-full bg-light-white text-black border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-										id="grid-last-name"
+										id="lastname"
 										type="text"
 										placeholder="Enter Your Last Name"
+										value={lastname}
+										onChange={(event) => {
+											setLastname(event.target.value);
+										}}
 									/>
 								</div>
 
@@ -66,9 +149,13 @@ function Schedule() {
 									</label>
 									<input
 										className="appearance-none block w-full bg-light-white text-black border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-										id="grid-last-name"
+										id="special_message"
 										type="text"
 										placeholder="Any special messages for us to know"
+										value={special_message}
+										onChange={(event) => {
+											setSpecialMessage(event.target.value);
+										}}
 									/>
 								</div>
 							</div>
@@ -82,9 +169,13 @@ function Schedule() {
 									</label>
 									<input
 										className="appearance-none block w-full bg-light-white text-black border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-										id="grid-last-name"
+										id="member_id"
 										type="text"
 										placeholder="member id"
+										value={member_id}
+										onChange={(event) => {
+											setMemberId(event.target.value);
+										  }}
 									/>
 								</div>
 
@@ -97,8 +188,12 @@ function Schedule() {
 									</label>
 									<input
 										className="appearance-none block w-full bg-light-white text-white  border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-										id="grid-date"
+										id="date"
 										type="date"
+										value={date}
+										onChange={(event) => {
+											setDate(event.target.value);
+										  }}
 									/>
 								</div>
 							</div>
@@ -125,7 +220,11 @@ function Schedule() {
 									<div className="relative">
 										<select
 											className="block appearance-none w-4/5 bg-light-white border border-gray-200 text-white py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-											id="grid-state"
+											id="doctors_specialization"
+											value={doctors_specialization}
+											onChange={(event) => {
+												setDoctorsSpecialization(event.target.value);
+											  }}
 										>
 											<option value="" disabled selected hidden>
 												Select a Healthcare Sector
@@ -150,9 +249,13 @@ function Schedule() {
 									</label>
 									<input
 										className="appearance-none block w-full  bg-light-white text-black border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-										id="grid-last-name"
+										id="doctor_id"
 										type="text"
 										placeholder="abc123"
+										value={doctor_id}
+											onChange={(event) => {
+											setDoctorId(event.target.value);
+											}}
 									/>
 								</div>
 							</div>
@@ -167,9 +270,13 @@ function Schedule() {
 									</label>
 									<input
 										className="appearance-none block w-full  bg-light-white text-black border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-										id="grid-last-name"
+										id="phone_number"
 										type="text"
 										placeholder="0**********"
+										value={phone_number}
+											onChange={(event) => {
+											setPhoneNumber(event.target.value);
+											}}
 									/>
 								</div>
 								<div className="w-full md:w-1/2 px-3">
@@ -181,9 +288,13 @@ function Schedule() {
 									</label>
 									<input
 										className="appearance-none block w-full  bg-light-white text-black border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-										id="grid-last-name"
+										id="mail"
 										type="text"
 										placeholder="@gmail.com"
+										value={mail}
+											onChange={(event) => {
+											setMail(event.target.value);
+											}}
 									/>
 								</div>
 							</div>
@@ -194,7 +305,9 @@ function Schedule() {
 										type="submit"
 										className="bg-light-white hover:bg-blue-violet text-white font-normal py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-blue active:bg-blue-800"
 										value="See Appointments"
-										onClick={handleSubmit}
+										// onClick={() => appointmentinsert(appointment) }
+										// onClick={handleSubmit}
+										onClick={create}
 									/>
 								</div>
 							</div>
@@ -203,7 +316,7 @@ function Schedule() {
 				</div>
 			</div>
 			<div className="button_placing_to-the_middle">
-				<button className="bg-blue-violet hover:bg-black text-white font-normal py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
+				<button  className="bg-blue-violet hover:bg-black text-white font-normal py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
 					Check Eligibility for Insurance
 				</button>
 			</div>

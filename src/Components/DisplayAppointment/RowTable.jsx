@@ -2,6 +2,8 @@ import React from 'react';
 import { TbGridDots } from "react-icons/tb";
 
 function RowTable() {
+
+
   return (
     <div className="overflow-x-auto mt-1 mr-4 ml-4">
       <table className="border-collapse border border-gray-800 w-full mx-auto">
