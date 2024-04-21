@@ -7,47 +7,47 @@
     padding: 20px;
     background-color: #f2f2f2;
     color: #02072D;
-  }
-  
-  .add-staff-container {
+}
+
+.add-staff-container {
     width: 50%;
     margin-bottom: 20px;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     background-color: white;
-  }
-  
-  .add-staff-container h2 {
+}
+
+.add-staff-container h2 {
     margin-bottom: 20px;
     font-size: 24px;
-  }
-  
-  .form-group {
+}
+
+.form-group {
     margin-bottom: 15px;
-  }
-  
-  .form-group label {
+}
+
+.form-group label {
     display: block;
     margin-bottom: 5px;
-  }
-  
-  .form-group input[type="text"],
-  .form-group input[type="email"],
-  .form-group select {
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group select {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #f2f2f2;
     color: #02072D;
-  }
-  
-  .form-group input[type="checkbox"] {
+}
+
+.form-group input[type="checkbox"] {
     margin-right: 5px;
-  }
-  
-  button {
+}
+
+button {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -56,69 +56,132 @@
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-  }
-  
-  button:hover {
+}
+
+button:hover {
     background-color: #1b9aaa;
-  }
-  
-  .user-list-container {
+}
+
+.user-list-container {
     width: 100%;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     background-color: white;
-  }
-  
-  .user-list-container h2 {
+}
+
+.user-list-container h2 {
     margin-bottom: 20px;
     font-size: 24px;
-  }
-  
-  table {
+}
+
+table {
     width: 100%;
     border-collapse: collapse;
-  }
-  
-  thead {
+}
+
+thead {
     background-color: #02072D;
     color: white;
-  }
-  
-  thead th {
+}
+
+thead th {
     padding: 10px;
     text-align: left;
-  }
-  
-  thead th:first-child {
+}
+
+thead th:first-child {
     border-top-left-radius: 5px;
-  }
-  
-  thead th:last-child {
+}
+
+thead th:last-child {
     border-top-right-radius: 5px;
-  }
-  
-  tbody tr:nth-child(even) {
+}
+
+tbody tr:nth-child(even) {
     background-color: #f2f2f2;
-  }
-  
-  tbody td {
+}
+
+tbody td {
     padding: 10px;
-  }
-  
-  tbody td:first-child {
+}
+
+tbody td:first-child {
     border-top-left-radius: 5px;
-  }
-  
-  tbody td:last-child {
+}
+
+tbody td:last-child {
     border-bottom-right-radius: 5px;
-  }
-  
-  tbody button {
+}
+
+tbody button {
     margin-right: 5px;
+}
+
+.form-group div {
+    margin-bottom: 5px;
+}
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    max-width: 90%;
+    width: 400px;
+    max-height: 80vh;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.modal h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.modal p {
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.modal button {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.modal button:hover {
+    background-color: #0056b3;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 999;
+}
+
+
+div.form-Para {
+    display: inline-flex; /* Display form groups inline */
+    align-items: center; /* Align items vertically */
   }
   
-  .form-group div {
-    margin-bottom: 5px;
+  div.form-Para label {
+    width: auto; /* Let labels occupy the space they need */
+    margin-right: 10px; /* Add space between label and input */
   }
   
