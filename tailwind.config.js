@@ -11,6 +11,9 @@ export default {
         'light-white':'rgba(255,255,255,0.4)',
         "amber":"#03989e",
         'blue-violet': '#8A2BE2',
+        "light-blue" : '#8795fa',
+        "grey" : '#606975',
+        "blue-grey": '#334155',
        
       
       },
