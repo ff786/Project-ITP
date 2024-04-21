@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import logo from '../common/header/logo.png'
 import icon_prof from '../ClaimManage/icon_prof.png'
 import notify from '../ClaimManage/notify.png'
+import Topbar from '../common/topbar/Topbar.jsx'
 import '../../App.css'
 import '../ClaimManage/ClaimForm.css'
 import Sidebar from '../common/sidebar/Sidebar.jsx'
@@ -17,26 +18,12 @@ function DiagnosisForm() {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
 
-    const myProf = () => {
-      console.log("CLICKED");
-    }
-    const myNotifications = () => {
-      console.log("CLICKED");
-    }
 
     return (
 
         <body>
             <div className="top">
-                  <div className="logo">
-                      <img className="logo" src={logo} alt='logo'/>
-                      <h4 className='h4'></h4>
-                  </div>
-
-                  <div className="d">
-                    <img className="profButton" src={notify} alt='notify' onClick={myNotifications} />
-                    <img className="profButton" src={icon_prof} alt='icon_prof' onClick={myProf} />
-                  </div>
+                  <Topbar />
             </div>
             <div style={{display: 'flex', flexDirection: 'row'}}>
             <div>

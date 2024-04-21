@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import Topbar from '../common/topbar/Topbar.jsx'
-import logo from '../common/header/logo.png'
-import icon_prof from '../ClaimManage/icon_prof.png'
-import notify from '../ClaimManage/notify.png'
-import '../../App.css'
-import '../ClaimManage/ClaimForm.css'
 import Sidebar from '../common/sidebar/Sidebar.jsx'
 import Search from '../common/search/Search.jsx'
-import AllClaim from './AllClaim.jsx'
+import '../../App.css'
+import '../ClaimManage/ClaimForm.css'
+import ClaimModify from './ClaimModify.jsx'
+import ClaimFormModal from '../ClaimManage/FormClaim.jsx'
 import './overView.css'
 
 import { Link } from 'react-router-dom';
@@ -18,19 +16,23 @@ function OverviewClaim () {
     const [totalClaims, setTotalClaims] = useState('');
     const [totalPendingClaims, setTotalPendingClaims] = useState([]);
     const [totalApprovedClaims, setTotalApprovedClaims] = useState([]);
-    const myProf = () => {
-      console.log("CLICKED");
-    }
-    const myNotifications = () => {
-      console.log("CLICKED");
-    }
+    const [searchQuery, setSearchQuery] = useState('');
+
+    const [currentPage, setCurrentPage] = useState('all');
+
     const toggleCreateClaim = () => {
         setCreateClaim(!CreateClaim);
     }
+    const handleSearchInputChange = (event) => {
+        setSearchQuery(event.target.value);
+    }
+
+    const handleSearch = () => {
+        console.log('Search Query:', searchQuery);
+    }
 
     return (
-
-    <body>
+      <body>
         <div>
               <Topbar />
         </div>
@@ -41,19 +43,21 @@ function OverviewClaim () {
 
             <div className="main-view">
                 <div className="Maiin">
-                    <button type="create">Create Claim</button>
+                    <button type="create" onClick={toggleCreateClaim} > Create Claim </button>
                     <button type="create">Claim Statistics</button>
                 </div>
                 <div className="mid-btn">
-                    <button type="claim">All Claims</button>
+                    <button type="claim" className={currentPage === 'all' ? 'active' : ''}>All Claims</button>
                     <button type="claim">Pending Claims</button>
                     <button type="claim">Approved Claims</button>
                 </div>
                 <div className="mid-btn">
-                    <input type="text" placeholder="Search here... "/>
+                    <input type="text" placeholder="Search here... " onChange={handleSearchInputChange} />
+                    <button type="search" onClick={handleSearch}>Search</button>
                 </div>
                 <div className="form-view">
-                    <AllClaim />
+                    <ClaimModify searchQuery={searchQuery} />
+                    {CreateClaim && <ClaimFormModal isOpen={CreateClaim} onClose={toggleCreateClaim} />}
                 </div>
             </div>
         </div>

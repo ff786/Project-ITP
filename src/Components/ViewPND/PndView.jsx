@@ -7,7 +7,9 @@ import '../ClaimManage/ClaimForm.css'
 import Sidebar from '../common/sidebar/Sidebar.jsx'
 import search from '../common/search/Search.jsx'
 import '../PnD/Diagnosis.css'
+import '../ClaimOverview/overView.css'
 import Topbar from '../common/topbar/Topbar.jsx'
+
 
 import { Link } from 'react-router-dom';
 
@@ -22,7 +24,7 @@ function Diagnosis() {
                     <Sidebar />
                 </div>
 
-                <div>
+                <div className="mid">
                     <div class="container mx-auto px-4">
                         <div class="flex justify-between items-center py-4">
                             <h1 class="text-2xl font-semibold">Procedure and Diagnosis codes</h1>

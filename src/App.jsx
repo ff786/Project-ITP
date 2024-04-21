@@ -14,6 +14,7 @@ import OverviewClaim from './Components/ClaimOverview/OverviewClaim'
 import Diagnosis from './Components/PnD/Diagnosis.jsx'
 import PndView from './Components/ViewPND/PndView.jsx'
 import NotifyForm from './Components/NotifyForm/NotifyForm.jsx'
+import PatientForm from './Components/FormPatient/PatientForm.jsx'
 
 import {
   createBrowserRouter,
@@ -81,6 +82,10 @@ const router = createBrowserRouter([
   {
     path: '/NotifyForm',
     element: <div><NotifyForm /> </div>
+  },
+  {
+    path: '/FormPatient',
+    element: <div><PatientForm /> </div>
   }
 
 ])
@@ -94,4 +99,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
