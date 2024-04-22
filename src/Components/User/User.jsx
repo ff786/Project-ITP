@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import Topbar from '../common/topbar/Topbar';
 import Navbar from './UserNavbar';
 import './User.css';
@@ -6,17 +7,13 @@ import Modal from 'react-modal';
 
 function User() {
   const [username, setUsername] = useState('');
-  const [firstname, setfirstname ]=useState('');
-  const [lastname, setlastname ]=useState('');
-  const [mobileNumber, setmobileNum]=useState('');
-  const [password, setpassword]=useState('');
-
-  const [Email, setEmail] = useState('');
+  const [firstname, setFirstname] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [mobileNumber, setMobileNumber] = useState('');
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
   const [role, setRole] = useState('');
-  //const [userPrivileges, setUserPrivileges] = useState({ create: false, delete: false, edit: false });
-  //const [claimPrivileges, setClaimPrivileges] = useState({ create: false, delete: false, edit: false });
-  //const [patientPrivileges, setPatientPrivileges] = useState({ create: false, delete: false, edit: false });
-  const [notipref, setnotipref] = useState({ SMS: false, Email: false});
+  const [notipref, setNotipref] = useState({ SMS: false, Email: false });
 
   const [users, setUsers] = useState([]);
   const [editingUserIndex, setEditingUserIndex] = useState(-1);
@@ -24,57 +21,43 @@ function User() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Check for duplicate username or Email
-    const isDuplicateUsername = users.some(user => user.username === username);
-    const isDuplicateEmail = users.some(user => user.Email === Email);
-   
-  
-    if (isDuplicateUsername) {
-      showCustomPopup('A user with this username already exists. Please choose a different username.');
-      return;
+
+    try {
+      const response = await axios.post('http://localhost:8080/api/innobothealth/users', {
+        username,
+        firstname,
+        lastname,
+        mobileNumber,
+        password,
+        email,
+        role,
+        notipref,
+      });
+
+      setUsers([...users, response.data]);
+
+      setUsername('');
+      setFirstname('');
+      setLastname('');
+      setMobileNumber('');
+      setPassword('');
+      setEmail('');
+      setRole('');
+      setNotipref({ SMS: false, Email: false });
+
+    } catch (error) {
+      console.error('Error:', error);
+      showCustomPopup('Failed to add user. Please try again later.');
     }
-  
-    if (isDuplicateEmail) {
-      showCustomPopup('A user with this Email address already exists. Please choose a different Email address.');
-      return;
-    }
-  
-    // Proceed with adding the new user
-    const newUser = {
-      username,
-      firstname,
-      lastname,
-      mobileNumber,
-      password,
-      Email,
-      role,
-      privileges: { users: notipref }
-     // privileges: { users: userPrivileges, claims: claimPrivileges, patients: patientPrivileges }
-    };
-    setUsers([...users, newUser]);
-    console.log('Staff added:', newUser);
-    setUsername('');
-    setfirstname('');
-    setlastname('');
-    setmobileNum('');
-    setpassword('');
-    setEmail('');
-    setRole('');
-    /*setUserPrivileges({ create: false, delete: false, edit: false });
-    setClaimPrivileges({ create: false, delete: false, edit: false });
-    setPatientPrivileges({ create: false, delete: false, edit: false });
-    */
-    setnotipref({ SMS: false, Email: false});
-    
   };
 
   const showCustomPopup = (message) => {
     setModalMessage(message);
     setModalIsOpen(true);
   };
-  
+
   const closeModal = () => {
     setModalIsOpen(false);
   };
@@ -88,17 +71,13 @@ function User() {
   const handleEdit = (index) => {
     setEditingUserIndex(index);
     setUsername(users[index].username);
-    setfirstname(users[index].firstname);
-    setlastname(users[index].lastname);
-    setpassword(users[index].password);
-    setmobileNum(users[index].mobileNumber);
-    setnotipref(users[index].privileges);
-    setEmail(users[index].Email);
+    setFirstname(users[index].firstname);
+    setLastname(users[index].lastname);
+    setPassword(users[index].password);
+    setMobileNumber(users[index].mobileNumber);
+    setNotipref(users[index].notipref);
+    setEmail(users[index].email);
     setRole(users[index].role);
-    /*setUserPrivileges(users[index].privileges.users);
-    setClaimPrivileges(users[index].privileges.claims);
-    setPatientPrivileges(users[index].privileges.patients);
-    */
   };
 
   const handleSaveEdit = () => {
@@ -108,29 +87,24 @@ function User() {
       firstname,
       lastname,
       password,
-      Email,
+      email,
       role,
       mobileNumber,
-      privileges: { users:notipref }
+      notipref,
     };
     setUsers(updatedUsers);
     setEditingUserIndex(-1);
     setUsername('');
     setEmail('');
     setRole('');
-    setPatientPrivileges({ SMS: false, Email: false});
-    setfirstname('');
-    setlastname('');
-    /*
-    setUserPrivileges({ create: false, delete: false, edit: false });
-    setClaimPrivileges({ create: false, delete: false, edit: false });
-    setPatientPrivileges({ create: false, delete: false, edit: false });*/
+    setNotipref({ SMS: false, Email: false });
+    setFirstname('');
+    setLastname('');
   };
 
-  // Filter users based on search query
   const filteredUsers = users.filter(user =>
     user.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    user.Email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
     user.role.toLowerCase().includes(searchQuery.toLowerCase()) ||
     user.firstname.toLowerCase().includes(searchQuery.toLowerCase()) ||
     user.lastname.toLowerCase().includes(searchQuery.toLowerCase())
@@ -154,48 +128,46 @@ function User() {
               />
             </div>
             <div className="form-group">
-                <div className="form-Para">
               <label>First Name:</label>
               <input
                 type="text"
                 value={firstname}
-                onChange={(event) => setfirstname(event.target.value)}
+                onChange={(event) => setFirstname(event.target.value)}
                 required
               />
-              </div>
-              <div className="form-Para">
+            </div>
+            <div className="form-group">
               <label>Last Name:</label>
               <input
                 type="text"
                 value={lastname}
-                onChange={(event) => setlastname(event.target.value)}
+                onChange={(event) => setLastname(event.target.value)}
                 required
               />
-              </div>
-              <div className="form-Para">
-              <label>Password</label>
+            </div>
+            <div className="form-Para">
+              <label>Password:</label>
               <input
-                type="text"
+                type="password"
                 value={password}
-                onChange={(event) => setpassword(event.target.value)}
+                onChange={(event) => setPassword(event.target.value)}
                 required
               />
-              </div>
             </div>
             <div className="form-group">
               <label>Mobile Number:</label>
               <input
                 type="text"
                 value={mobileNumber}
-                onChange={(event) => setmobileNum(event.target.value)}
+                onChange={(event) => setMobileNumber(event.target.value)}
                 required
               />
-              </div>
+            </div>
             <div className="form-group">
               <label>Email:</label>
               <input
-                type="Email"
-                value={Email}
+                type="email"
+                value={email}
                 onChange={(event) => setEmail(event.target.value)}
                 required
               />
@@ -213,7 +185,6 @@ function User() {
                 <option value="admin">Admin</option>
               </select>
             </div>
-            
             <div className="form-group">
               <label>Notification Preference:</label>
               <div>
@@ -221,9 +192,9 @@ function User() {
                   <input
                     type="checkbox"
                     checked={notipref.SMS}
-                    onChange={() => setnotipref({ ...notipref, SMS: !notipref.SMS })}
+                    onChange={() => setNotipref({ ...notipref, SMS: !notipref.SMS })}
                   />
-                 SMS
+                  SMS
                 </label>
               </div>
               <div>
@@ -231,129 +202,23 @@ function User() {
                   <input
                     type="checkbox"
                     checked={notipref.Email}
-                    onChange={() => setnotipref({ ...notipref, Email: !notipref.Email })}
+                    onChange={() => setNotipref({ ...notipref, Email: !notipref.Email })}
                   />
                   Email
                 </label>
               </div>
             </div>
-
-            {/* Privileges section 
-            <div className="form-group">
-              <label>Privileges:</label>
-              <div>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={userPrivileges.create}
-                    onChange={() => setUserPrivileges({ ...userPrivileges, create: !userPrivileges.create })}
-                  />
-                  Create Users
-                </label>
-              </div>
-              <div>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={userPrivileges.delete}
-                    onChange={() => setUserPrivileges({ ...userPrivileges, delete: !userPrivileges.delete })}
-                  />
-                  Delete Users
-                </label>
-              </div>
-              <div>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={userPrivileges.edit}
-                    onChange={() => setUserPrivileges({ ...userPrivileges, edit: !userPrivileges.edit })}
-                  />
-                  Edit Users
-                </label>
-              </div>
-            </div>
-            <div className="form-group">
-              <label>Claim Privileges:</label>
-              <div>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={claimPrivileges.create}
-                    onChange={() => setClaimPrivileges({ ...claimPrivileges, create: !claimPrivileges.create })}
-                  />
-                  Create Claims
-                </label>
-              </div>
-              <div>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={claimPrivileges.delete}
-                    onChange={() => setClaimPrivileges({ ...claimPrivileges, delete: !claimPrivileges.delete })}
-                  />
-                  Delete Claims
-                </label>
-              </div>
-              <div>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={claimPrivileges.edit}
-                    onChange={() => setClaimPrivileges({ ...claimPrivileges, edit: !claimPrivileges.edit })}
-                  />
-                  Edit Claims
-                </label>
-              </div>
-            </div>
-            <div className="form-group">
-              <label>Patients Privileges:</label>
-              <div>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={patientPrivileges.create}
-                    onChange={() => setPatientPrivileges({ ...patientPrivileges, create: !patientPrivileges.create })}
-                  />
-                  Create Patients
-                </label>
-              </div>
-              <div>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={patientPrivileges.delete}
-                    onChange={() => setPatientPrivileges({ ...patientPrivileges, delete: !patientPrivileges.delete })}
-                  />
-                  Delete Patients
-                </label>
-              </div>
-              <div>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={patientPrivileges.edit}
-                    onChange={() => setPatientPrivileges({ ...patientPrivileges, edit: !patientPrivileges.edit })}
-                  />
-                   
-                  Edit Patients
-                </label>
-              </div>
-            </div>
-           */}
-            {/* Submit button */}
             <button type="submit">{editingUserIndex === -1 ? 'Add Staff' : 'Save Changes'}</button>
           </form>
         </div>
         <div className="user-list-container">
           <h2>User List</h2>
-          {/* Search input field */}
           <input
             type="text"
             placeholder="Search..."
             value={searchQuery}
             onChange={(event) => setSearchQuery(event.target.value)}
           />
-          {/* User list table */}
           <table>
             <thead>
               <tr>
@@ -365,12 +230,11 @@ function User() {
               </tr>
             </thead>
             <tbody>
-              {/* Display filtered users */}
               {filteredUsers.map((user, index) => (
                 <tr key={index}>
                   <td>{user.username}</td>
                   <td>{user.firstname}</td>
-                  <td>{user.Email}</td>
+                  <td>{user.email}</td>
                   <td>{user.role}</td>
                   <td>
                     <button onClick={() => handleEdit(index)}>Edit</button>
@@ -382,7 +246,6 @@ function User() {
           </table>
         </div>
       </div>
-      {/* Modal */}
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
