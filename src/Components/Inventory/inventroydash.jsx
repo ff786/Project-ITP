@@ -3,10 +3,11 @@ import logo from './assets/logo.png';
 import icon_prof from './assets/icon_prof.png';
 import notify from './assets/notify.png';
 import DataTable from 'react-data-table-component';
-
+import { Link } from 'react-router-dom';
 const InventoryDash = () => {
+   
     const [activeTab, setActiveTab] = useState("inventory");
-    const colums = [
+    const columns = [
         {
             name: "Sr.No",
             selector: (row) => row.id,
@@ -27,16 +28,18 @@ const InventoryDash = () => {
             name: "Action",
             cell: (row) => (
                 <div>
-                    <button type="button" className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-yellow-500 hover:bg-yellow-100 hover:text-yellow-800 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-yellow-800/30 dark:hover:text-yellow-400" onClick={() => handleDelete(row.id)}>
+                    <Link to={'/addmedicines'}>
+                    <button type="button" className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-yellow-500 hover:bg-yellow-100 hover:text-yellow-800 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-yellow-800/30 dark:hover:text-yellow-400" >
                         Edit
                     </button>
-                    <button type="button" className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-red-500 hover:bg-red-100 hover:text-red-800 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-red-800/30 dark:hover:text-red-400" onClick={() => handleEdit(row.id)}>
+                    </Link>
+                    
+                    <button type="button" className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-red-500 hover:bg-red-100 hover:text-red-800 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-red-800/30 dark:hover:text-red-400" onClick={() => handleDelete(row.id)}>
                         Delete
                     </button>
                 </div>
             )
         }
-
     ];
 
     const [data, setData] = useState([]);
@@ -61,27 +64,16 @@ const InventoryDash = () => {
 
     useEffect(() => {
         const result = data.filter((item) => {
-            return item.title.toLowerCase().match(search.toLocaleLowerCase());
+            return item.title.toLowerCase().includes(search.toLowerCase());
         });
         setFilteredData(result);
-    }, [search]);
+    }, [search, data]);
 
     const handleDelete = (val) => {
         const newData = data.filter((item) => item.id !== val);
         setData(newData);
         setFilteredData(newData); // Update filteredData as well
     };
-
-    const tableHeaderstyle={
-        headCells:{
-            style:{
-                fontWeight:"bold",
-                fontSize:"14px",
-                backgroundColor:"#ccc"
-    
-            },
-        },
-       }
 
     const handleTabClick = (tab) => {
         setActiveTab(tab);
@@ -117,8 +109,10 @@ const InventoryDash = () => {
                         <h2 className="text-center md:text-5xl text-4xl font-bold md:leading-snug leading-snug">
                             Inventory management <span className="text-red">Medicines</span>
                         </h2>
-                        <div class="border-b border-gray-200 dark:border-neutral-700">
-                            <nav class="flex space-x-1" aria-label="Tabs" role="tablist">
+                        <div className="border-b border-gray-200 dark:border-neutral-700">
+                            <nav className="flex space-x-1" aria-label="Tabs" role="tablist">
+                                {/* Add your tab buttons here */}
+
                                 <button
                                     type="button"
                                     className={`hs-tab-active:font-semibold hs-tab-active:border-blue-600 hs-tab-active:text-blue-600 py-4 px-1 inline-flex items-center gap-x-2 border-b-2 border-transparent text-sm whitespace-nowrap text-gray-500 hover:text-blue-600 focus:outline-none focus:text-blue-600 disabled:opacity-50 disabled:pointer-events-none dark:text-neutral-400 dark:hover:text-blue-500 active ${activeTab === "inventory" ? "active" : ""}`}
@@ -175,8 +169,7 @@ const InventoryDash = () => {
                             </div>
                             <React.Fragment>
                                 <DataTable
-                                    customStyles={ tableHeaderstyle}
-                                    columns={colums}
+                                    columns={columns}
                                     data={filteredData}
                                     pagination
                                     selectableRows
@@ -208,41 +201,28 @@ const InventoryDash = () => {
                                     }
                                     subHeader
                                     subHeaderComponent={
-                                        <input type="text"
-                                            className="w-25 form-control"
+                                        <input
+                                            type="text"
+                                            className="w-25 form-control float-right"
                                             placeholder="Search..."
                                             value={search}
                                             onChange={(e) => setSearch(e.target.value)}
-
                                         />
                                     }
-                                    subHeaderAlign="right"
-
+                                    subHeaderAlign="left"
                                 />
                             </React.Fragment>
-                            <div>
-
-                            </div>
+                            <div></div>
                         </div>
                     )}
-                    {activeTab === "expired" && (
-                        <div>
-                            {/* Expired Medicines Content */}
-                            <h2>Expired Medicines</h2>
-                            {/* Add content for expired medicines */}
-                        </div>
-                    )}
-                    {activeTab === "suppliers" && (
-                        <div>
-                            {/* Suppliers Content */}
-                            <h2>Suppliers</h2>
-                            {/* Add content for suppliers */}
-                        </div>
-                    )}
+                    {/* Add your other tab content here */}
                 </div>
             </div>
         </div>
     );
 };
 
+
+
 export default InventoryDash;
+

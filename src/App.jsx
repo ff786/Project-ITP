@@ -12,7 +12,8 @@ import ClaimForm from './Components/ClaimManage/ClaimForm'
 import UpdateForm from './Components/UpdateClaim/UpdateForm'
 import OverviewClaim from './Components/ClaimOverview/OverviewClaim'
 import Inventorydash from './Components/Inventory/inventroydash'
-
+import Addmedicines from './Components/Inventory/medicineaddFrom'
+import Updatemedicines from './Components/Inventory/medicineupdate'
 import {
   createBrowserRouter,
   RouterProvider
@@ -71,6 +72,14 @@ const router = createBrowserRouter([
   {
     path: '/medilist',
     element: <div><Inventorydash /> </div>
+  },
+  {
+    path: '/addmedicines',
+    element: <div><Addmedicines /> </div>
+  },
+  {
+    path: '/updatemedicines',
+    element: <div><Updatemedicines /> </div>
   },
 
 
