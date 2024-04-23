@@ -84,18 +84,6 @@ const InventoryDash = () => {
         setDeleteView(!DeleteView);
     }
 
-    const confirmDelete = async () => {
-        try {
-            await axios.delete(`http://localhost:3000/medicine_details/${medicineIdToDelete}`);
-            const newData = data.filter((item) => item.Stockid !== medicineIdToDelete);
-            setData(newData);
-            setFilteredData(newData);
-            setShowModal(false);
-        } catch (error) {
-            console.log(error);
-            // Handle error here
-        }
-    };
 
     const myProf = () => {
         console.log("Profile clicked");
