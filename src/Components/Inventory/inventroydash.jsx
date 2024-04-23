@@ -5,6 +5,7 @@ import icon_prof from './assets/icon_prof.png';
 import notify from './assets/notify.png';
 import DataTable from 'react-data-table-component';
 import { Link } from 'react-router-dom';
+import deleteModal from './deleteModal.jsx'
 
 const InventoryDash = () => {
 
@@ -43,7 +44,7 @@ const InventoryDash = () => {
                             Edit
                         </button>
                     </Link>
-                    <button type="button" className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-red-500 hover:bg-red-100 hover:text-red-800 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-red-800/30 dark:hover:text-red-400" onClick={() => handleDelete(row.Stockid)}>
+                    <button type="button" className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-red-500 hover:bg-red-100 hover:text-red-800 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-red-800/30 dark:hover:text-red-400" onClick={toggleDeleteView}>
                         Delete
                     </button>
                 </div>
@@ -56,6 +57,7 @@ const InventoryDash = () => {
     const [filteredData, setFilteredData] = useState([]);
     const [medicineIdToDelete, setMedicineIdToDelete] = useState(null);
     const [showModal, setShowModal] = useState(false);
+    const [DeleteView, setDeleteView] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -78,10 +80,9 @@ const InventoryDash = () => {
         setFilteredData(result);
     }, [search, data]);
 
-    const handleDelete = (val) => {
-        setMedicineIdToDelete(val);
-        setShowModal(true);
-    };
+    const toggleDeleteView = () => {
+        setDeleteView(!DeleteView);
+    }
 
     const confirmDelete = async () => {
         try {
