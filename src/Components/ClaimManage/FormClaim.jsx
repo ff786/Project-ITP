@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
 import './ClaimForm.css'
-import Topbar from '../common/topbar/Topbar.jsx'
 import {useNavigate} from "react-router-dom"
 import axios from 'axios';
 import {toast} from "react-toastify"

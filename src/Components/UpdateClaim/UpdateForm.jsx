@@ -13,6 +13,7 @@ const UpdateForm = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
   const [treatmentDate, setTreatmentDate] = useState('');
+  const [amount, setAmount] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const { id } = useParams();
 
@@ -33,6 +34,7 @@ const UpdateForm = () => {
       setPhoneNumber(data.phoneNumber);
       setEmail(data.email);
       setDateOfClaim(data.treatmentDate);
+      setAmount(data.amount);
       setImageUrl(data.receipt);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -149,6 +151,16 @@ const UpdateForm = () => {
                 type="date"
                 value={treatmentDate}
                 onChange={(event) => setTreatmentDate(event.target.value)}
+              />
+            </div>
+          </div>
+          <div className="bar2">
+            <div className="devb">
+              <label>Amount:</label>
+              <input
+                type="number"
+                value={amount}
+                onChange={(event) => setAmount(event.target.value)}
               />
             </div>
           </div>
