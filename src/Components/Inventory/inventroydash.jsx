@@ -37,7 +37,7 @@ const InventoryDash = () => {
             name: "Action",
             cell: (row) => (
                 <div>
-                    <Link to={'/updatemedicines'}>
+                    <Link to={`/updatemedicines/${row.Stockid}'`}>
                         <button type="button" className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-yellow-500 hover:bg-yellow-100 hover:text-yellow-800 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-yellow-800/30 dark:hover:text-yellow-400">
                             Edit
                         </button>

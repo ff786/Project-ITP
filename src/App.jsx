@@ -78,7 +78,7 @@ const router = createBrowserRouter([
     element: <div><Addmedicines /> </div>
   },
   {
-    path: '/updatemedicines',
+    path: '/updatemedicines/:id',
     element: <div><Updatemedicines /> </div>
   },
 

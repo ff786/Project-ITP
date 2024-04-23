@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+
 import { Link } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
 import {
@@ -17,7 +19,7 @@ const MedicineUpdate = () => {
     },
   });
   const [isExpiryDateInvalid, setIsExpiryDateInvalid] = useState(false);
-  // const onSubmit = (data) => console.log(data);
+
   const [isSuccess, setIsSuccess] = useState(false);
   const Submitprocess = async (data) => {
     if (isExpiryDateInvalid) {
@@ -44,8 +46,8 @@ const MedicineUpdate = () => {
 
     if (selectedDateObj < currentDate) {
       alert('Expiry date cannot be in the past');
-      setValue('expireDate', ''); // Clear the value if it's invalid
-      setIsExpiryDateInvalid(true); // Set the state to indicate invalidity
+      setValue('expireDate', ''); 
+      setIsExpiryDateInvalid(true); 
       return;
     }
 
@@ -54,6 +56,30 @@ const MedicineUpdate = () => {
   };
 
 
+  const { id } = useParams();
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    console.log("id paradam", id)
+    axios
+      .get(`http://localhost:3000/medicine_details/${id}`)
+      .then((response) => {
+        console.log(response.data);
+        setData(response.data);
+        // Set initial form values after fetching data
+        setValue('Stockid', response.data.Stockid);
+        setValue('medicineName', response.data.medicineName);
+        setValue('medicineType', response.data.medicineType);
+        setValue('supplierName', response.data.supplierName);
+        setValue('expireDate', response.data.expireDate);
+        setValue('quantity', response.data.quantity);
+        setValue('unitPrice', response.data.unitPrice);
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  })
   return (
     <div className="h-screen grid place-items-center bg-gray-50">
       <Card color="transparent" shadow={true} className="p-7 bg-white">
@@ -80,6 +106,7 @@ const MedicineUpdate = () => {
                   type="text"
                   {...field}
                   readOnly
+                  value={data.Stockid}
                   className="py-3 px-4 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
                   placeholder="Stock Id"
                 />
@@ -100,6 +127,8 @@ const MedicineUpdate = () => {
                 <input
                   type="text"
                   {...field}
+                  value={data.medicineName}
+
                   className="py-3 px-4 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
                   placeholder="Enter Medicine Name"
                 />
