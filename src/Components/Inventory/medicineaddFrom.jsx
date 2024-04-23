@@ -1,26 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
+
+import { useForm, Controller } from 'react-hook-form';
 import {
   Card,
   Typography,
-} from "@material-tailwind/react";
+} from '@material-tailwind/react';
 
 const MedicineAddForm = () => {
-  const [medicineName, setMedicineName] = useState('');
-  const [medicineType, setMedicineType] = useState('');
-  const [expiryDate, setExpiryDate] = useState('');
-  const [quantity, setQuantity] = useState('');
+  const { control, handleSubmit, register, reset, formState: { errors } } = useForm({
+    defaultValues: {
+      medicineName: '',
+      medicineType: '',
+      expiryDate: '',
+      quantity: '',
+      unitPrice: '',
+    },
+  });
 
-  const handleAddToCart = () => {
-    // Implement adding medicine to cart logic here
-    console.log('Added to cart:', { medicineName, medicineType, expiryDate, quantity });
-  };
+  const onSubmit = (data) => console.log(data);
 
   const handleFormReset = () => {
-    // Reset form fields here
-    setMedicineName('');
-    setMedicineType('');
-    setExpiryDate('');
-    setQuantity('');
+    reset();
   };
 
   const handleExpiryDateChange = (e) => {
@@ -28,17 +28,13 @@ const MedicineAddForm = () => {
     const currentDate = new Date();
     const selectedDateObj = new Date(selectedDate);
 
-    // Check if selected date is not in the past
     if (selectedDateObj < currentDate) {
-      // Display an error message or prevent further action
-      alert("Expiry date cannot be in the past");
-      // Clear the input field
-      setExpiryDate('');
+      alert('Expiry date cannot be in the past');
+      setValue('expiryDate', '');
       return;
     }
 
-    // If validation passes, set the expiry date
-    setExpiryDate(selectedDate);
+    setValue('expiryDate', selectedDate);
   };
 
   return (
@@ -58,23 +54,29 @@ const MedicineAddForm = () => {
               Medicine Name
             </Typography>
             <br />
-            <input 
-              type="text" 
-              value={medicineName}
-              onChange={(e) => setMedicineName(e.target.value)}
-              className="py-3 px-4 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
-              placeholder="Enter Medicine Name" 
+            <Controller
+              name="medicineName"
+              rules={{ required: "Medicine Name is required", maxLength: { value: 20, message: "Medicine Name should not exceed 20 characters" }, minLength: { value: 3, message: "Medicine Name should not be less than 3 characters" }, pattern: { value: /^[A-Za-z]+$/i, message: "Medicine Name should contain only alphabets" } }}
+              control={control}
+              render={({ field }) => (
+                <input
+                  type="text"
+                  {...field}
+                  className="py-3 px-4 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
+                  placeholder="Enter Medicine Name"
+                />
+              )}
             />
+            {errors?.medicineName?.message && (<span className="text-red-500 text-sm">{errors?.medicineName?.message}</span>)}
           </div>
 
           <div>
-            <Typography variant="h6" color="blue-gray" className="-mb-3">
+            <Typography variant="h6" color="blue-gray" className="-mb-6">
               Medicine Type
             </Typography>
             <br />
-            <select 
-              value={medicineType}
-              onChange={(e) => setMedicineType(e.target.value)}
+            <select
+              {...register('medicineType', { required: "Medicine Type is required" })}
               className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
             >
               <option value="">Select Medicine Type</option>
@@ -82,6 +84,24 @@ const MedicineAddForm = () => {
               <option value="2">Type 2</option>
               <option value="3">Type 3</option>
             </select>
+            {errors?.medicineType?.message && (<span className="text-red-500 text-sm">{errors?.medicineType?.message}</span>)}
+          </div>
+
+          <div>
+            <Typography variant="h6" color="blue-gray" className="-mb-6">
+              SupplierName
+            </Typography>
+            <br />
+            <select
+              {...register('supplierName', { required: "Supplier Name is required" })}
+              className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
+            >
+              <option value="">Select supplier</option>
+              <option value="1">Type 1</option>
+              <option value="2">Type 2</option>
+              <option value="3">Type 3</option>
+            </select>
+            {errors?.supplierName?.message && (<span className="text-red-500 text-sm">{errors?.supplierName?.message}</span>)}
           </div>
 
           <div>
@@ -89,12 +109,13 @@ const MedicineAddForm = () => {
               Expiry Date
             </Typography>
             <br />
-            <input 
-              type="date" 
-              value={expiryDate}
+            <input
+              type="date"
+              {...register('expiryDate', { required: "Expiry Date is required" })}
               onChange={handleExpiryDateChange}
               className="py-3 px-4 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
             />
+            {errors?.expiryDate?.message && (<span className="text-red-500 text-sm">{errors?.expiryDate?.message}</span>)}
           </div>
 
           <div>
@@ -102,13 +123,21 @@ const MedicineAddForm = () => {
               Quantity
             </Typography>
             <br />
-            <input 
-              type="text" 
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
+            <input
+              type="text"
+              {...register('quantity', {
+                required: "Quantity is required",
+                min: { value: 1, message: "Quantity should not be less than 1" },
+                max: { value: 1000, message: "Quantity should not exceed 1000" },
+                pattern: { value: /^[0-9]+$/, message: "Quantity should contain only numbers" }
+              })}
               className="py-3 px-4 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
-              placeholder="Enter Quantity" 
+              placeholder="Enter Quantity"
             />
+            {errors?.quantity?.message && (
+              <span className="text-red-500 text-sm">{errors?.quantity?.message}</span>
+            )}
+
           </div>
 
           <div>
@@ -116,30 +145,44 @@ const MedicineAddForm = () => {
               Unit Price
             </Typography>
             <br />
-            <input 
-              type="text" 
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
+            {/* <input
+              type="text"
+              {...register('unitPrice',{required: "Unit Price is required"},{min: {value: 1, message: "Unit Price should not be less than 1"}},{max: {value: 1000, message: "Unit Price should not exceed 1000"}},{pattern: {value: /^[0-9]+$/i, message: "Unit Price should contain only numbers"}})}
               className="py-3 px-4 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
-              placeholder="Enter Unit Price" 
+              placeholder="Enter Unit Price"
+            /> */}
+            <input
+              type="text"
+              {...register('unitPrice', {
+                required: "Unit Price is required",
+                min: { value: 1, message: "Unit Price should not be less than 1" },
+                max: { value: 1000, message: "Unit Price should not exceed 1000" },
+                pattern: { value: /^[0-9]+$/, message: "Unit Price should contain only numbers" }
+              })}
+              className="py-3 px-4 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
+              placeholder="Enter Unit Price"
             />
+            {errors?.unitPrice?.message && (
+              <span className="text-red-500 text-sm">{errors?.unitPrice?.message}</span>
+            )}
+
           </div>
 
-          <div className="col-span-2">
-            <button 
-              type="button" 
-              onClick={handleAddToCart}
-              className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700"
+          <div className="col-span-2 grid grid-cols-2 gap-3 justify-center">
+            <button
+              type="button"
+              onClick={handleSubmit(onSubmit)}
+              className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 justify-center"
             >
-              Add to Cart
+              Add Medicine
             </button>
 
-            <button 
-              type="button" 
+            <button
+              type="button"
               onClick={handleFormReset}
-              className="ml-2 py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50"
+              className="ml-2 py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 justify-center"
             >
-              Cancel
+              Reset
             </button>
           </div>
         </form>
