@@ -80,9 +80,11 @@ const MedicineAddForm = () => {
               className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
             >
               <option value="">Select Medicine Type</option>
-              <option value="1">Type 1</option>
-              <option value="2">Type 2</option>
-              <option value="3">Type 3</option>
+              <option value="Tablet">Tablet</option>
+              <option value="Capsules">Capsules</option>
+              <option value="Inhalers">Inhalers</option>
+              <option value="Injections">Injections</option>
+              <option value="Suppositories">Suppositories</option>
             </select>
             {errors?.medicineType?.message && (<span className="text-red-500 text-sm">{errors?.medicineType?.message}</span>)}
           </div>

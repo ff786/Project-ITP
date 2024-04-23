@@ -1,40 +1,48 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import logo from './assets/logo.png';
 import icon_prof from './assets/icon_prof.png';
 import notify from './assets/notify.png';
 import DataTable from 'react-data-table-component';
 import { Link } from 'react-router-dom';
 const InventoryDash = () => {
-   
+
     const [activeTab, setActiveTab] = useState("inventory");
     const columns = [
         {
-            name: "Sr.No",
-            selector: (row) => row.id,
+            name: "MedicineName",
+            selector: (row) => row.medicineName,
         },
         {
-            name: "Title",
-            selector: (row) => row.title,
+            name: "MedicineType",
+            selector: (row) => row.medicineType,
         },
         {
-            name: "Category",
-            selector: (row) => row.category,
+            name: "ExpireDate",
+            selector: (row) => row.expireDate,
         },
         {
-            name: "Price",
-            selector: (row) => row.price,
+            name: "Quantity",
+            selector: (row) => row.quantity,
+        },
+        {
+            name: "UnitPrice",
+            selector: (row) => row.unitPrice,
+        },
+        {
+            name: "Supplier",
+            selector: (row) => row.supplier,
         },
         {
             name: "Action",
             cell: (row) => (
                 <div>
-                    <Link to={'/addmedicines'}>
-                    <button type="button" className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-yellow-500 hover:bg-yellow-100 hover:text-yellow-800 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-yellow-800/30 dark:hover:text-yellow-400" >
-                        Edit
-                    </button>
+                    <Link to={`/addmedicines/${row.Stockid}`}>
+                        <button type="button" className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-yellow-500 hover:bg-yellow-100 hover:text-yellow-800 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-yellow-800/30 dark:hover:text-yellow-400">
+                            Edit
+                        </button>
                     </Link>
-                    
-                    <button type="button" className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-red-500 hover:bg-red-100 hover:text-red-800 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-red-800/30 dark:hover:text-red-400" onClick={() => handleDelete(row.id)}>
+                    <button type="button" className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-red-500 hover:bg-red-100 hover:text-red-800 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-red-800/30 dark:hover:text-red-400" onClick={() => handleDelete(row.Stockid)}>
                         Delete
                     </button>
                 </div>
@@ -47,32 +55,30 @@ const InventoryDash = () => {
     const [filteredData, setFilteredData] = useState([]);
 
     useEffect(() => {
-        const getData = async () => {
+        const fetchData = async () => {
             try {
-                // Fetch data from API
-                const response = await fetch('https://fakestoreapi.com/products');
-                const data = await response.json();
-                setData(data);
-                setFilteredData(data);
+                const response = await axios.get("http://localhost:3000/medicine_details");
+                setData(response.data);
+                setFilteredData(response.data);
             } catch (error) {
-                console.error('Error fetching data:', error);
+                console.log(error);
             }
         };
 
-        getData();
+        fetchData();
     }, []);
 
     useEffect(() => {
         const result = data.filter((item) => {
-            return item.title.toLowerCase().includes(search.toLowerCase());
+            return (item.medicineName && item.medicineName.toLowerCase().includes(search.toLowerCase()));
         });
         setFilteredData(result);
     }, [search, data]);
 
     const handleDelete = (val) => {
-        const newData = data.filter((item) => item.id !== val);
+        const newData = data.filter((item) => item.Stockid !== val);
         setData(newData);
-        setFilteredData(newData); // Update filteredData as well
+        setFilteredData(newData);
     };
 
     const handleTabClick = (tab) => {
@@ -88,7 +94,6 @@ const InventoryDash = () => {
         console.log("Notifications clicked");
         // Add functionality for notifications click
     };
-
     return (
         <div>
             {/* Header area */}
@@ -167,51 +172,54 @@ const InventoryDash = () => {
                             <div className="text-center">
                                 <h2 className="md:text-2xl text-xl font-bold md:leading-snug leading-snug mt-2">List of Medicines</h2>
                             </div>
-                            <React.Fragment>
-                                <DataTable
-                                    columns={columns}
-                                    data={filteredData}
-                                    pagination
-                                    selectableRows
-                                    fixedHeader
-                                    selectableRowsHighlight
-                                    highlightOnHover
-                                    actions={
-                                        <div className="flex gap-4">
-                                            <button type="button" className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
-                                                Add to cart
-                                                <svg className="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                    <path d="m5 11 4-7"></path>
-                                                    <path d="m19 11-4-7"></path>
-                                                    <path d="M2 11h20"></path>
-                                                    <path d="m3.5 11 1.6 7.4a2 2 0 0 0 2 1.6h9.8c.9 0 1.8-.7 2-1.6l1.7-7.4"></path>
-                                                    <path d="m9 11 1 9"></path>
-                                                    <path d="M4.5 15.5h15"></path>
-                                                    <path d="m15 11-1 9"></path>
-                                                </svg>
-                                            </button>
-                                            <button type="button" className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800">
-                                                Signup free
-                                                <svg className="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                    <path d="M5 12h14"></path>
-                                                    <path d="m12 5 7 7-7 7"></path>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    }
-                                    subHeader
-                                    subHeaderComponent={
-                                        <input
-                                            type="text"
-                                            className="w-25 form-control float-right"
-                                            placeholder="Search..."
-                                            value={search}
-                                            onChange={(e) => setSearch(e.target.value)}
-                                        />
-                                    }
-                                    subHeaderAlign="left"
-                                />
-                            </React.Fragment>
+                            <div className="table-container" style={{ overflowX: 'auto', width: '90vw', overflowY: 'hidden', margin: ' auto' }}>
+                                <React.Fragment>
+                                    <DataTable
+                                        columns={columns}
+                                        data={filteredData}
+                                        pagination
+                                        fixedHeader
+                                        selectableRowsHighlight
+                                        highlightOnHover
+                                        actions={
+                                            <div className="flex gap-4">
+                                                <button type="button" className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
+                                                    Add to cart
+                                                    <svg className="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                        <path d="m5 11 4-7"></path>
+                                                        <path d="m19 11-4-7"></path>
+                                                        <path d="M2 11h20"></path>
+                                                        <path d="m3.5 11 1.6 7.4a2 2 0 0 0 2 1.6h9.8c.9 0 1.8-.7 2-1.6l1.7-7.4"></path>
+                                                        <path d="m9 11 1 9"></path>
+                                                        <path d="M4.5 15.5h15"></path>
+                                                        <path d="m15 11-1 9"></path>
+                                                    </svg>
+                                                </button>
+                                                <button type="button" className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800">
+                                                    Signup free
+                                                    <svg className="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                        <path d="M5 12h14"></path>
+                                                        <path d="m12 5 7 7-7 7"></path>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        }
+                                        subHeader
+                                        subHeaderComponent={
+                                            <input
+                                                type="text"
+                                                className="w-25 form-control float-right"
+                                                placeholder="Search..."
+                                                value={search}
+                                                onChange={(e) => setSearch(e.target.value)}
+                                            />
+                                        }
+                                        subHeaderAlign="left"
+                                        style={{ width: '100%' }} // Set the width of the table to 100% to occupy the full width of its container
+                                    />
+                                </React.Fragment>
+                            </div>
+
                             <div></div>
                         </div>
                     )}
@@ -221,6 +229,7 @@ const InventoryDash = () => {
         </div>
     );
 };
+
 
 
 
