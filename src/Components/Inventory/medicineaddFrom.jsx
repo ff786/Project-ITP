@@ -1,10 +1,14 @@
 import React from 'react';
+// import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { useForm, Controller } from 'react-hook-form';
 import {
   Card,
   Typography,
 } from '@material-tailwind/react';
+import axios from 'axios';
+
 
 const MedicineAddForm = () => {
   const { control, handleSubmit, register, reset, formState: { errors } } = useForm({
@@ -17,8 +21,22 @@ const MedicineAddForm = () => {
     },
   });
 
-  const onSubmit = (data) => console.log(data);
-
+  // const onSubmit = (data) => console.log(data);
+  // const navigate = useNavigate();
+  const history = useHistory();
+  const Submitprocess = async (data) => {
+    try {
+      
+      const response = await axios.post('http://localhost:3000/medicine_details', data);
+      console.log(response.data); // Assuming you want to log the response
+      history.push('/');
+      // You can add any additional logic here after successful submission
+    } catch (error) {
+      console.error('Error:', error);
+      // Handle error, show message to user, etc.
+    }
+  };
+  
   const handleFormReset = () => {
     reset();
   };
@@ -173,7 +191,7 @@ const MedicineAddForm = () => {
           <div className="col-span-2 grid grid-cols-2 gap-3 justify-center">
             <button
               type="button"
-              onClick={handleSubmit(onSubmit)}
+              onClick={handleSubmit(Submitprocess)}
               className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 justify-center"
             >
               Add Medicine

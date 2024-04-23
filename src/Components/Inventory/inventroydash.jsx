@@ -183,8 +183,9 @@ const InventoryDash = () => {
                                         highlightOnHover
                                         actions={
                                             <div className="flex gap-4">
+                                               <Link to="/addmedicines">
                                                 <button type="button" className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
-                                                    Add to cart
+                                                    Add to Medicine
                                                     <svg className="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                                         <path d="m5 11 4-7"></path>
                                                         <path d="m19 11-4-7"></path>
@@ -195,8 +196,9 @@ const InventoryDash = () => {
                                                         <path d="m15 11-1 9"></path>
                                                     </svg>
                                                 </button>
+                                                </Link>
                                                 <button type="button" className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800">
-                                                    Signup free
+                                                    Download 
                                                     <svg className="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                                         <path d="M5 12h14"></path>
                                                         <path d="m12 5 7 7-7 7"></path>

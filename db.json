@@ -15,12 +15,11 @@
       "supplier": "XYZ Pharma",
       "expireDate": "2025-06-30",
       "quantity": 50,
-      "unitPrice": 2.0,
+      "unitPrice": 2,
       "medicineType": "capsule"
     },
     {
       "Stockid": "3",
-     
       "medicineName": "Ibuprofen",
       "supplier": "PQR Drugs",
       "expireDate": "2024-09-15",
@@ -30,7 +29,6 @@
     },
     {
       "Stockid": "4",
-      
       "medicineName": "Amoxicillin",
       "supplier": "MediCorp",
       "expireDate": "2024-11-30",
@@ -40,7 +38,6 @@
     },
     {
       "Stockid": "5",
-     
       "medicineName": "Ciprofloxacin",
       "supplier": "PharmaPro",
       "expireDate": "2024-10-25",
@@ -50,7 +47,6 @@
     },
     {
       "Stockid": "6",
-     
       "medicineName": "Atenolol",
       "supplier": "CardioHealth",
       "expireDate": "2024-12-15",
@@ -60,7 +56,6 @@
     },
     {
       "Stockid": "7",
-      
       "medicineName": "Ranitidine",
       "supplier": "GastroPharm",
       "expireDate": "2024-08-20",
@@ -70,7 +65,6 @@
     },
     {
       "Stockid": "8",
-      
       "medicineName": "Loratadine",
       "supplier": "AllerGen",
       "expireDate": "2025-01-10",
@@ -80,17 +74,15 @@
     },
     {
       "Stockid": "9",
-    
       "medicineName": "Diazepam",
       "supplier": "MentalWell",
       "expireDate": "2024-07-05",
       "quantity": 55,
-      "unitPrice": 4.0,
+      "unitPrice": 4,
       "medicineType": "capsule"
     },
     {
       "Stockid": "10",
-   
       "medicineName": "Omeprazole",
       "supplier": "DigestiCare",
       "expireDate": "2025-03-28",
@@ -100,7 +92,6 @@
     },
     {
       "Stockid": "11",
-   
       "medicineName": "Lisinopril",
       "supplier": "CardioHealth",
       "expireDate": "2025-02-12",
@@ -137,7 +128,6 @@
     },
     {
       "Stockid": "15",
-    
       "medicineName": "Citalopram",
       "supplier": "MindSoothe",
       "expireDate": "2025-04-05",
@@ -147,7 +137,6 @@
     },
     {
       "Stockid": "16",
-    
       "medicineName": "Amitriptyline",
       "supplier": "NeuroCalm",
       "expireDate": "2024-10-12",
@@ -157,7 +146,6 @@
     },
     {
       "Stockid": "17",
-     
       "medicineName": "Venlafaxine",
       "supplier": "SerenePharm",
       "expireDate": "2024-11-28",
@@ -167,7 +155,6 @@
     },
     {
       "Stockid": "18",
-     
       "medicineName": "Risperidone",
       "supplier": "MentalStability",
       "expireDate": "2024-08-15",
@@ -177,7 +164,6 @@
     },
     {
       "Stockid": "19",
-      
       "medicineName": "Hydrochlorothiazide",
       "supplier": "DiureticPharm",
       "expireDate": "2025-05-20",
@@ -187,7 +173,6 @@
     },
     {
       "Stockid": "20",
-      
       "medicineName": "Simvastatin",
       "supplier": "CholesterolCare",
       "expireDate": "2024-12-08",
@@ -197,17 +182,15 @@
     },
     {
       "Stockid": "21",
-      
       "medicineName": "Metoprolol",
       "supplier": "CardioHealth",
       "expireDate": "2024-09-25",
       "quantity": 75,
-      "unitPrice": 3.0,
+      "unitPrice": 3,
       "medicineType": "capsule"
     },
     {
       "Stockid": "22",
-      
       "medicineName": "Gabapentin",
       "supplier": "NerveEase",
       "expireDate": "2025-02-10",
@@ -217,7 +200,6 @@
     },
     {
       "Stockid": "23",
-      
       "medicineName": "Fluoxetine",
       "supplier": "MindSoothe",
       "expireDate": "2024-11-15",
@@ -227,7 +209,6 @@
     },
     {
       "Stockid": "24",
-    
       "medicineName": "Escitalopram",
       "supplier": "MindSoothe",
       "expireDate": "2025-03-30",
@@ -237,7 +218,6 @@
     },
     {
       "Stockid": "25",
-     
       "medicineName": "Tramadol",
       "supplier": "PainRelief",
       "expireDate": "2024-10-05",
@@ -245,10 +225,8 @@
       "unitPrice": 4.8,
       "medicineType": "capsule"
     },
-    
     {
       "Stockid": "26",
-    
       "medicineName": "Medicine 26",
       "supplier": "Supplier 26",
       "expireDate": "2025-01-01",
@@ -258,7 +236,6 @@
     },
     {
       "Stockid": "27",
- 
       "medicineName": "Medicine 27",
       "supplier": "Supplier 27",
       "expireDate": "2025-01-02",
@@ -268,7 +245,6 @@
     },
     {
       "Stockid": "28",
-   
       "medicineName": "Medicine 28",
       "supplier": "Supplier 28",
       "expireDate": "2025-01-03",
@@ -278,7 +254,6 @@
     },
     {
       "Stockid": "29",
-  
       "medicineName": "Medicine 29",
       "supplier": "Supplier 29",
       "expireDate": "2025-01-04",
@@ -294,6 +269,78 @@
       "quantity": 100,
       "unitPrice": 1.5,
       "medicineType": "capsule"
+    },
+    {
+      "id": "f8c7",
+      "medicineName": "qqqqq",
+      "medicineType": "Tablet",
+      "expiryDate": "2024-04-27",
+      "quantity": "222",
+      "unitPrice": "800",
+      "supplierName": "2"
+    },
+    {
+      "id": "6d6e",
+      "medicineName": "qqqqq",
+      "medicineType": "Injections",
+      "expiryDate": "2024-05-09",
+      "quantity": "222",
+      "unitPrice": "888",
+      "supplierName": "3"
+    },
+    {
+      "id": "cd29",
+      "medicineName": "qqqqq",
+      "medicineType": "Injections",
+      "expiryDate": "2024-05-09",
+      "quantity": "222",
+      "unitPrice": "888",
+      "supplierName": "3"
+    },
+    {
+      "id": "ba8f",
+      "medicineName": "wqqqqqq",
+      "medicineType": "Tablet",
+      "expiryDate": "2024-04-30",
+      "quantity": "222",
+      "unitPrice": "800",
+      "supplierName": "1"
+    },
+    {
+      "id": "6b11",
+      "medicineName": "wqqqqqq",
+      "medicineType": "Inhalers",
+      "expiryDate": "2024-05-09",
+      "quantity": "222",
+      "unitPrice": "800",
+      "supplierName": "2"
+    },
+    {
+      "id": "3876",
+      "medicineName": "wqqqqqq",
+      "medicineType": "Suppositories",
+      "expiryDate": "2024-04-26",
+      "quantity": "222",
+      "unitPrice": "800",
+      "supplierName": "1"
+    },
+    {
+      "id": "b5b7",
+      "medicineName": "wqqqqqq",
+      "medicineType": "Inhalers",
+      "expiryDate": "2024-04-26",
+      "quantity": "222",
+      "unitPrice": "800",
+      "supplierName": "2"
+    },
+    {
+      "id": "aee3",
+      "medicineName": "wqqqqqq",
+      "medicineType": "Inhalers",
+      "expiryDate": "2024-04-26",
+      "quantity": "222",
+      "unitPrice": "800",
+      "supplierName": "2"
     }
   ]
 }
