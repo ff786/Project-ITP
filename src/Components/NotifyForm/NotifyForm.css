@@ -27,3 +27,24 @@
     border: 2px solid #D9D9D9;
     border-radius: 10px;
 }
+.NotifyForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.NotifyForm .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.NotifyForm .radio-group {
+  margin-left: 1rem;
+}
+
+.NotifyForm .scheduled-options {
+  margin-top: 1rem;
+}
+
+.NotifyForm .scheduled-options .date-time-inputs {
+  margin-top: 1rem;
+  margin-left: 1rem;
+}
