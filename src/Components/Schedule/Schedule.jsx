@@ -17,6 +17,7 @@ function Schedule() {
 		const [doctor_id, setDoctorId] = useState('');
 		const [phone_number, setPhoneNumber] = useState('');
 		const [mail, setMail] = useState('');
+
 		// const [appointment,setAppointment]= useState([]);
 		// For example, you can send data to a server or perform validation
 		// console.log("Form submitted!");
@@ -29,15 +30,15 @@ function Schedule() {
 async function create(event)
 {
 	event.preventDefault();
-	console.log("Firstname:", firstname);
-    console.log("Lastname:", lastname);
-    console.log("Special Message:", special_message);
-    console.log("Member ID:", member_id);
-    console.log("Date:", date);
-    console.log("Doctors Specialization:", doctors_specialization);
-    console.log("Doctor ID:", doctor_id);
-    console.log("Phone Number:", phone_number);
-    console.log("Mail:", mail);
+	// console.log("Firstname:", firstname);
+    // console.log("Lastname:", lastname);
+    // console.log("Special Message:", special_message);
+    // console.log("Member ID:", member_id);
+    // console.log("Date:", date);
+    // console.log("Doctors Specialization:", doctors_specialization);
+    // console.log("Doctor ID:", doctor_id);
+    // console.log("Phone Number:", phone_number);
+    // console.log("Mail:", mail);
 	try{
 		await axios.post("https://dulanga.sliit.xyz/api/innobothealth/appointment/create",
 		{
@@ -50,8 +51,6 @@ async function create(event)
 			doctor_id  : doctor_id,
 			phone_number  : phone_number,
 			mail  : mail
-
-
 		},
 		{
 			
