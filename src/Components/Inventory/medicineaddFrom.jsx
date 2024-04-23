@@ -1,6 +1,6 @@
-import React from 'react';
-// import { useNavigate } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+
 
 import { useForm, Controller } from 'react-hook-form';
 import {
@@ -22,21 +22,21 @@ const MedicineAddForm = () => {
   });
 
   // const onSubmit = (data) => console.log(data);
-  // const navigate = useNavigate();
-  const history = useHistory();
+  const [isSuccess, setIsSuccess] = useState(false);
   const Submitprocess = async (data) => {
     try {
-      
+
       const response = await axios.post('http://localhost:3000/medicine_details', data);
       console.log(response.data); // Assuming you want to log the response
-      history.push('/');
       // You can add any additional logic here after successful submission
+      setIsSuccess(true); // Set isSuccess to true on successful submission
+
     } catch (error) {
       console.error('Error:', error);
       // Handle error, show message to user, etc.
     }
   };
-  
+
   const handleFormReset = () => {
     reset();
   };
@@ -189,13 +189,36 @@ const MedicineAddForm = () => {
           </div>
 
           <div className="col-span-2 grid grid-cols-2 gap-3 justify-center">
-            <button
-              type="button"
-              onClick={handleSubmit(Submitprocess)}
-              className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 justify-center"
-            >
-              Add Medicine
-            </button>
+            {/* <Link to={'/medilist'}>
+              <button
+                type="button"
+                onClick={handleSubmit(Submitprocess)}
+                className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 justify-center"
+              >
+                Add Medicine
+              </button>
+
+            </Link> */}
+            {/* Conditionally render the button based on the isSuccess state */}
+            {isSuccess ? (
+              <Link to="/medilist">
+                <button
+                  type="button"
+                  className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 justify-center"
+                >
+                  Go to Medicine List
+                </button>
+              </Link>
+            ) : (
+              <button
+                type="button"
+                onClick={handleSubmit(Submitprocess)}
+                className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 justify-center"
+              >
+                Add Medicine
+              </button>
+            )}
+
 
             <button
               type="button"
