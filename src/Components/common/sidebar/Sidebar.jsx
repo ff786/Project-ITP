@@ -14,7 +14,6 @@ import { BsChevronRight } from "react-icons/bs";
 import { FaMoneyBillTransfer,FaRegCalendarDays } from "react-icons/fa6";
 import { GrFavorite } from "react-icons/gr";
 import { FaChartBar } from 'react-icons/fa';
-console.log(logo);
 function Sidebar(){
   const[open,setOpen]= useState(false);
   const[submenuOpen,setSubmenuOpen]= useState(false);
