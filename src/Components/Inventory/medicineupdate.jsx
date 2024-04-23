@@ -1,13 +1,13 @@
-import React from 'react';
-
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
 import {
   Card,
   Typography,
 } from '@material-tailwind/react';
-
+import axios from 'axios';
 const MedicineUpdate = () => {
-  const { control, handleSubmit, register, reset, formState: { errors } } = useForm({
+  const { control, handleSubmit, register, reset, formState: { errors }, setValue } = useForm({
     defaultValues: {
       medicineName: '',
       medicineType: '',
@@ -16,8 +16,22 @@ const MedicineUpdate = () => {
       unitPrice: '',
     },
   });
+  const [isExpiryDateInvalid, setIsExpiryDateInvalid] = useState(false);
+  // const onSubmit = (data) => console.log(data);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const Submitprocess = async (data) => {
+    if (isExpiryDateInvalid) {
+      alert('Expiry date cannot be in the past');
+    }
+    try {
+      const response = await axios.post('http://localhost:3000/medicine_details', data);
+      console.log(response.data);
+      setIsSuccess(true);
 
-  const onSubmit = (data) => console.log(data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
   const handleFormReset = () => {
     reset();
@@ -30,50 +44,48 @@ const MedicineUpdate = () => {
 
     if (selectedDateObj < currentDate) {
       alert('Expiry date cannot be in the past');
-      setValue('expiryDate', '');
+      setValue('expireDate', ''); // Clear the value if it's invalid
+      setIsExpiryDateInvalid(true); // Set the state to indicate invalidity
       return;
     }
 
-    setValue('expiryDate', selectedDate);
+    setValue('expireDate', selectedDate); // Set the value only if it's valid
+    setIsExpiryDateInvalid(false); // Reset the state if it's valid
   };
+
 
   return (
     <div className="h-screen grid place-items-center bg-gray-50">
       <Card color="transparent" shadow={true} className="p-7 bg-white">
         <Typography variant="h4" color="blue-gray">
-          Edit Medicine
+          Update Medicine
         </Typography>
         <Typography color="gray" className="mt-1 font-normal">
-          Enter edit details for the medicine.
+          Enter your details for the medicine.
         </Typography>
         <br />
 
         <form className="mb-4 w-[500px] grid grid-cols-2 gap-6">
 
-
           <div>
             <Typography variant="h6" color="blue-gray" className="-mb-3">
-              stockid
+              Stock id
             </Typography>
             <br />
             <Controller
-              name="stockeid"
+              name="Stockid"
               control={control}
               render={({ field }) => (
                 <input
                   type="text"
                   {...field}
-                  readOnly // Add readOnly attribute here
+                  readOnly
                   className="py-3 px-4 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
-                  placeholder="Enter Medicine Name"
+                  placeholder="Stock Id"
                 />
               )}
             />
-            {errors?.medicineName?.message && (
-              <span className="text-red-500 text-sm">{errors?.medicineName?.message}</span>
-            )}
           </div>
-
 
           <div>
             <Typography variant="h6" color="blue-gray" className="-mb-3">
@@ -106,9 +118,11 @@ const MedicineUpdate = () => {
               className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
             >
               <option value="">Select Medicine Type</option>
-              <option value="1">Type 1</option>
-              <option value="2">Type 2</option>
-              <option value="3">Type 3</option>
+              <option value="Tablet">Tablet</option>
+              <option value="Capsules">Capsules</option>
+              <option value="Inhalers">Inhalers</option>
+              <option value="Injections">Injections</option>
+              <option value="Suppositories">Suppositories</option>
             </select>
             {errors?.medicineType?.message && (<span className="text-red-500 text-sm">{errors?.medicineType?.message}</span>)}
           </div>
@@ -137,11 +151,11 @@ const MedicineUpdate = () => {
             <br />
             <input
               type="date"
-              {...register('expiryDate', { required: "Expiry Date is required" })}
+              {...register('expireDate', { required: "Expiry Date is required" })}
               onChange={handleExpiryDateChange}
               className="py-3 px-4 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
             />
-            {errors?.expiryDate?.message && (<span className="text-red-500 text-sm">{errors?.expiryDate?.message}</span>)}
+            {errors?.expireDate?.message && (<span className="text-red-500 text-sm">{errors?.expireDate?.message}</span>)}
           </div>
 
           <div>
@@ -195,13 +209,37 @@ const MedicineUpdate = () => {
           </div>
 
           <div className="col-span-2 grid grid-cols-2 gap-3 justify-center">
-            <button
-              type="button"
-              onClick={handleSubmit(onSubmit)}
-              className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 justify-center"
-            >
-              Add Medicine
-            </button>
+            {/* <Link to={'/medilist'}>
+              <button
+                type="button"
+                onClick={handleSubmit(Submitprocess)}
+                className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 justify-center"
+              >
+                Add Medicine
+              </button>
+
+            </Link> */}
+            {/* Conditionally render the button based on the isSuccess state */}
+            {isSuccess ? (
+              <Link to="/medilist">
+                <button
+                  type="button"
+                  className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 justify-center"
+                >
+                  Go to Medicine List
+                </button>
+              </Link>
+            ) : (
+              <button
+                type="button"
+                onClick={handleSubmit(Submitprocess)}
+                disabled={isExpiryDateInvalid}
+                className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 justify-center"
+              >
+                Update Medicine
+              </button>
+            )}
+
 
             <button
               type="button"
