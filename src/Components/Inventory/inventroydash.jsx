@@ -5,6 +5,7 @@ import icon_prof from './assets/icon_prof.png';
 import notify from './assets/notify.png';
 import DataTable from 'react-data-table-component';
 import { Link } from 'react-router-dom';
+
 const InventoryDash = () => {
 
     const [activeTab, setActiveTab] = useState("inventory");
@@ -37,7 +38,7 @@ const InventoryDash = () => {
             name: "Action",
             cell: (row) => (
                 <div>
-                    <Link to={`/updatemedicines/${row.Stockid}'`}>
+                    <Link to={`/updatemedicines/${row.Stockid}`}>
                         <button type="button" className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-yellow-500 hover:bg-yellow-100 hover:text-yellow-800 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-yellow-800/30 dark:hover:text-yellow-400">
                             Edit
                         </button>
@@ -53,6 +54,8 @@ const InventoryDash = () => {
     const [data, setData] = useState([]);
     const [search, setSearch] = useState('');
     const [filteredData, setFilteredData] = useState([]);
+    const [medicineIdToDelete, setMedicineIdToDelete] = useState(null);
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -76,13 +79,21 @@ const InventoryDash = () => {
     }, [search, data]);
 
     const handleDelete = (val) => {
-        const newData = data.filter((item) => item.Stockid !== val);
-        setData(newData);
-        setFilteredData(newData);
+        setMedicineIdToDelete(val);
+        setShowModal(true);
     };
 
-    const handleTabClick = (tab) => {
-        setActiveTab(tab);
+    const confirmDelete = async () => {
+        try {
+            await axios.delete(`http://localhost:3000/medicine_details/${medicineIdToDelete}`);
+            const newData = data.filter((item) => item.Stockid !== medicineIdToDelete);
+            setData(newData);
+            setFilteredData(newData);
+            setShowModal(false);
+        } catch (error) {
+            console.log(error);
+            // Handle error here
+        }
     };
 
     const myProf = () => {
@@ -94,6 +105,11 @@ const InventoryDash = () => {
         console.log("Notifications clicked");
         // Add functionality for notifications click
     };
+
+    const handleTabClick = (tab) => {
+        setActiveTab(tab);
+    };
+
     return (
         <div>
             {/* Header area */}
@@ -117,52 +133,6 @@ const InventoryDash = () => {
                         <div className="border-b border-gray-200 dark:border-neutral-700">
                             <nav className="flex space-x-1" aria-label="Tabs" role="tablist">
                                 {/* Add your tab buttons here */}
-
-                                <button
-                                    type="button"
-                                    className={`hs-tab-active:font-semibold hs-tab-active:border-blue-600 hs-tab-active:text-blue-600 py-4 px-1 inline-flex items-center gap-x-2 border-b-2 border-transparent text-sm whitespace-nowrap text-gray-500 hover:text-blue-600 focus:outline-none focus:text-blue-600 disabled:opacity-50 disabled:pointer-events-none dark:text-neutral-400 dark:hover:text-blue-500 active ${activeTab === "inventory" ? "active" : ""}`}
-                                    id="tabs-with-icons-item-1"
-                                    data-hs-tab="#tabs-with-icons-1"
-                                    aria-controls="tabs-with-icons-1"
-                                    role="tab"
-                                    onClick={() => handleTabClick("inventory")}>
-                                    <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                                    </svg>
-                                    inventory
-                                </button>
-                                <button
-                                    type="button"
-                                    className={`hs-tab-active:font-semibold hs-tab-active:border-blue-600 hs-tab-active:text-blue-600 py-4 px-1 inline-flex items-center gap-x-2 border-b-2 border-transparent text-sm whitespace-nowrap text-gray-500 hover:text-blue-600 focus:outline-none focus:text-blue-600 disabled:opacity-50 disabled:pointer-events-none dark:text-neutral-400 dark:hover:text-blue-500 active ${activeTab === "inventory" ? "active" : ""}`}
-                                    id="tabs-with-icons-item-1"
-                                    data-hs-tab="#tabs-with-icons-1"
-                                    aria-controls="tabs-with-icons-1"
-                                    role="tab"
-                                    onClick={() => handleTabClick("expired")}>
-                                    <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                                    </svg>
-                                    expired
-                                </button>
-                                <button
-                                    type="button"
-                                    className={`hs-tab-active:font-semibold hs-tab-active:border-blue-600 hs-tab-active:text-blue-600 py-4 px-1 inline-flex items-center gap-x-2 border-b-2 border-transparent text-sm whitespace-nowrap text-gray-500 hover:text-blue-600 focus:outline-none focus:text-blue-600 disabled:opacity-50 disabled:pointer-events-none dark:text-neutral-400 dark:hover:text-blue-500 active ${activeTab === "inventory" ? "active" : ""}`}
-                                    id="tabs-with-icons-item-1"
-                                    data-hs-tab="#tabs-with-icons-1"
-                                    aria-controls="tabs-with-icons-1"
-                                    role="tab"
-                                    onClick={() => handleTabClick("suppliers")}>
-                                    <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                                    </svg>
-                                    suppliers
-                                </button>
-
-
-                                {/* Repeat the same pattern for other tabs */}
                             </nav>
                         </div>
                     </div>
@@ -183,22 +153,22 @@ const InventoryDash = () => {
                                         highlightOnHover
                                         actions={
                                             <div className="flex gap-4">
-                                               <Link to="/addmedicines">
-                                                <button type="button" className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
-                                                    Add to Medicine
-                                                    <svg className="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                        <path d="m5 11 4-7"></path>
-                                                        <path d="m19 11-4-7"></path>
-                                                        <path d="M2 11h20"></path>
-                                                        <path d="m3.5 11 1.6 7.4a2 2 0 0 0 2 1.6h9.8c.9 0 1.8-.7 2-1.6l1.7-7.4"></path>
-                                                        <path d="m9 11 1 9"></path>
-                                                        <path d="M4.5 15.5h15"></path>
-                                                        <path d="m15 11-1 9"></path>
-                                                    </svg>
-                                                </button>
+                                                <Link to="/addmedicines">
+                                                    <button type="button" className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
+                                                        Add to Medicine
+                                                        <svg className="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                            <path d="m5 11 4-7"></path>
+                                                            <path d="m19 11-4-7"></path>
+                                                            <path d="M2 11h20"></path>
+                                                            <path d="m3.5 11 1.6 7.4a2 2 0 0 0 2 1.6h9.8c.9 0 1.8-.7 2-1.6l1.7-7.4"></path>
+                                                            <path d="m9 11 1 9"></path>
+                                                            <path d="M4.5 15.5h15"></path>
+                                                            <path d="m15 11-1 9"></path>
+                                                        </svg>
+                                                    </button>
                                                 </Link>
                                                 <button type="button" className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800">
-                                                    Download 
+                                                    Download
                                                     <svg className="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                                         <path d="M5 12h14"></path>
                                                         <path d="m12 5 7 7-7 7"></path>
@@ -217,7 +187,7 @@ const InventoryDash = () => {
                                             />
                                         }
                                         subHeaderAlign="left"
-                                        style={{ width: '100%' }} // Set the width of the table to 100% to occupy the full width of its container
+                                        style={{ width: '100%' }}
                                     />
                                 </React.Fragment>
                             </div>
@@ -228,12 +198,40 @@ const InventoryDash = () => {
                     {/* Add your other tab content here */}
                 </div>
             </div>
+            {/* Modal */}
+            <div className={`hs-overlay ${showModal ? 'visible' : 'hidden'} size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto pointer-events-none`}>
+                <div className="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto min-h-[calc(100%-3.5rem)] flex items-center">
+                    <div className="w-full flex flex-col bg-white border shadow-sm rounded-xl pointer-events-auto dark:bg-neutral-800 dark:border-neutral-700 dark:shadow-neutral-700/70">
+                        <div className="flex justify-between items-center py-3 px-4 border-b dark:border-neutral-700">
+                            <h3 className="font-bold text-gray-800 dark:text-white">
+                                Confirm Delete
+                            </h3>
+                            <button type="button" className="flex justify-center items-center size-7 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-neutral-700" onClick={() => setShowModal(false)}>
+                                <span className="sr-only">Close</span>
+                                <svg className="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M18 6 6 18"></path>
+                                    <path d="m6 6 12 12"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div className="p-4 overflow-y-auto">
+                            <p className="text-gray-800 dark:text-neutral-400">
+                                Are you sure you want to delete this medicine?
+                            </p>
+                        </div>
+                        <div className="flex justify-end items-center gap-x-2 py-3 px-4 border-t dark:border-neutral-700">
+                            <button type="button" className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800" onClick={() => setShowModal(false)}>
+                                Cancel
+                            </button>
+                            <button type="button" className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-red-600 text-white hover:bg-red-700 disabled:opacity-50 disabled:pointer-events-none" onClick={confirmDelete}>
+                                Delete Medicine
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
 
-
-
-
 export default InventoryDash;
-
