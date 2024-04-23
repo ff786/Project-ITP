@@ -1,9 +1,7 @@
 .header {
-    
     display: flex;
     flex: 1;
     flex-direction: column;
-    
   }
   
 .header-top {
@@ -167,5 +165,12 @@ background-color:darkkhaki;
 }
 tr, td {
   border: 1px solid black;
+}
+.top{
+    display: flex;
+    background-color: #02072D;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    justify-content: space-between;
+    padding: 10px;
 }
 

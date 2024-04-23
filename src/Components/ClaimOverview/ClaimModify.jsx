@@ -43,9 +43,8 @@ function ClaimModify({ searchQuery }) {
         );
     });
 
-
   return (
-     <div className="container mx-auto p-6 bg-white dark:bg-zinc-500">
+     <div className="container mx-fill p-4 bg-white dark:bg-zinc-500 w-auto">
           <div className="overflow-x-auto">
             <table className="min-w-full bg-white dark:bg-zinc-800">
               <thead>

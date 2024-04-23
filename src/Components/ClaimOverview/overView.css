@@ -12,11 +12,13 @@
     margin-left: auto;
     margin-right: auto;
     margin-top: 50px;
-    width: 1500px;
+    width: auto;
     height: auto;
 }
-.form-view{
+.formView{
     margin-top: 50px;
+    margin-bottom: 50px;
+    background-color: #000000;
 }
 .Maiin {
     display: flex;
@@ -35,8 +37,6 @@ button[type="create"] {
   border-radius: 9px;
   cursor: pointer;
   gap: 10px;
-  align-items: between;
-  margin-left: 20px;
 }
 button[type="claim"]:hover,
 button[type="search"]:hover,
@@ -46,6 +46,7 @@ button[type="create"]:hover {
 .mid-btn {
     display: flex;
     flex-direction: row;
+    position: relative;
     gap: 20px;
     margin-left: auto;
     margin-right: auto;
@@ -61,8 +62,7 @@ button[type="claim"] {
     border-radius: 9px;
     cursor: pointer;
     gap: 10px;
-    align-items: between;
-    margin-left: 20px;
+    align-items: center;
 }
 .active {
     background-color: #4CAF50; /* Green color, you can adjust as needed */

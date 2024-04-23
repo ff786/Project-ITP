@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import './ClaimForm.css'
 import Topbar from '../common/topbar/Topbar.jsx'
 import {useNavigate} from "react-router-dom"
@@ -26,14 +26,54 @@ const ClaimFormModal = ({ isOpen, onClose }) => {
   const [diagnosis, setDiagnosis] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [isChecked, setIsChecked] = useState('');
+  const formRef = useRef(null);
 
+  const isValidPhoneNumber = (phoneNumber) => {
+    return /^\d{10}$/.test(phoneNumber);
+  };
+  const isValidAmount = (amount) => {
+    return parseFloat(amount) > 0;
+  };
+  const isValidEmail = (email) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
 
   const handleSubmit = async (event) => {
+      event.preventDefault();
+
+      if (!memberId || !firstName || !lastName || !dateOfBirth || !phoneNumber || !phoneNumber || !amountLKR ) {
+        alert('Please fill in all the fields');
+        return;
+      }
+      // Validate email
+      if (!isValidEmail(email)) {
+        alert('Please enter a valid email address');
+        return;
+      }
+      // Validate phone number
+      if (!isValidPhoneNumber(phoneNumber)) {
+         alert('Please enter a valid phone number');
+        return;
+      }
+      // Validate amount
+      if (!isValidAmount(amountLKR)) {
+        alert('Please enter a valid amount');
+        return;
+      }
+      // Validate checkbox
+      if (!isChecked) {
+      alert("Please agree to the terms and conditions");
+      return;
+      }
+      if (new Date(dateOfClaim) < new Date(dateOfBirth)) {
+        alert('Error: Claim date cannot be before date of Birth.');
+        return;
+      }
 
       const form = document.getElementById('claimForm');
       event.preventDefault();
       const formData = new FormData(form);
-          // Send the form data as a POST request using fetch
+      // Send the form data as a POST request using fetch
       try {
         const response = await fetch('https://dulanga.sliit.xyz/api/innobothealth/claim/create', {
           method: 'POST',
@@ -44,6 +84,7 @@ const ClaimFormModal = ({ isOpen, onClose }) => {
         });
           if (response.ok) {
               setIsConfirmModalOpen(true);
+              formRef.current.reset();
           } else {
             console.error('Failed to submit form');
           }
@@ -57,8 +98,6 @@ const ClaimFormModal = ({ isOpen, onClose }) => {
     const handleCancel = () => {
         onClose(); // Call the onClose function passed from the parent component
     }
-
-
 
     return (
       <div className={`modal-overlay ${isOpen ? "open" : ''}`}>
@@ -78,7 +117,7 @@ const ClaimFormModal = ({ isOpen, onClose }) => {
             />
           </svg>
         </button>
-       <form name="claimForm" id="claimForm" onSubmit={handleSubmit}>
+       <form name="claimForm" id="claimForm" ref={formRef} onSubmit={handleSubmit}>
         <div className="claim-form-container">
           <div className="claim-form">
 
@@ -92,7 +131,7 @@ const ClaimFormModal = ({ isOpen, onClose }) => {
              </div>
 
              <div style={{width: '800px', marginLeft: '50px'}}>
-             <input type="checkbox" checked={isChecked} onChange={() => setIsChecked(!isChecked)} />
+             <input type="checkbox" checked={isChecked} onChange={(e) => setIsChecked(e.target.checked)} />
                 <label>I, the undersigned hereby declare that the information on below is true and complete and that reimbursement requested is for expenses made on me for the treatment of my medical condition.
                 </label>
              </div>
@@ -177,7 +216,7 @@ const ClaimFormModal = ({ isOpen, onClose }) => {
                   <select value={isClaimRelatedToAnAccident} onChange={(event) => setIsClaimRelatedToAnAccident(event.target.value === 'true')}>
                     <option value={true}>Yes</option>
                     <option value={false}>No</option>
-                    <option value={true}>Work Related</option>
+                    <option value="workRelated">Work Related</option>
                   </select>
 
               </div>

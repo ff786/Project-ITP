@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import Topbar from '../common/topbar/Topbar.jsx'
 import Sidebar from '../common/sidebar/Sidebar.jsx'
-import Search from '../common/search/Search.jsx'
-import '../../App.css'
-import '../ClaimManage/ClaimForm.css'
 import ClaimModify from './ClaimModify.jsx'
 import ClaimFormModal from '../ClaimManage/FormClaim.jsx'
 import './overView.css'
@@ -55,7 +52,7 @@ function OverviewClaim () {
                     <input type="text" placeholder="Search here... " onChange={handleSearchInputChange} />
                     <button type="search" onClick={handleSearch}>Search</button>
                 </div>
-                <div className="form-view">
+                <div className="formView">
                     <ClaimModify searchQuery={searchQuery} />
                     {CreateClaim && <ClaimFormModal isOpen={CreateClaim} onClose={toggleCreateClaim} />}
                 </div>

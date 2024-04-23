@@ -14,6 +14,7 @@ import OverviewClaim from './Components/ClaimOverview/OverviewClaim'
 import Diagnosis from './Components/PnD/Diagnosis.jsx'
 import PndView from './Components/ViewPND/PndView.jsx'
 import NotifyForm from './Components/NotifyForm/NotifyForm.jsx'
+import NotifyView from './Components/NotifyView/NotifyView.jsx'
 import PatientForm from './Components/FormPatient/PatientForm.jsx'
 
 import {
@@ -64,7 +65,7 @@ const router = createBrowserRouter([
     element: <div><ClaimForm /> </div>
   },
   {
-    path: '/UpdateClaim',
+    path: '/edit/:id',
     element: <div><UpdateForm /> </div>
   },
   {
@@ -82,6 +83,10 @@ const router = createBrowserRouter([
   {
     path: '/NotifyForm',
     element: <div><NotifyForm /> </div>
+  },
+  {
+    path: '/NotifyView',
+    element: <div><NotifyView /> </div>
   },
   {
     path: '/FormPatient',

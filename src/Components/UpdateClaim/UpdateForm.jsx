@@ -3,8 +3,8 @@ import axios from 'axios';
 import Topbar from '../common/topbar/Topbar.jsx';
 import Sidebar from '../common/sidebar/Sidebar.jsx';
 import video from '../../LoginAssets/video.mp4';
-import '../../App.css';
 import './UpdateForm.css';
+import { useParams } from 'react-router-dom';
 
 const UpdateForm = () => {
   const [memberId, setMemberId] = useState('');
@@ -14,16 +14,17 @@ const UpdateForm = () => {
   const [email, setEmail] = useState('');
   const [treatmentDate, setTreatmentDate] = useState('');
   const [imageUrl, setImageUrl] = useState('');
+  const { id } = useParams();
 
   useEffect(() => {
     // Fetch data from the database and populate the form fields
     fetchData();
-  }, []); // Empty dependency array ensures this effect runs only once, when the component mounts
+  }, [id]); // Empty dependency array ensures this effect runs only once, when the component mounts
 
   const fetchData = async () => {
     try {
       // Make a GET request to fetch data from the database
-      const response = await axios.get('https://dulanga.sliit.xyz/api/innobothealth/claim/update'); // Replace 'YOUR_API_ENDPOINT' with your actual API endpoint
+      const response = await axios.get(`https://dulanga.sliit.xyz/api/innobothealth/claim/getAll/${id}`);
       const data = response.data; // Assuming data is in JSON format
       // Set the state variables with the fetched data
       setMemberId(data.memberId);
@@ -38,6 +39,34 @@ const UpdateForm = () => {
       // Handle error
     }
   };
+    const handleUpdate = async (event) => {
+      event.preventDefault();
+
+      const form = document.getElementById('claimForm');
+      const formData = new FormData(form);
+
+      // Send the form data as a POST request using fetch
+      try {
+        const response = await fetch('https://dulanga.sliit.xyz/api/innobothealth/claim/update', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json'
+          },
+          body: formData,
+        });
+
+        if (response.ok) {
+          setIsConfirmModalOpen(true);
+          formRef.current.reset();
+        } else {
+          console.error('Failed to submit form');
+        }
+      } catch (error) {
+        console.error('Error uploading image:', error);
+        alert('Failed to Submit Form, Please try again later!');
+      }
+    };
+
 
   return (
     <body>
@@ -54,6 +83,7 @@ const UpdateForm = () => {
             <video autoPlay muted loop src={video}></video>
           </div>
         </div>
+        <form name="claimForm" id="claimForm" onUpdate={handleUpdate}>
         <div>
           <div className="top-bar">
             <h5 className="h5">Patient Information</h5>
@@ -67,7 +97,6 @@ const UpdateForm = () => {
                   type="text"
                   value={memberId}
                   onChange={(event) => setMemberId(event.target.value)}
-                  placeholder="Member ID"
                 />
               </div>
             </div>
@@ -78,7 +107,6 @@ const UpdateForm = () => {
                   type="text"
                   value={firstName}
                   onChange={(event) => setFirstName(event.target.value)}
-                  placeholder="First Name"
                 />
               </div>
             </div>
@@ -89,7 +117,6 @@ const UpdateForm = () => {
                   type="text"
                   value={lastName}
                   onChange={(event) => setLastName(event.target.value)}
-                  placeholder="Last Name"
                 />
               </div>
             </div>
@@ -102,7 +129,6 @@ const UpdateForm = () => {
                 type="tel"
                 value={phoneNumber}
                 onChange={(event) => setPhoneNumber(event.target.value)}
-                placeholder="+94 (0)## ### ####"
               />
             </div>
           </div>
@@ -113,7 +139,6 @@ const UpdateForm = () => {
                 type="email"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
-                placeholder="name@sample.com"
               />
             </div>
           </div>
@@ -135,10 +160,11 @@ const UpdateForm = () => {
           </div>
 
           <div className="button-up">
-            <button type="update">Cancel</button>
+            <button type="cancel">Cancel</button>
             <button type="update">Update Claim</button>
           </div>
         </div>
+        </form>
       </div>
     </body>
   );

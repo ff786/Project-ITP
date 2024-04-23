@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import Table from 'react-bootstrap/Table';
 
-function AllClaim() {
+function AllClaimPending() {
   return (
      <div className="container mx-auto p-6 bg-white dark:bg-zinc-500">
           <div className="overflow-x-auto">
@@ -39,54 +39,6 @@ function AllClaim() {
                   </td>
                   <td className="px-6 py-4 whitespace-no-wrap border-b border-text-black dark:border-zinc-200">
                     Approved
-                  </td>
-                  <td className="px-6 py-4 whitespace-no-wrap border-b border-text-black dark:border-zinc-200">
-                    <div className="flex items-center">
-                      <button className="text-green-600 hover:text-green-900 mr-2">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-5 w-5"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor">
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M5 13l4 4L19 7"
-                          />
-                        </svg>
-                      </button>
-                      <button className="text-red-600 hover:text-red-900">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-5 w-5"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor">
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M6 18L18 6M6 6l12 12"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-                <tr className="text-zinc-700 dark:text-black">
-                  <td className="px-8 py-4 whitespace-no-wrap border-b border-text-black dark:border-zinc-200">
-                    INBOT002
-                  </td>
-                  <td className="px-6 py-4 whitespace-no-wrap border-b border-text-black dark:border-zinc-200">
-                    Reimbursement
-                  </td>
-                  <td className="px-6 py-4 whitespace-no-wrap border-b border-text-black dark:border-zinc-200">
-                    Karunaratne, Dimuth
-                  </td>
-                  <td className="px-6 py-4 whitespace-no-wrap border-b border-text-black dark:border-zinc-200">
-                    Pending
                   </td>
                   <td className="px-6 py-4 whitespace-no-wrap border-b border-text-black dark:border-zinc-200">
                     <div className="flex items-center">

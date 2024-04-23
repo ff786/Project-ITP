@@ -12,12 +12,12 @@ import Sidebar from '../common/sidebar/Sidebar.jsx'
 import { Link } from 'react-router-dom';
 
 const PatientForm = () => {
-  const [PaymentId, setPaymentId] = useState('');
+  const [PatientName, setPatientName] = useState('');
   const [age, setAge] = useState('');
   const [Gender, setGender] = useState('');
-  const [Amount, setAmount] = useState('');
-  const [CVV, setCVV] = useState('');
-  const [promoCode, setPromoCode] = useState('');
+  const [dob, setDob] = useState('');
+  const [Country, setCountry] = useState('');
+  const [Address, setAddress] = useState('');
   const [email, setEmail] = useState('');
 
   return (

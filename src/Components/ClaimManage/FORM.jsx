@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import './ClaimForm.css'
 import Topbar from '../common/topbar/Topbar.jsx'
 import {useNavigate} from "react-router-dom"
 import axios from 'axios';
 import {toast} from "react-toastify"
 import ConfirmModal from "../ClaimOverview/ConfirmModal.jsx"
+import Popup from "reactjs-popup";
 
 import { Link } from 'react-router-dom'
 
@@ -25,10 +26,50 @@ const FORM = () => {
   const [dateOfClaim, setDateOfClaim] = useState('');
   const [diagnosis, setDiagnosis] = useState('');
   const [imageUrl, setImageUrl] = useState('');
-  const [isChecked, setIsChecked] = useState('');
+  const [isChecked, setIsChecked] = useState(false);
+  const formRef = useRef(null);
 
+  const isValidPhoneNumber = (phoneNumber) => {
+    return /^\d{10}$/.test(phoneNumber);
+  };
+  const isValidAmount = (amount) => {
+    return parseFloat(amount) > 0;
+  };
+  const isValidEmail = (email) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
 
   const handleSubmit = async (event) => {
+      event.preventDefault();
+
+      if (!memberId || !firstName || !lastName || !dateOfBirth || !phoneNumber || !phoneNumber || !amountLKR ) {
+        alert('Please fill in all the fields');
+        return;
+      }
+      // Validate email
+      if (!isValidEmail(email)) {
+        alert('Please enter a valid email address');
+        return;
+      }
+      // Validate phone number
+      if (!isValidPhoneNumber(phoneNumber)) {
+         alert('Please enter a valid phone number');
+        return;
+      }
+      // Validate amount
+      if (!isValidAmount(amountLKR)) {
+        alert('Please enter a valid amount');
+        return;
+      }
+      // Validate checkbox
+      if (!isChecked) {
+      alert("Please agree to the terms and conditions");
+      return;
+      }
+      if (new Date(dateOfClaim) < new Date(dateOfBirth)) {
+        alert('Error: Claim date cannot be before date of Birth.');
+        return;
+      }
 
       const form = document.getElementById('claimForm');
       event.preventDefault();
@@ -44,6 +85,7 @@ const FORM = () => {
         });
           if (response.ok) {
               setIsConfirmModalOpen(true);
+              formRef.current.reset();
           } else {
             console.error('Failed to submit form');
           }
@@ -59,7 +101,7 @@ const FORM = () => {
 
     <body>
      <div>
-      <form name="claimForm" id="claimForm" onSubmit={handleSubmit}>
+      <form name="claimForm" id="claimForm" ref={formRef} onSubmit={handleSubmit}>
         <div className="claim-form-container">
           <div className="claim-form">
 
@@ -78,8 +120,8 @@ const FORM = () => {
                 </label>
              </div>
             <div style={{gap: '10px', marginRight: '15px', padding: "10px"}}>
-              <button type="cancel">Cancel</button>
-              <button type="submit">Submit</button>
+              <button type="cancel">Clear</button>
+              <button type="submit" onSubmit={handleSubmit} >Submit</button>
             </div>
             </div>
             </div>
