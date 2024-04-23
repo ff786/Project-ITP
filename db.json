@@ -458,6 +458,26 @@
       "quantity": "222",
       "unitPrice": "888",
       "supplierName": "1"
+    },
+    {
+      "id": "40f1",
+      "medicineName": "qqqqq",
+      "medicineType": "Tablet",
+      "expiryDate": "",
+      "quantity": "1",
+      "unitPrice": "1",
+      "supplierName": "1",
+      "expireDate": "2024-04-10"
+    },
+    {
+      "id": "1ffa",
+      "medicineName": "yyyy",
+      "medicineType": "Capsules",
+      "expiryDate": "",
+      "quantity": "1",
+      "unitPrice": "1",
+      "supplierName": "1",
+      "expireDate": "2024-04-25"
     }
   ]
 }

@@ -11,7 +11,7 @@ import axios from 'axios';
 
 
 const MedicineAddForm = () => {
-  const { control, handleSubmit, register, reset, formState: { errors } } = useForm({
+  const { control, handleSubmit, register, reset, formState: { errors } ,setValue} = useForm({
     defaultValues: {
       medicineName: '',
       medicineType: '',
@@ -20,20 +20,20 @@ const MedicineAddForm = () => {
       unitPrice: '',
     },
   });
-
+  const [isExpiryDateInvalid, setIsExpiryDateInvalid] = useState(false);
   // const onSubmit = (data) => console.log(data);
   const [isSuccess, setIsSuccess] = useState(false);
   const Submitprocess = async (data) => {
+    if (isExpiryDateInvalid) {
+      alert('Expiry date cannot be in the past');
+    }
     try {
-
       const response = await axios.post('http://localhost:3000/medicine_details', data);
-      console.log(response.data); // Assuming you want to log the response
-      // You can add any additional logic here after successful submission
-      setIsSuccess(true); // Set isSuccess to true on successful submission
+      console.log(response.data);
+      setIsSuccess(true); 
 
     } catch (error) {
       console.error('Error:', error);
-      // Handle error, show message to user, etc.
     }
   };
 
@@ -48,11 +48,13 @@ const MedicineAddForm = () => {
 
     if (selectedDateObj < currentDate) {
       alert('Expiry date cannot be in the past');
-      setValue('expiryDate', '');
+      setValue('expireDate', ''); // Clear the value if it's invalid
+      setIsExpiryDateInvalid(true); // Set the state to indicate invalidity
       return;
     }
-
-    setValue('expiryDate', selectedDate);
+  
+    setValue('expireDate', selectedDate); // Set the value only if it's valid
+    setIsExpiryDateInvalid(false); // Reset the state if it's valid
   };
 
   return (
@@ -131,11 +133,11 @@ const MedicineAddForm = () => {
             <br />
             <input
               type="date"
-              {...register('expiryDate', { required: "Expiry Date is required" })}
+              {...register('expireDate', { required: "Expiry Date is required" })}
               onChange={handleExpiryDateChange}
               className="py-3 px-4 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
             />
-            {errors?.expiryDate?.message && (<span className="text-red-500 text-sm">{errors?.expiryDate?.message}</span>)}
+            {errors?.expireDate?.message && (<span className="text-red-500 text-sm">{errors?.expireDate?.message}</span>)}
           </div>
 
           <div>
@@ -213,6 +215,7 @@ const MedicineAddForm = () => {
               <button
                 type="button"
                 onClick={handleSubmit(Submitprocess)}
+                disabled={isExpiryDateInvalid}
                 className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 justify-center"
               >
                 Add Medicine
