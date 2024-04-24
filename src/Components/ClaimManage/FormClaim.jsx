@@ -234,6 +234,7 @@ const ClaimFormModal = ({ isOpen, onClose }) => {
                     <option value="Flu">Flu</option>
                     <option value="Fracture">Fracture</option>
                     <option value="Sprain">Sprain</option>
+                    <option value="6627cafa343c16c03dea96a5">6627cafa343c16c03dea96a5</option>
                   </select>
 
               </div>
