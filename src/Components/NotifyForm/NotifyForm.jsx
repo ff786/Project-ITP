@@ -8,6 +8,7 @@ import DropDownWithSearch from "../dropdown/DropDownWithSearch.jsx";
 
 const NotifyForm = () => {
 
+    const options = useState([])
     const [category, setCategory] = useState('');
     const [receivertype, setReceiverType] = useState('');
     const [receiver, setReceiver] = useState('');
@@ -20,6 +21,11 @@ const NotifyForm = () => {
     const [timeSchd, setTimeSchd] = useState('');
 
     const handleSubmit = () => {
+
+    }
+
+    const retrieveOptions = () => {
+
 
     }
 
@@ -70,7 +76,7 @@ const NotifyForm = () => {
                 </div>
                 <div>
                   <label className="block text-m font-medium text-zinc-700 dark:text-zinc-900">Receiver Type</label>
-                  <select name='receiverType' className="mt-1 block w-full py-2 px-3 border border-zinc-300 dark:border-zinc-600 bg-white dark:bg-black-500 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                  <select onChange={retrieveOptions} name='receiverType' className="mt-1 block w-full py-2 px-3 border border-zinc-300 dark:border-zinc-600 bg-white dark:bg-black-500 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
                     <option>ADMIN</option>
                     <option>STAFF</option>
                     <option>DOCTOR</option>
@@ -93,7 +99,7 @@ const NotifyForm = () => {
                   <label className="block text-m font-medium text-zinc-700 dark:text-zinc-900">Receiver</label>
                   {/*<input name='receiver' type="text" placeholder="Dr. Farsith Fawzer" className="mt-1 block w-full py-2 px-3 border border-zinc-300 dark:border-zinc-600 bg-white dark:bg-black-500 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />*/}
                     <DropDownWithSearch
-                        options={['Option 1', 'Option 2', 'Option 3']}
+                        options={options}
                         onSelect={handleWhenSelect}
                     />
                 </div>
