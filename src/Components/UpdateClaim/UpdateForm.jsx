@@ -13,60 +13,56 @@ const UpdateForm = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
   const [treatmentDate, setTreatmentDate] = useState('');
+  const [amount, setAmount] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const { id } = useParams();
 
-  useEffect(() => {
-    // Fetch data from the database and populate the form fields
-    fetchData();
-  }, [id]); // Empty dependency array ensures this effect runs only once, when the component mounts
+  const [updateClaims, setUpdateClaims] = useState([]);
 
-  const fetchData = async () => {
-    try {
-      // Make a GET request to fetch data from the database
-      const response = await axios.get(`https://dulanga.sliit.xyz/api/innobothealth/claim/getAll/${id}`);
-      const data = response.data; // Assuming data is in JSON format
-      // Set the state variables with the fetched data
-      setMemberId(data.memberId);
-      setFirstName(data.firstName);
-      setLastName(data.lastName);
-      setPhoneNumber(data.phoneNumber);
-      setEmail(data.email);
-      setDateOfClaim(data.treatmentDate);
-      setImageUrl(data.receipt);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      // Handle error
-    }
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://dulanga.sliit.xyz/api/innobothealth/claim/getAll?id');
+        const member = response.data[0];
+          setMemberId(member.memberId);
+          setFirstName(member.firstName);
+          setLastName(member.lastName);
+          setPhoneNumber(member.phoneNumber);
+          setEmail(member.email);
+          setTreatmentDate(member.treatmentDate);
+          setAmount(member.amount);
+          setImageUrl(member.imageUrl);
+
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        }
+    };
+    fetchData();
+  }, [id]);
+
     const handleUpdate = async (event) => {
       event.preventDefault();
 
-      const form = document.getElementById('claimForm');
-      const formData = new FormData(form);
+      const update = document.getElementById('updateForm');
+      event.preventDefault();
+          try {
+            await axios.post(`https://dulanga.sliit.xyz/api/innobothealth/claim/update`,{
+              memberId: memberId,
+              firstName: firstName,
+              lastName: lastName,
+              phoneNumber: phoneNumber,
+              email: email,
+              treatmentDate: treatmentDate,
+              amount: amount,
+              imageUrl: imageUrl
+            });
+            toast.success('Claim updated successfully');
+          } catch (error) {
+            console.error('Error updating claim:', error);
+            alert('Error updating claim');
+          }
 
-      // Send the form data as a POST request using fetch
-      try {
-        const response = await fetch('https://dulanga.sliit.xyz/api/innobothealth/claim/update', {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json'
-          },
-          body: formData,
-        });
-
-        if (response.ok) {
-          setIsConfirmModalOpen(true);
-          formRef.current.reset();
-        } else {
-          console.error('Failed to submit form');
-        }
-      } catch (error) {
-        console.error('Error uploading image:', error);
-        alert('Failed to Submit Form, Please try again later!');
-      }
     };
-
 
   return (
     <body>
@@ -83,7 +79,7 @@ const UpdateForm = () => {
             <video autoPlay muted loop src={video}></video>
           </div>
         </div>
-        <form name="claimForm" id="claimForm" onUpdate={handleUpdate}>
+        <form name="updateForm" id="updateForm" onSubmit={handleUpdate}>
         <div>
           <div className="top-bar">
             <h5 className="h5">Patient Information</h5>
@@ -154,6 +150,16 @@ const UpdateForm = () => {
           </div>
           <div className="bar2">
             <div className="devb">
+              <label>Amount:</label>
+              <input
+                type="number"
+                value={amount}
+                onChange={(event) => setAmount(event.target.value)}
+              />
+            </div>
+          </div>
+          <div className="bar2">
+            <div className="devb">
               <label>Upload Receipt:</label>
               <input type="file" onChange={(event) => setImageUrl(event.target.value)} />
             </div>
@@ -161,7 +167,7 @@ const UpdateForm = () => {
 
           <div className="button-up">
             <button type="cancel">Cancel</button>
-            <button type="update">Update Claim</button>
+            <button type="submit">Update Claim</button>
           </div>
         </div>
         </form>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 
-import logo from './logo.png'
+    import logo from './logo.png'
 
 import './Sidebar.css';
 import { FaInbox } from "react-icons/fa";
@@ -50,7 +50,7 @@ function Sidebar(){
     
   ];
     return(
-        <section className="header">
+        <section className="flex">
           
       {/**
       <div className="thisfill">
