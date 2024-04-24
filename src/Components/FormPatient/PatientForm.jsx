@@ -33,7 +33,7 @@ const PatientForm = () => {
                 <div className="md">
                         <div className="bg-black-100 dark:bg-white-500">
                           <div className="max-w-4xl mx-auto p-6">
-                            <div className="bg-white dark:bg-black-700 shadow-xl rounded-lg p-10">
+                            <div className="bg-white dark:bg-black-700 shadow-lg rounded-lg p-10">
                               <div className="flex justify-between items-center mb-8 gap-10">
                                 <h1 className="text-3xl font-bold text-zinc-900 dark:text-black">Patient Add</h1>
                                 <div>
@@ -44,16 +44,16 @@ const PatientForm = () => {
                               <form>
                                 <div className="grid grid-cols-1 gap-6">
                                   <label className="block">
-                                    <span className="text-zince-700 dark:text-white-300" >Patient name:</span>
-                                    <input type="text" className="mt-1 block w-full rounded-md bg-zinc-100 border-transparent focus:border-zinc-500 focus:bg-white focus:ring-0"  placeholder="Patient Name" />
+                                    <span className="text-zince-700 dark:text-white-300">Patient name:</span>
+                                    <input type="text" className="mt-1 block w-full rounded-md bg-zinc-100 border-transparent focus:border-zinc-500 focus:bg-white focus:ring-0" placeholder="" />
                                   </label>
                                   <label className="block">
                                     <span className="text-zinc-700 dark:text-white-300">Age</span>
-                                    <input type="number" className="mt-1 block w-full rounded-md bg-zinc-100 border-transparent focus:border-zinc-500 focus:bg-white focus:ring-0" placeholder="Age" />
+                                    <input type="number" className="mt-1 block w-full rounded-md bg-zinc-100 border-transparent focus:border-zinc-500 focus:bg-white focus:ring-0" placeholder="" />
                                   </label>
                                   <label className="block">
                                     <span className="text-zinc-700 dark:text-white-300">Gender</span>
-                                    <input type="text" className="mt-1 block w-full rounded-md bg-zinc-100 border-transparent focus:border-zinc-500 focus:bg-white focus:ring-0" placeholder="Gender" />
+                                    <input type="text" className="mt-1 block w-full rounded-md bg-zinc-100 border-transparent focus:border-zinc-500 focus:bg-white focus:ring-0" placeholder="" />
                                   </label>
                                   <label className="block">
                                     <span className="text-zinc-700 dark:text-white-300">DOB</span>
@@ -61,15 +61,15 @@ const PatientForm = () => {
                                   </label>
                                   <label className="block">
                                     <span className="text-zinc-700 dark:text-white-300">Country</span>
-                                    <input type="text" className="mt-1 block w-full rounded-md bg-zinc-100 border-transparent focus:border-zinc-500 focus:bg-white focus:ring-0" placeholder="Country" />
+                                    <input type="text" className="mt-1 block w-full rounded-md bg-zinc-100 border-transparent focus:border-zinc-500 focus:bg-white focus:ring-0" placeholder="" />
                                   </label>
                                   <label className="block">
                                     <span className="text-zinc-700 dark:text-white-300">Address</span>
-                                    <input type="text" className="mt-1 block w-full rounded-md bg-zinc-100 border-transparent focus:border-zinc-500 focus:bg-white focus:ring-0" placeholder="Address" />
+                                    <input type="text" className="mt-1 block w-full rounded-md bg-zinc-100 border-transparent focus:border-zinc-500 focus:bg-white focus:ring-0" placeholder="" />
                                   </label>
                                   <label className="block">
                                     <span className="text-zinc-700 dark:text-white-300">Email</span>
-                                    <input type="email" className="mt-1 block w-full rounded-md bg-zinc-100 border-transparent focus:border-zinc-500 focus:bg-white focus:ring-0" placeholder="Email" />
+                                    <input type="email" className="mt-1 block w-full rounded-md bg-zinc-100 border-transparent focus:border-zinc-500 focus:bg-white focus:ring-0" placeholder="" />
                                   </label>
                                 </div>
                                 <div className="flex justify-end mt-6">

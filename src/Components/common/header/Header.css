@@ -2,7 +2,6 @@
     display: flex;
     flex: 1;
     flex-direction: column;
-
   }
   
 .header-top {
@@ -47,10 +46,9 @@
     display: flex;
     flex: 1;
     flex-direction: row;
-    justify-content: space-between;
-    margin-left: 5px;
+    justify-content: flex-end;
+    margin-right: 5px;
     background-color:#02072D;
-    align-items: center;
   }
   
   .header-bottom {

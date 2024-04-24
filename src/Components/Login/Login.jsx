@@ -1,5 +1,5 @@
 import React from 'react'
-import './Login.css'
+import './Login.css' 
 import '../../App.css'
 import video from '../../LoginAssets/video.mp4'
 import logo from '../../LoginAssets/logo.png'
@@ -18,6 +18,7 @@ const Login = () => {
   return (
     <div className='loginPage flex'>
       <div className="container flex">
+        
         <div className="videoDiv">
           <video autoPlay muted loop src={video} ></video>
 
@@ -30,7 +31,7 @@ const Login = () => {
             </Link>
           </div>
         </div>
-
+  
         <div className="formDiv flex">
           <div className="headerDiv">
            <img src={logo} alt='logo'className='mx-auto' />
@@ -58,12 +59,13 @@ const Login = () => {
               <AiOutlineSwapRight className='icon' />
             </button>
 
-            <Link to={'/medilist'}>
+            <Link to={'/Verify'}>
             <span className='forgotPassword'>
               Forgot your Password? <a href=''>Click Here</a>
             </span>
             </Link> 
-
+            
+           
 
           </form>
         </div>

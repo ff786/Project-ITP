@@ -24,9 +24,9 @@ function Navbar() {
         
       </a>
       <a href="/singout" className="navbar-item">
-          <div className="profile-icon-container">
-        <IoPersonOutline className="fa-sign-out-alt" />
-          </div>
+              <div className="profile-icon-container">
+            <IoPersonOutline className="fa-sign-out-alt" />
+              </div>
       </a>
 
     </section>

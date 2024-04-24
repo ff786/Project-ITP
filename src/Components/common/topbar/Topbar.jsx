@@ -10,13 +10,19 @@ function Topbar() {
         <div className="top">
       
             <section className="header-top">
+            
                 <div className="logo">
                     {/*<a href="/" className="header-logo">LOGO</a>*/}
                         <img className="logo" src={logo} alt='logo'/>
+
                 </div>
+            
             <section className="header-top__navbar">
             
             <section className="header-top__navigation">
+            
+                <Search/>
+            
                 <Navbar />
             </section>
             

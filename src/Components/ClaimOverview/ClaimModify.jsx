@@ -53,13 +53,7 @@ function ClaimModify({ searchQuery }) {
                     Member ID
                   </th>
                   <th className="text-left px-6 text-xs font-medium text-zinc-600 dark:text-white uppercase tracking-wider">
-                    Claim Type
-                  </th>
-                  <th className="text-left px-6 text-xs font-medium text-zinc-600 dark:text-white uppercase tracking-wider">
                     LastName, FirstName
-                  </th>
-                  <th className="text-left px-6 text-xs font-medium text-zinc-600 dark:text-white uppercase tracking-wider">
-                    Gender
                   </th>
                   <th className="text-left px-6 text-xs font-medium text-zinc-600 dark:text-white uppercase tracking-wider">
                     Phone Number
@@ -81,14 +75,8 @@ function ClaimModify({ searchQuery }) {
                       <td className="px-8 py-4 whitespace-no-wrap border-b border-text-black dark:border-zinc-200">
                         {member.memberId}
                       </td>
-                      <td className="px-8 py-4 whitespace-no-wrap border-b border-text-black dark:border-zinc-200">
-                        {member.claimType}
-                      </td>
                       <td className="px-6 py-4 whitespace-no-wrap border-b border-text-black dark:border-zinc-200">
                         {member.lastName}, {member.firstName}
-                      </td>
-                      <td className="px-6 py-4 whitespace-no-wrap border-b border-text-black dark:border-zinc-200">
-                        {member.gender}
                       </td>
                       <td className="px-6 py-4 whitespace-no-wrap border-b border-text-black dark:border-zinc-200">
                         {member.phoneNumber}
