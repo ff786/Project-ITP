@@ -50,7 +50,7 @@ function NotifyView() {
                                     <h1 className="text-sm font-semibold text-zinc-800 dark:text-white">TO : {item.firstName} {item.lastName}</h1>
                                 </div>
                                 <p className="text-zinc-600 dark:text-zinc-200 mb-3">
-                                {item.message.substring(item.message.lastIndexOf('*') + 1, item.message.length).trim()}
+                                    {item.message.substring(item.message.lastIndexOf('*') + 1, item.message.length).trim()}
                                 </p>
                                 <div className="flex items-center justify-between">
                                     <div className="flex space-x-2">
@@ -60,13 +60,13 @@ function NotifyView() {
                                         </button>
                                         {
                                             item.acknowledged ? (
-                                            <text className="text-green-500">Acknowledged</text>
+                                                <text className="text-green-500">Acknowledged</text>
                                             ) : (null)
                                         }
                                     </div>
                                     <div className="flex space-x-2">
                                         <button onClick={() => {navigate('/NotifyForm', {state: {data: item}})}}
-                                            className="p-2 text-zinc-600 hover:text-zinc-700 dark:text-zinc-300 dark:hover:text-white">
+                                                className="p-2 text-zinc-600 hover:text-zinc-700 dark:text-zinc-300 dark:hover:text-white">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                  strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
                                                 <path strokeLinecap="round" strokeLinejoin="round"
