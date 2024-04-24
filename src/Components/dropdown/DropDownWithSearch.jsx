@@ -4,14 +4,18 @@ function DropdownWithSearch({ options, onSelect }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [isOpen, setIsOpen] = useState(false);
 
-    const filteredOptions = options.filter(option =>
-        option.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+
+    // const formattedOptions = options.map(item => `${item.firstName} ${item.lastName}`);
+
+    const filteredOptions = options.filter(option => {
+        const formattedOption = `${option.firstName} ${option.lastName}`
+        return formattedOption.toLowerCase().includes(searchTerm.toLowerCase())
+    });
 
     const handleSelect = option => {
         onSelect(option);
         setIsOpen(false);
-        setSearchTerm(option);
+        setSearchTerm(option.firstName.concat(' ').concat(option.lastName));
     };
 
     const handleOpen = () => {
@@ -36,7 +40,7 @@ function DropdownWithSearch({ options, onSelect }) {
                             className="dropdown-item"
                             onClick={() => handleSelect(option)}
                         >
-                            {option}
+                            {option.firstName} {option.lastName}
                         </div>
                     ))}
                 </div>
