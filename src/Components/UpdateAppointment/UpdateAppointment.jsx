@@ -1,10 +1,16 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Topbar from '../common/topbar/Topbar';
 import './UpdateAppointment.css'
 import {  useState } from 'react'
 import axios from 'axios';
 import Sidebar from '../common/sidebar/Sidebar';
+import { useLocation } from 'react-router-dom';
+
 function UpdateAppointment() {
+
+	const location = useLocation();
+	const receivedData = location.state?.data;
+
   // const [appointments,setAppointment]=useState([]);
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
@@ -27,6 +33,20 @@ function UpdateAppointment() {
   //         console.log(result.data);
       
   // }
+
+	useEffect(() => {
+		setFirstname(receivedData.firstname);
+		setLastname(receivedData.lastname);
+		setSpecialMessage(receivedData.special_message);
+		setMemberId(receivedData.member_id);
+		setDate(receivedData.date);
+		setDoctorsSpecialization(receivedData.doctors_specialization);
+		setDoctorId(receivedData.doctor_id);
+		setPhoneNumber(receivedData.phone_number);
+		setMail(receivedData.mail);
+	}, []);
+
+
   async function update(event){
       event.preventDefault();
       try{
