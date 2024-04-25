@@ -5,6 +5,7 @@
     margin-right: auto;
     margin-top: auto;
     margin-bottom: auto;
+    height: 100%;
 }
 .main-view{
     display: flex;

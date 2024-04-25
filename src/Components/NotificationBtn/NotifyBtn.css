@@ -1,0 +1,52 @@
+.notification-container {
+  position: relative;
+}
+
+.notification-icon {
+  cursor: pointer;
+  position: relative;
+}
+
+.badge {
+  position: absolute;
+  top: -6px;
+  right: -5px;
+  background-color: red;
+  color: #fff;
+  text-width: bold;
+  border-radius: 60%;
+  padding: 1px 6px;
+}
+
+.notification-dropdown {
+  position: absolute;
+  top: calc(100% + 10px); /* Adjust spacing */
+  right: 50%;
+  transform: translateX(50%); /* Center the dropdown */
+  background-color: #fff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  z-index: 1;
+  min-width: 200px;
+  overflow: hidden; /* Hide overflow to hide the triangle */
+}
+
+.notification-dropdown::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 0 10px 10px 10px;
+  border-style: solid;
+  border-color: transparent transparent #fff transparent;
+}
+
+.notification-item {
+  padding: 12px 16px;
+  cursor: pointer;
+}
+
+.notification-item:hover {
+  background-color: #f3f3f3;
+}

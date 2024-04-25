@@ -22,7 +22,7 @@ function DiagnosisForm() {
     return (
 
         <body>
-            <div className="top">
+            <div>
                   <Topbar />
             </div>
             <div style={{display: 'flex', flexDirection: 'row'}}>

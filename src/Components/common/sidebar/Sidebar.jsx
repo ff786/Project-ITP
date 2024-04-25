@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 
-import logo from './logo.png'
+    import logo from './logo.png'
 
 import './Sidebar.css';
 import { FaInbox } from "react-icons/fa";
@@ -14,6 +14,7 @@ import { BsChevronRight } from "react-icons/bs";
 import { FaMoneyBillTransfer,FaRegCalendarDays } from "react-icons/fa6";
 import { GrFavorite } from "react-icons/gr";
 import { FaChartBar } from 'react-icons/fa';
+console.log(logo);
 function Sidebar(){
   const[open,setOpen]= useState(false);
   const[submenuOpen,setSubmenuOpen]= useState(false);
@@ -50,7 +51,7 @@ function Sidebar(){
     
   ];
     return(
-        <section className="header">
+        <section className="flex">
           
       {/**
       <div className="thisfill">
@@ -66,7 +67,7 @@ function Sidebar(){
       <section>
         <div className="flex">
         
-          <div className={`bg-dark-purple h-screen p-5 pt-8 ${open ? "w-100" : "w-20"} duration-300 relative`}>
+          <div className={`bg-dark-purple h-screen p-5 pt-8 ${open ? "w-100" : "w-20"} duration-300 relative rounded-right`}>
         
     <BsArrowLeftShort
       className={`bg-amber text-03989e text-3xl rounded-full absolute -right-3 top-9 border border-dark-purple cursor-pointer
