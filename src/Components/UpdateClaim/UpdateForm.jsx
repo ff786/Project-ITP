@@ -14,7 +14,7 @@ const UpdateForm = () => {
   const [email, setEmail] = useState('');
   const [treatmentDate, setTreatmentDate] = useState('');
   const [amount, setAmount] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
+  const [imageUrl, setImageUrl] = useState();
   const { id } = useParams();
 
   const [updateClaims, setUpdateClaims] = useState([]);
@@ -46,16 +46,25 @@ const UpdateForm = () => {
       const update = document.getElementById('updateForm');
       event.preventDefault();
           try {
-            await axios.put(`https://dulanga.sliit.xyz/api/innobothealth/claim/update`,{
-              memberId: memberId,
-              firstName: firstName,
-              lastName: lastName,
-              phoneNumber: phoneNumber,
-              email: email,
-              treatmentDate: treatmentDate,
-              amount: amount,
-              imageUrl: imageUrl
-            });
+            const formData = new FormData();
+            formData.append('memberId', memberId);
+            formData.append('firstName', firstName);
+            formData.append('lastName', lastName);
+            formData.append('phoneNumber', phoneNumber);
+            formData.append('email', email);
+            formData.append('treatmentDate', treatmentDate);
+            formData.append('amount', amount);
+            formData.append('receipt',imageUrl);
+
+            await axios.put(`https://dulanga.sliit.xyz/api/innobothealth/claim/update/${id}`,
+
+            formData,
+            {
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+            }
+            );
             toast.success('Claim updated successfully');
           } catch (error) {
             console.error('Error updating claim:', error);
@@ -90,9 +99,11 @@ const UpdateForm = () => {
               <label>Member ID:</label>
               <div>
                 <input
+                  style={{background: '#DCDADA'}}
                   type="text"
                   value={memberId}
                   onChange={(event) => setMemberId(event.target.value)}
+                  readOnly
                 />
               </div>
             </div>
@@ -140,7 +151,7 @@ const UpdateForm = () => {
           </div>
           <div className="bar2">
             <div className="devb">
-              <label>Date:</label>
+              <label>Treatment Date:</label>
               <input
                 type="date"
                 value={treatmentDate}

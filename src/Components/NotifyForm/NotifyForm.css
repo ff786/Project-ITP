@@ -16,3 +16,14 @@
    font-family: serif;
    font-size: 18px;
 }
+.scheduled-options {
+    height: 150px; /* Set a fixed height */
+    visibility: visible; /* Initially visible */
+}
+
+.scheduled-options.hidden {
+    visibility: hidden; /* Hide when not needed */
+}
+. ntf .expand {
+    max-height: 100px;
+}
