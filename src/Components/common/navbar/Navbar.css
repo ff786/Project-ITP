@@ -1,13 +1,16 @@
 .navbar {
     display: flex;
     flex-direction: row;
+    position: relative;
     background-color: #02072D;
     margin-right: 30px;
+    height: wrap-content;
   }
 
 .navbar-item {
     display: flex;
     justify-content: center;
+    position: relative;
     align-items: center;
     margin-left: 30px;
     color: inherit;
