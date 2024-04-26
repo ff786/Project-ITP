@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import logo from '../common/header/logo.png'
 import icon_prof from '../ClaimManage/icon_prof.png'
 import notify from '../ClaimManage/notify.png'
@@ -12,8 +12,46 @@ import Topbar from '../common/topbar/Topbar.jsx'
 
 
 import { Link } from 'react-router-dom';
+import axios from "axios";
 
-function Diagnosis() {
+function CodeModify({ searchQuery }) {
+
+    const [members, setMembers] = useState([]);
+
+    useEffect(() => {
+        // Fetch data from backend when component mounts
+        axios.get('https://dulanga.sliit.xyz/api/innobothealth/code/getAll')
+            .then(response => {
+                setMembers(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching members:', error);
+            });
+    }, []);
+
+    const handleDelete = (id) => {
+        // Delete claim by id
+        axios.delete(`https://dulanga.sliit.xyz/api/innobothealth/code/delete?id=${id}`)
+            .then(response => {
+                console.log(response.data);
+                // Update state to remove the deleted claim
+                setMembers(members.filter(member => member.id !== id));
+            })
+            .catch(error => {
+                console.error('Error deleting claim:', error);
+            });
+    };
+    const filteredMembers = members.filter(member => {
+        const search = searchQuery ? searchQuery.toLowerCase() : ''; // Null check on searchQuery
+        return (
+            (member.memberId && member.memberId.toLowerCase().includes(search)) ||
+            ((member.lastName && member.firstName) && (member.lastName.toLowerCase() + ', ' + member.firstName.toLowerCase()).includes(search)) ||
+            (member.phoneNumber && member.phoneNumber.includes(search)) ||
+            (member.email && member.email.toLowerCase().includes(search)) ||
+            (member.approved ? 'Approved' : 'Pending').toLowerCase().includes(search)
+        );
+    });
+
     return (
         <body>
             <div>
@@ -58,29 +96,36 @@ function Diagnosis() {
                                     <th class="py-2 px-3 sticky top-0 border-b border-zinc-200 bg-zinc-100">Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="py-2 px-3">99213</td>
-                                    <td class="py-2 px-3">Procedure</td>
-                                    <td class="py-2 px-3">Arthroscopy, Shoulder, Surgical...</td>
-                                    <td class="py-2 px-3">This code is used when performing arthroscopic...</td>
-                                    <td class="py-2 px-3">
-                                        <button class="text-blue-500 hover:text-blue-700"><i class="fas fa-eye"></i></button>
-                                        <button class="text-green-500 hover:text-green-700"><i class="fas fa-edit"></i></button>
-                                        <button class="text-red-500 hover:text-red-700"><i class="fas fa-trash"></i></button>
+                            <tbody className="bg-white dark:text-white">
+                            {filteredMembers.map(member => (
+                                <tr key={member.id} className="text-zinc-700 dark:text-black">
+                                    <td className="px-8 py-4 whitespace-no-wrap border-b border-text-black dark:border-zinc-200">
+                                        {member.memberId}
+                                    </td>
+                                    <td className="px-8 py-4 whitespace-no-wrap border-b border-text-black dark:border-zinc-200">
+                                        {member.codeType}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-no-wrap border-b border-text-black dark:border-zinc-200">
+                                        {member.codeName}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-no-wrap border-b border-text-black dark:border-zinc-200">
+                                        {member.codeTitle}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-no-wrap border-b border-text-black dark:border-zinc-200">
+                                        {member.description}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-no-wrap border-b border-text-black dark:border-zinc-200">
+                                        <div className="flex items-center">
+                                            <Link to={`/edit/${member.id}`} className="bg-zinc-600 hover:bg-white-600 text-white font-bold py-2 px-4 rounded">
+                                                Edit
+                                            </Link>
+                                            <button onClick={() => handleDelete(member.id)} className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded ml-5">
+                                                Delete
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td class="py-2 px-3">J45.909</td>
-                                    <td class="py-2 px-3">Diagnosis</td>
-                                    <td class="py-2 px-3">Unspecified Asthma...</td>
-                                    <td class="py-2 px-3">This code is used for cases...</td>
-                                    <td class="py-2 px-3">
-                                        <button class="text-blue-500 hover:text-blue-700"><i class="fas fa-eye"></i></button>
-                                        <button class="text-green-500 hover:text-green-700"><i class="fas fa-edit"></i></button>
-                                        <button class="text-red-500 hover:text-red-700"><i class="fas fa-trash"></i></button>
-                                    </td>
-                                </tr>
+                            ))}
                             </tbody>
                         </table>
                     </div>
@@ -106,4 +151,4 @@ function Diagnosis() {
     );
 }
 
-export default Diagnosis;
+export default CodeModify;

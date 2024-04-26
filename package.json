@@ -13,7 +13,7 @@
   "dependencies": {
     "@mui/icons-material": "^5.15.10",
     "@mui/material": "^5.15.10",
-    "api": "^6.1.1",
+    "api": "^4.5.2",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "firebase": "^10.8.0",
@@ -30,8 +30,8 @@
     "react-router-dom": "^6.22.3",
     "react-select": "^5.8.0",
     "react-toastify": "^10.0.5",
-    "sweetalert2": "^11.10.8",
     "reactjs-popup": "^2.0.6",
+    "sweetalert2": "^11.6.13",
     "toast": "^0.5.4",
     "web-vitals": "^2.1.4"
   },
