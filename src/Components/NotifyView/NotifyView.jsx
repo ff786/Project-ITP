@@ -25,7 +25,7 @@ function NotifyView() {
             }
         };
         fetchData();
-    });
+    },[]);
 
     return (
         <div>
