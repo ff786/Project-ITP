@@ -1,42 +1,61 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-
 import { Link } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
-import {
-  Card,
-  Typography,
-} from '@material-tailwind/react';
+import { Card, Typography } from '@material-tailwind/react';
 import axios from 'axios';
+
 const MedicineUpdate = () => {
-  const { control, handleSubmit, register, reset, formState: { errors }, setValue } = useForm({
+  const { control, handleSubmit, reset, formState: { errors }, setValue, register } = useForm({
     defaultValues: {
+      Stockid: '',
       medicineName: '',
       medicineType: '',
-      expiryDate: '',
+      supplierName: '',
+      expireDate: '',
       quantity: '',
       unitPrice: '',
     },
   });
   const [isExpiryDateInvalid, setIsExpiryDateInvalid] = useState(false);
-
   const [isSuccess, setIsSuccess] = useState(false);
+  const { id } = useParams();
+  const [data, setData] = useState({});
+
+  useEffect(() => {
+    axios
+      .get(`https://dulanga.sliit.xyz/api/innobothealth/medicine/name/${id}`)
+      .then((response) => {
+        setData(response.data);
+        console.log(response.data);
+        // Set initial form values after fetching data
+        setValue('Stockid', response.data.Stockid);
+        setValue('medicineName', response.data.medicineName);
+        setValue('medicineType', response.data.medicineType);
+        setValue('supplierName', response.data.supplierName);
+        setValue('expireDate', response.data.expireDate);
+        setValue('quantity', response.data.quantity);
+        setValue('unitPrice', response.data.unitPrice);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [id, setValue]);
+
   const Submitprocess = async (data) => {
+    console.log(data);
     if (isExpiryDateInvalid) {
       alert('Expiry date cannot be in the past');
+      return;
     }
+
     try {
-      const response = await axios.post('http://localhost:3000/medicine_details', data);
+      const response = await axios.put('https://dulanga.sliit.xyz/api/innobothealth/medicine', data);
       console.log(response.data);
       setIsSuccess(true);
-
     } catch (error) {
       console.error('Error:', error);
     }
-  };
-
-  const handleFormReset = () => {
-    reset();
   };
 
   const handleExpiryDateChange = (e) => {
@@ -46,40 +65,19 @@ const MedicineUpdate = () => {
 
     if (selectedDateObj < currentDate) {
       alert('Expiry date cannot be in the past');
-      setValue('expireDate', ''); 
-      setIsExpiryDateInvalid(true); 
+      setValue('expireDate', '');
+      setIsExpiryDateInvalid(true);
       return;
     }
 
-    setValue('expireDate', selectedDate); // Set the value only if it's valid
-    setIsExpiryDateInvalid(false); // Reset the state if it's valid
+    setValue('expireDate', selectedDate);
+    setIsExpiryDateInvalid(false);
   };
 
+  const handleFormReset = () => {
+    reset();
+  };
 
-  const { id } = useParams();
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    console.log("id paradam", id)
-    axios
-      .get(`http://localhost:3000/medicine_details/${id}`)
-      .then((response) => {
-        console.log(response.data);
-        setData(response.data);
-        // Set initial form values after fetching data
-        setValue('Stockid', response.data.Stockid);
-        setValue('medicineName', response.data.medicineName);
-        setValue('medicineType', response.data.medicineType);
-        setValue('supplierName', response.data.supplierName);
-        setValue('expireDate', response.data.expireDate);
-        setValue('quantity', response.data.quantity);
-        setValue('unitPrice', response.data.unitPrice);
-        setData(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  })
   return (
     <div className="h-screen grid place-items-center bg-gray-50">
       <Card color="transparent" shadow={true} className="p-7 bg-white">
@@ -98,19 +96,28 @@ const MedicineUpdate = () => {
               Stock id
             </Typography>
             <br />
-            <Controller
+            {/* <Controller
               name="Stockid"
               control={control}
               render={({ field }) => (
                 <input
-                  type="text"
-                  {...field}
-                  readOnly
-                  value={data.Stockid}
-                  className="py-3 px-4 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
-                  placeholder="Stock Id"
-                />
+                type="text"
+                {...field}
+                value={field.value || ''}
+                className="py-3 px-4 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
+                placeholder="Stock Id"
+              />
               )}
+            /> */}
+            <input
+              readOnly
+              type="text"
+              value={data.supplierName}
+              {...register('Stockid', {
+
+              })}
+              className="py-3 px-4 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
+              placeholder="stockid"
             />
           </div>
 
@@ -128,7 +135,6 @@ const MedicineUpdate = () => {
                   type="text"
                   {...field}
                   value={data.medicineName}
-
                   className="py-3 px-4 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
                   placeholder="Enter Medicine Name"
                 />
@@ -143,7 +149,8 @@ const MedicineUpdate = () => {
             </Typography>
             <br />
             <select
-              {...register('medicineType', { required: "Medicine Type is required" })}
+              {...register('medicineType')}
+
               className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
             >
               <option value="">Select Medicine Type</option>
@@ -162,7 +169,8 @@ const MedicineUpdate = () => {
             </Typography>
             <br />
             <select
-              {...register('supplierName', { required: "Supplier Name is required" })}
+              {...register('supplierName')}
+              value={data.supplierName}
               className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
             >
               <option value="">Select supplier</option>
@@ -214,12 +222,6 @@ const MedicineUpdate = () => {
               Unit Price
             </Typography>
             <br />
-            {/* <input
-              type="text"
-              {...register('unitPrice',{required: "Unit Price is required"},{min: {value: 1, message: "Unit Price should not be less than 1"}},{max: {value: 1000, message: "Unit Price should not exceed 1000"}},{pattern: {value: /^[0-9]+$/i, message: "Unit Price should contain only numbers"}})}
-              className="py-3 px-4 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
-              placeholder="Enter Unit Price"
-            /> */}
             <input
               type="text"
               {...register('unitPrice', {
@@ -238,17 +240,6 @@ const MedicineUpdate = () => {
           </div>
 
           <div className="col-span-2 grid grid-cols-2 gap-3 justify-center">
-            {/* <Link to={'/medilist'}>
-              <button
-                type="button"
-                onClick={handleSubmit(Submitprocess)}
-                className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 justify-center"
-              >
-                Add Medicine
-              </button>
-
-            </Link> */}
-            {/* Conditionally render the button based on the isSuccess state */}
             {isSuccess ? (
               <Link to="/medilist">
                 <button
@@ -268,8 +259,6 @@ const MedicineUpdate = () => {
                 Update Medicine
               </button>
             )}
-
-
             <button
               type="button"
               onClick={handleFormReset}

@@ -11,7 +11,7 @@ import axios from 'axios';
 
 
 const MedicineAddForm = () => {
-  const { control, handleSubmit, register, reset, formState: { errors } ,setValue} = useForm({
+  const { control, handleSubmit, register, reset, formState: { errors }, setValue } = useForm({
     defaultValues: {
       medicineName: '',
       medicineType: '',
@@ -28,9 +28,9 @@ const MedicineAddForm = () => {
       alert('Expiry date cannot be in the past');
     }
     try {
-      const response = await axios.post('http://localhost:3000/medicine_details', data);
+      const response = await axios.post('https://dulanga.sliit.xyz/api/innobothealth/medicine/saveMedi', data);
       console.log(response.data);
-      setIsSuccess(true); 
+      setIsSuccess(true);
 
     } catch (error) {
       console.error('Error:', error);
@@ -52,7 +52,7 @@ const MedicineAddForm = () => {
       setIsExpiryDateInvalid(true); // Set the state to indicate invalidity
       return;
     }
-  
+
     setValue('expireDate', selectedDate); // Set the value only if it's valid
     setIsExpiryDateInvalid(false); // Reset the state if it's valid
   };
