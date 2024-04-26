@@ -5,6 +5,7 @@ import axios from 'axios';
 import '../NotifyForm/NotifyForm.css'
 import { useNavigate } from "react-router-dom";
 import SideNav from '../common/SideNav/sideNav.jsx'
+import Navbar from "../common/navbar/Navbar.jsx";
 
 function NotifyView() {
 
@@ -32,7 +33,7 @@ function NotifyView() {
             <Topbar />
             <div className="md">
                 <div>
-                    <SideNav />
+                    <Navbar />
                 </div>
                 <div className="flex justify-items-center" style={{ width: '100%' }}>
                     <div className="max-w-4xl mx-auto p-4">

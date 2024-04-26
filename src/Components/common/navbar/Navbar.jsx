@@ -5,11 +5,13 @@ import './Navbar.css';
 import '../../ClaimManage/ClaimForm.css';
 import '../../UpdateClaim/UpdateForm.css';
 import NotifyBtn from '../../NotificationBtn/NotifyBtn.jsx';
+import axios from 'axios';
 
 function Navbar() {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showLogOptions, setShowLogOptions] = useState(false);
   const dropdownRef = useRef(null);
+  const [notifications, setNotifications] = useState([])
 
   const toggleProfile = () => {
     setShowNotifications(!showNotifications);
@@ -19,6 +21,17 @@ function Navbar() {
   };
 
   useEffect(() => {
+
+    axios.get('https://dulanga.sliit.xyz/api/innobothealth/notification/get/mynotification', {
+      headers: {
+        'Authorization' : 'Bearer '.concat('eyJhbGciOiJIUzI1NiJ9.eyJ0eXAiOiJhY2Nlc3MtdG9rZW4iLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiQURNSU4ifV0sImlzRW1haWxWZXJpZmllZCI6ZmFsc2UsInN1YiI6ImR1bGFib3lAZHVsYW5nYS5jb20iLCJpYXQiOjE3MTQxMjA1MDEsImV4cCI6MTcxNjcxMjUwMX0.Z6Jn4gBJnTm4-P35qWAdJAvDYn4TfVQSqcdloRaFG0w')
+      }
+    }).then(value => {
+      setNotifications(value.data);
+    }).catch(reason => {
+      console.log('Exception Occurred '.concat(reason));
+    });
+
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setShowNotifications(false);
@@ -33,6 +46,7 @@ function Navbar() {
     return () => {
       window.removeEventListener('click', handleClickOutside);
     };
+
   }, []);
 
   return (
@@ -47,9 +61,10 @@ function Navbar() {
       </div>
         <NotifyBtn
           toggleNotifications={toggleNotifications}
-          notificationCount={3} // Example initial count
+          notificationCount={notifications.length}
           isOpen={showNotifications}
           isClose={!showNotifications}
+          notifications={notifications}
         />
 
 
