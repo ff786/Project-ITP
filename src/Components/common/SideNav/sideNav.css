@@ -98,6 +98,7 @@ input:checked + .slider:before {
   display: flex;
   flex-direction: column;
   position: fixed;
+  overflow-z: auto;
   top: 0;
   left: 0;
   height: 100%;
@@ -169,7 +170,7 @@ input:checked + .slider:before {
   flex-direction: column;
   justify-content: space-between;
   margin-top: auto;
-  max-height: 300px;
+  max-height: auto;
   overflow-y: auto;
   height: calc(100% - 82px);
 }
