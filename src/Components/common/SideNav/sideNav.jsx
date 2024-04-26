@@ -10,6 +10,7 @@ const SideNav = () => {
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [isSidebarLocked, setIsSidebarLocked] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState('dashboard'); // Initialize with the value corresponding to the first dropdown
+  const [userData, setUserData] = useState(null);
   const sidebarRef = useRef(null);
 
   const handleDropdownToggle = (dashboard) => {
@@ -80,6 +81,20 @@ const SideNav = () => {
     }
   }, [isDarkMode]);
 
+  useEffect(() => {
+      // Fetch data from the API when the component mounts
+      fetch("https://dulanga.sliit.xyz/api/innobothealth/admin/getAll")
+        .then(response => response.json())
+        .then(data => {
+          // Assuming the API response is an array of user objects
+          // You may need to adjust this according to your actual API response structure
+          if (Array.isArray(data) && data.length > 0) {
+            // Set the user data to the first user object from the response
+            setUserData(data[0]);
+          }
+        })
+        .catch(error => console.error("Error fetching user data:", error));
+    }, []);
 
   return (
    <>
@@ -117,11 +132,11 @@ const SideNav = () => {
                         <i className="bx bx-user"></i>
                         <span>Users</span>
                       </a>
-                      <a href="#" className="link flex">
+                      <a href="Inventory" className="link flex">
                         <i className="bx bx-archive"></i>
                         <span>Inventory</span>
                       </a>
-                      <a href="#" className="link flex">
+                      <a href="Appointments" className="link flex">
                         <i className="bx bx-calendar"></i>
                         <span>Appointments</span>
                       </a>
@@ -133,11 +148,11 @@ const SideNav = () => {
                         <i className="bx bx-user-circle"></i>
                         <span>Patients</span>
                       </a>
-                      <a href="#" className="link flex">
+                      <a href="NotifyView" className="link flex">
                         <i className="bx bx-bell"></i>
                         <span>Notifications</span>
                       </a>
-                      <a href="#" className="link flex">
+                      <a href="ViewPND" className="link flex">
                         <i className="bx bx-receipt"></i>
                         <span>Procedure & Diagnosis</span>
                       </a>
@@ -160,22 +175,28 @@ const SideNav = () => {
                         <i className="bx bx-cog"></i>
                         <span>Settings</span>
                       </a>
-                      <a href="#" className="link flex">
+                      <a href="https://innobothealth.com/innobot-privacy-policy/" className="link flex">
+                        <i className="bx bx-shield-alt"></i>
+                        <span>Privacy Policy</span>
+                      </a>
+                      <a href="https://innobothealth.com/about-us/" className="link flex">
                         <i className="bx bx-help-circle"></i>
-                        <span>Help</span>
+                        <span>About Us</span>
                       </a>
                   </ul>
                 )}
                <section className="dwn">
-                <div className="sidebar_profile flex">
-                  <span className="nav_image">
-                    <img src={logo2} alt="logo_img" />
-                  </span>
-                  <div className="data_text">
-                    <span className="name">David Oliva </span>
-                    <span className="email">david@gmail.com </span>
-                  </div>
-                </div>
+                 {userData && (
+                   <div className="sidebar_profile flex">
+                     <span className="nav_image">
+                       <img src={logo2} alt="logo_img" />
+                     </span>
+                     <div className="data_text">
+                       <span className="name">{userData.firstName}</span><br/>
+                       <span className="email">{userData.email}</span>
+                     </div>
+                   </div>
+                 )}
                </section>
             </ul>
            </div>

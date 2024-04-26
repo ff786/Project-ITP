@@ -168,12 +168,17 @@ background-color:darkkhaki;
 tr, td {
   border: 1px solid black;
 }
-.top{
-    display: flex;
-    background-color: #02072D;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    justify-content: space-between;
-    padding: 10px;
-    position: relative;
+.top {
+  display: flex;
+  background-color: #02072D;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  left: 0; /* Ensure top bar spans the entire width */
+  right: 0; /* Ensure top bar spans the entire width */
+  width: 100%;
+  z-index: 900;
 }
+
 

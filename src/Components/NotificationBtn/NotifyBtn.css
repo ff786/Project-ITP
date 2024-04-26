@@ -45,8 +45,11 @@
 .notification-item {
   padding: 12px 16px;
   cursor: pointer;
+  display: flex;
+  justify-content: space-between;
 }
 
 .notification-item:hover {
   background-color: #f3f3f3;
 }
+

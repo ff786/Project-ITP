@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Topbar from '../common/topbar/Topbar.jsx';
-import Sidebar from '../common/sidebar/Sidebar.jsx';
+import SideNav from '../common/SideNav/sideNav.jsx';
 import video from '../../LoginAssets/video.mp4';
 import './UpdateForm.css';
 import { useParams } from 'react-router-dom';

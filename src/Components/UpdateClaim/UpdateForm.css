@@ -36,10 +36,11 @@
     align-items: between;
 
 }
-button[type="update"] {
+button[type="submit"],
+button[type="cancel"] {
     padding: 10px;
     width: 200px;
-    height: 50px;
+    height: 20%;
     background-color: #02072D;
     color: white;
     border-radius: 9px;

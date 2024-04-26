@@ -11,9 +11,46 @@ const NotifyBtn = ({ toggleNotifications, notificationCount, isOpen }) => {
       {isOpen && (
         <div className="notification-dropdown">
           {/* Notification items go here */}
-          <div className="notification-item">Notification 1</div>
-          <div className="notification-item">Notification 2</div>
-          <div className="notification-item">Notification 3</div>
+          <div className="notification-item">
+            <span>Notification 1</span>
+            <button className="icon-button acknowledge-button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 64 64">
+                <image href="https://img.icons8.com/glyph-neue/64/puzzle.png" width="64" height="64" />
+              </svg>
+            </button>
+            <button className="icon-button reply-button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 50 50">
+                <image href="https://img.icons8.com/ios-filled/50/reply-arrow.png" width="50" height="50" />
+              </svg>
+            </button>
+          </div>
+          <div className="notification-item">
+            <span>Notification 2</span>
+            <button className="icon-button acknowledge-button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 64 64">
+                <image href="https://img.icons8.com/glyph-neue/64/puzzle.png" width="64" height="64" />
+              </svg>
+            </button>
+            <button className="icon-button reply-button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 50 50">
+                <image href="https://img.icons8.com/ios-filled/50/reply-arrow.png" width="50" height="50" />
+              </svg>
+            </button>
+          </div>
+          <div className="notification-item">
+            <span>Notification 3</span>
+            <button className="icon-button acknowledge-button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 64 64">
+                <image href="https://img.icons8.com/glyph-neue/64/puzzle.png" width="64" height="64" />
+              </svg>
+            </button>
+            <button className="icon-button reply-button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 50 50">
+                <image href="https://img.icons8.com/ios-filled/50/reply-arrow.png" width="50" height="50" />
+              </svg>
+            </button>
+
+          </div>
         </div>
       )}
     </div>

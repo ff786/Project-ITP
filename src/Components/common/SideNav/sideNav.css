@@ -107,10 +107,12 @@ input:checked + .slider:before {
   padding: 15px 10px;
   box-shadow: 0 2 3px rgba(0, 0, 0, 0.3);
   border-radius: 0 0 5px;
+  z-index: 1100; /* Ensure it's below the top bar */
 }
+
 .smp {
     position: fixed;
-
+    z-index: 1100;
 }
 /*
 .sidebar.expand {
@@ -178,7 +180,7 @@ input:checked + .slider:before {
   cursor: pointer;
   height: 50px;
   width: 55px;
-  color: #FFFFFF;
+  color: #fff;
   display:flex;
   flex-direction: row;
   justify-content: space-between;
@@ -186,7 +188,7 @@ input:checked + .slider:before {
 .menu_title .title {
   margin-left: 15px;
   transition: all 0.3s ease;
-  color: #FFFFFF;
+  color: #fff;
 }
 .sidebar.close .title {
   opacity: 0;
@@ -198,7 +200,7 @@ input:checked + .slider:before {
   height: 3px;
   width: 20px;
   border-radius: 25px;
-  background: #FFFFFF;
+  background: #fff;
   transition: all 0.3s ease;
 }
 .menu_title .line {
@@ -214,7 +216,7 @@ input:checked + .slider:before {
   text-decoration: none;
   border-radius: 8px;
   margin-bottom: 8px;
-  color: #FFFFFF;
+  color: #fff;
 }
 .link:hover {
   color: #fff;
@@ -237,16 +239,16 @@ input:checked + .slider:before {
   padding-top: 15px;
   margin-top: 15px;
   gap: 15px;
-  border-top: 2px solid #FFFFFF;
+  border-top: 2px solid #fff;
   margin: 0 auto;
 }
 .sidebar_profile .name {
   font-size: 18px;
-  color: #FFFFFF;
+  color: #fff;
 }
 .sidebar_profile .email {
   font-size: 15px;
-  color: #FFFFFF;
+  color: #fff;
 }
 .dwn {
   bottom: 2%;

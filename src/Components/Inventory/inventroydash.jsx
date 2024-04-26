@@ -6,6 +6,8 @@ import notify from './assets/notify.png';
 import DataTable from 'react-data-table-component';
 import { Link } from 'react-router-dom';
 import deleteModal from './deleteModal.jsx'
+import Topbar from '../common/topbar/Topbar.jsx';
+import SideNav from '../common/SideNav/sideNav.jsx';
 
 const InventoryDash = () => {
 
@@ -102,14 +104,8 @@ const InventoryDash = () => {
     return (
         <div>
             {/* Header area */}
-            <div className="top">
-                <div className="logo">
-                    <img className="logo-image" src={logo} alt='logo' style={{ width: '200px', height: 'auto' }} />
-                </div>
-                <div className="d">
-                    <img className="profButton" src={notify} alt='notify' onClick={myNotifications} />
-                    <img className="profButton" src={icon_prof} alt='icon_prof' onClick={myProf} />
-                </div>
+            <div>
+                <Topbar />
             </div>
 
             {/* Main content */}
