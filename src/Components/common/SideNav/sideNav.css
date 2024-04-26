@@ -98,7 +98,7 @@ input:checked + .slider:before {
   display: flex;
   flex-direction: column;
   position: fixed;
-  overflow-z: auto;
+  overflow: visible;
   top: 0;
   left: 0;
   height: 100%;
@@ -166,16 +166,14 @@ input:checked + .slider:before {
   color: #FFFFFF;
 }
 .menu_container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-top: auto;
+  display: block;
+  margin-bottom: auto;
   max-height: auto;
   overflow-y: auto;
-  height: calc(100% - 82px);
+  height: calc(800px - 82px);
 }
 .menu_container::-webkit-scrollbar {
-  display: none;
+  display: flex;
 }
 .menu_title {
   position: relative;
@@ -244,7 +242,7 @@ input:checked + .slider:before {
   padding-top: 15px;
   margin-top: 15px;
   gap: 15px;
-  border-top: 2px solid #fff;
+  border-top: 3px solid #fff;
   margin: 0 auto;
 }
 .sidebar_profile .name {
@@ -258,6 +256,11 @@ input:checked + .slider:before {
 .dwn {
   bottom: 2%;
   position: absolute;
+}
+.swm .close{
+  display: none;
+  border-top: 3px solid #fff;
+  opacity: 0;
 }
 
 /* Navbar

@@ -1,5 +1,6 @@
 .notification-container {
-  position: relative;
+  position: sticky;
+  z-index: 3;
 }
 
 .notification-icon {
@@ -27,8 +28,10 @@
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   z-index: 1;
+  max-width: 300px;
   min-width: 200px;
-  overflow: hidden; /* Hide overflow to hide the triangle */
+  max-height: 200px;
+  overflow-y: auto;
 }
 
 .notification-dropdown::before {
@@ -47,6 +50,7 @@
   cursor: pointer;
   display: flex;
   justify-content: space-between;
+  overflow-y: auto;
 }
 
 .notification-item:hover {

@@ -18,6 +18,7 @@
     text-transform: uppercase;
     outline: none;
     height: auto;
+    z-index: 2;
 }
   /* Navbar.css */
 
@@ -26,7 +27,7 @@
 .navbar-item .fa-bell,
 .navbar-item .fa-sign-out-alt {
   font-size: 30px; /* Adjust the icon size as needed */
-  color: #03989e; 
+  color: #68F0F5;
  
 }
 .navbar_item {
