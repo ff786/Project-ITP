@@ -128,7 +128,7 @@ const NotifyForm = () => {
             <div>
                 <SideNav />
             </div>
-            <div className="md" style={{marginTop: '95px', display: 'flex', position: 'relative'}}>
+            <div className="md" style={{display: 'flex', position: 'relative'}}>
                 <div className="max-w-4xl mx-auto bg-white dark:bg-white-700 shadow-lg p-6 rounded-lg">
                     <h2 className="text-3xl dark:text-zinc-900 font-bold mb-10">Create New Notification</h2>
                     <form onSubmit={handleSubmit}>

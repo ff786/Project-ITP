@@ -3,7 +3,7 @@
     flex-direction: row;
     margin-left: auto;
     margin-right: auto;
-    margin-top: auto;
+    margin-top: 150px;
     margin-bottom: auto;
 }
 .main-dom {
@@ -24,6 +24,6 @@
 .scheduled-options.hidden {
     visibility: hidden; /* Hide when not needed */
 }
-. ntf .expand {
+.ntf .expand {
     max-height: 100px;
 }

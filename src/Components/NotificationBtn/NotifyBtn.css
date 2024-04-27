@@ -1,5 +1,6 @@
 .notification-container {
-  position: relative;
+  position: sticky;
+  z-index: 3;
 }
 
 .notification-icon {
@@ -20,25 +21,26 @@
 
 .notification-dropdown {
   position: absolute;
-  top: calc(100% + 10px);
+  top: calc(100% + 10px); /* Adjust spacing */
   right: 50%;
-  transform: translateX(50%);
+  transform: translateX(50%); /* Center the dropdown */
   background-color: #fff;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   z-index: 1;
+  max-width: 300px;
   min-width: 200px;
-  overflow: hidden;
-  overflow-y: auto;
-  max-height: 500px;
+  max-height: 200px;
+  overflow: visible;
+  object-fit: cover;
 }
 
 .notification-dropdown::before {
   content: '';
   position: absolute;
-  top: -10px;
-  left: 50%;
-  transform: translateX(-50%);
+  top: -7px;
+  left: 43%;
+  transform: translateX(-60%);
   border-width: 0 10px 10px 10px;
   border-style: solid;
   border-color: transparent transparent #fff transparent;
@@ -49,7 +51,7 @@
   cursor: pointer;
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid black;
+  overflow-y: auto;
 }
 
 .notification-item:hover {
