@@ -1,45 +1,54 @@
-import React from 'react'
-import './Login.css' 
-import '../../App.css'
-import video from '../../LoginAssets/video.mp4'
-import logo from '../../LoginAssets/logo.png'
+import React, { useState } from 'react';
+import './Auth.css';
+import '../../App.css';
+import Video2 from '../../LoginAssets/Video2.mp4';
+import Video from '../../LoginAssets/Video.mp4';
+import logo from '../../LoginAssets/logo.png';
 import { FaUserShield } from 'react-icons/fa';
 import { BsFillShieldLockFill } from 'react-icons/bs';
 import { AiOutlineSwapRight } from 'react-icons/ai';
+import { MdEmail } from "react-icons/md";
 import { Link } from 'react-router-dom';
-import {getAnalytics, logEvent} from "firebase/analytics";
-import {app} from '../../../firebase.js';
 
-const analytics = getAnalytics(app);
+const Auth = () => {
+  const [isLogin, setIsLogin] = useState(true);
 
-logEvent(analytics,'test_event', { date : Date.now(), platform : "Innobot-FE-SLIIT"});
+  const toggleAuth = () => {
+    setIsLogin(prevState => !prevState);
+  };
 
-const Login = () => {
   return (
-    <div className='loginPage flex'>
-      <div className="container flex">
-        
-        <div className="videoDiv">
-          <video autoPlay muted loop src={video} ></video>
-
-          <div className="textDiv">
-          </div>
-          <div className='footerDiv flex'>
-            <span className='text'>Don't have an account?</span>
-            <Link to={'/register'}>
-              <button className='btn'>Sign Up</button>
-            </Link>
-          </div>
+    <div className='min-h-screen flex items-center justify-center bg-zinc-200'>
+     <div className="grid grid-col-2 h-full rounded-lg">
+     <div className="flex w-full max-w-7xl shadow-lg rounded-lg bg-white">
+      {/* <div className="container flex"> */}
+        <div className="w-1/2 bg-white p-8 grid grid-col-2">
+         <div className="mb-o">
+           <video autoPlay muted loop src={Video} className="h-full w-full object-transparent" ></video>
+         </div>
+           <span className="text">{isLogin ? "Don't have an account?" : "Have an account?"}</span>
+           <button
+             className="bg-transparent text-blue-950 font-semibold py-2 px-4 rounded"
+             onClick={toggleAuth}>{isLogin ? "Sign Up" : "Login"}
+           </button>
         </div>
-  
-        <div className="formDiv flex">
+
+        <div className="w-full lg:w-1/2 bg-zinc-300 p-12 rounded-lg" style={{ marginLeft: isLogin ? 'auto' : 0, marginRight: isLogin ? 0 : 'auto' }}>
           <div className="headerDiv">
-           <img src={logo} alt='logo'className='mx-auto' />
-            <h3>Welcome Back!</h3>
+           {/*  <img src={logo} alt='logo' className='mx-auto' /> */}
+            <h3>{isLogin ? "Welcome Back!" : "Let Us Know You"}</h3>
           </div>
 
           <form action="" className='form grid'>
-           {/* <span className='showMessage'>Login Status will go here</span>*/}
+            {/* <span className='showMessage'>Login Status will go here</span>*/}
+              <div className="inputDiv">
+                <label htmlFor="username">Email</label>
+                <div className="input flex">
+                  <MdEmail className='icon'></MdEmail>
+                  <input type="text" id='email' placeholder='Enter email' />
+                </div>
+              </div>
+            {!isLogin && (
             <div className="inputDiv">
               <label htmlFor="username">Username</label>
               <div className="input flex">
@@ -47,34 +56,30 @@ const Login = () => {
                 <input type="text" id='username' placeholder='Enter username' />
               </div>
             </div>
+            )}
             <div className="inputDiv">
               <label htmlFor="password">Password</label>
               <div className="input flex">
                 <BsFillShieldLockFill className='icon' />
-                <input type='password' id='Password' placeholder='Enter Password' />
+                <input type='text' id='password' placeholder='Enter Password' />
               </div>
             </div>
-            <button type='submit' className='btn flex'>
-              <span>Login</span>
-              <AiOutlineSwapRight className='icon' />
+            <div>
+            <button type='submit' className='btn'>
+              <span>{isLogin ? "Login" : "Register"}</span>
             </button>
-
-            <Link to={'/Verify'}>
-            <span className='forgotPassword'>
-              Forgot your Password? <a href=''>Click Here</a>
-            </span>
-            </Link>
-
-
-
+            </div>
+            {isLogin && (
+              <span className='forgotPassword' >
+                Forgot your Password? <a href=''>Click Here</a>
+              </span>
+            )}
           </form>
         </div>
-
       </div>
+     </div>
     </div>
-  )
+  );
 }
 
-export default Login 
-
-// autoPlay muted loop this video loop
+export default Auth;

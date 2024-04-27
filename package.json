@@ -30,8 +30,8 @@
     "react-router-dom": "^6.22.3",
     "react-select": "^5.8.0",
     "react-toastify": "^10.0.5",
-    "sweetalert2": "^11.10.8",
     "reactjs-popup": "^2.0.6",
+    "sweetalert2": "^11.10.8",
     "toast": "^0.5.4",
     "web-vitals": "^2.1.4"
   },
@@ -40,6 +40,7 @@
     "@types/react-dom": "^18.2.17",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.17",
+    "daisyui": "^4.10.2",
     "eslint": "^8.55.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
