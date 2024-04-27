@@ -51,6 +51,44 @@ function NotifyView() {
         fetchData();
     },[]);
 
+    function handleDelete(item) {
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                const updatedData = data.filter(item1 => item1.id !== item.id);
+                setData(updatedData);
+                axios.delete("https://dulanga.sliit.xyz/api/innobothealth/notification/delete/".concat(item.id), {
+                    headers: {
+                        'Authorization' : 'Bearer '.concat('eyJhbGciOiJIUzI1NiJ9.eyJ0eXAiOiJhY2Nlc3MtdG9rZW4iLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiQURNSU4ifV0sImlzRW1haWxWZXJpZmllZCI6ZmFsc2UsInN1YiI6ImR1bGFib3lAZHVsYW5nYS5jb20iLCJpYXQiOjE3MTM5ODc1MDcsImV4cCI6MTcxNjU3OTUwN30.CiCUQmJ6d6i3iUX9m9rGV0YcSLgApRBzfUnC2aqu17k')
+                    }
+                }).catch(reason => {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Something went wrong!",
+                        footer: '<a href="#">Why do I have this issue?</a>'
+                    });
+                });
+
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success"
+                });
+
+            }
+        });
+    }
+
     return (
         <div>
             <Topbar />
@@ -98,7 +136,7 @@ function NotifyView() {
                                                 className="p-2 text-black hover:text-green-700 dark:text-green-300 dark:hover:text-green">
                                             <FaEdit />
                                         </button>
-                                        <button className="p-2 text-black hover:text-red-700 dark:text-red-300 dark:hover:text-red">
+                                        <button className="p-2 text-black hover:text-red-700 dark:text-red-300 dark:hover:text-red" onClick={() => {handleDelete(item)}}>
                                             <FaTrash />
                                         </button>
                                     </div>

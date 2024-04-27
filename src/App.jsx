@@ -92,6 +92,11 @@ const router = createBrowserRouter([
   {
     path: '/FormPatient',
     element: <div><PatientForm /> </div>
+  },
+
+  {
+    path: '/login',
+    element: <div><Login /> </div>
   }
 
 ])

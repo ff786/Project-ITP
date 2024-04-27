@@ -12,7 +12,13 @@ import {app} from '../../../firebase.js';
 
 const analytics = getAnalytics(app);
 
-logEvent(analytics,'test_event', { date : Date.now(), platform : "Innobot-FE-SLIIT"});
+logEvent(analytics,'login-page',
+    {
+      date : Date.now(),
+      platform : "Innobot-FE-SLIIT",
+      event_name: "Testing Login",
+      test: "test"
+    });
 
 const Login = () => {
   return (
