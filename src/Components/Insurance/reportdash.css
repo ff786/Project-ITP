@@ -1,0 +1,102 @@
+.app {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .app-header {
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+  }
+  
+  .app-logo {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .app-nav {
+    font-size: 16px;
+  }
+  
+  .app-user {
+    font-size: 14px;
+  }
+  
+  .app-body {
+    display: flex;
+    flex: 1;
+  }
+  
+  .app-sidebar {
+    background-color: #f0f0f0;
+    padding: 20px;
+    width: 200px;
+  }
+  
+  .sidebar-item {
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .sidebar-item.active {
+    background-color: #ddd;
+    font-weight: bold;
+  }
+  
+  .app-content {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .report-section {
+    margin-bottom: 20px;
+  }
+  
+  .report-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .date-picker {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  
+  .date-picker label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  
+  .date-picker input[type="date"] {
+    padding: 5px;
+    font-size: 14px;
+  }
+  
+  .generate-btn {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+  
+  .action-buttons {
+    margin-top: 20px;
+  }
+  
+  .send-admin-btn,
+  .download-btn {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
