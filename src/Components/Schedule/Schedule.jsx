@@ -8,6 +8,8 @@ function Schedule() {
 	// const handleSubmit = () => {
 		// Add any form submission logic here
 		// const [appointmentId,setId] = useState('');
+		const [phoneError, setPhoneError] = useState('');
+  		const [mailError, setMailError] = useState('');
 		const [firstname, setFirstname] = useState('');
 		const [lastname, setLastname] = useState('');
 		const [special_message, setSpecialMessage] = useState('');
@@ -18,6 +20,27 @@ function Schedule() {
 		const [phone_number, setPhoneNumber] = useState('');
 		const [mail, setMail] = useState('');
 
+		const validatePhoneNumber = (phoneNumber) => {
+			const phoneRegex = /^[0-9]{10}$/;
+			if (!phoneRegex.test(phoneNumber)) {
+			  setPhoneError('Phone number must be 10 digits.');
+			  return false;
+			}
+			setPhoneError('');
+			return true;
+		  };
+
+		  const validateEmail = (email) => {
+			const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+			if (!emailRegex.test(email)) {
+			  setMailError('Invalid email address.');
+			  return false;
+			}
+			setMailError('');
+			return true;
+		  };
+
+
 		// const [appointment,setAppointment]= useState([]);
 		// For example, you can send data to a server or perform validation
 		// console.log("Form submitted!");
@@ -27,19 +50,14 @@ function Schedule() {
 		// })
 
 
-async function create(event)
-{
-	event.preventDefault();
-	// console.log("Firstname:", firstname);
-    // console.log("Lastname:", lastname);
-    // console.log("Special Message:", special_message);
-    // console.log("Member ID:", member_id);
-    // console.log("Date:", date);
-    // console.log("Doctors Specialization:", doctors_specialization);
-    // console.log("Doctor ID:", doctor_id);
-    // console.log("Phone Number:", phone_number);
-    // console.log("Mail:", mail);
-	try{
+const create = async (event) => {
+    event.preventDefault();
+    const isPhoneValid = validatePhoneNumber(phone_number);
+    const isEmailValid = validateEmail(mail);
+    
+    if (!isPhoneValid || !isEmailValid) return;
+
+    try {
 		await axios.post("https://dulanga.sliit.xyz/api/innobothealth/appointment/create",
 		{
 			firstname : firstname,
@@ -277,6 +295,7 @@ async function create(event)
 											setPhoneNumber(event.target.value);
 											}}
 									/>
+									{phoneError && <p className="text-red-500 text-xs italic">{phoneError}</p>}
 								</div>
 								<div className="w-full md:w-1/2 px-3">
 									<label
@@ -295,6 +314,7 @@ async function create(event)
 											setMail(event.target.value);
 											}}
 									/>
+									{mailError && <p className="text-red-500 text-xs italic">{mailError}</p>}
 								</div>
 							</div>
 

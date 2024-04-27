@@ -4,6 +4,7 @@ import Searchbar from '../DisplayAppointment/Searchbar'
 import RowTable from '../DisplayAppointment/RowTable'
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import "./DisplayScheduled";
 // import { useHistory } from 'react-router-dom';
 function DisplayScheduled() {
 
@@ -126,9 +127,21 @@ function DisplayScheduled() {
                 <td className="border border-gray-300 p-4">{appointment.phone_number}</td>
                 <td className="border border-gray-300 p-4">{appointment.mail}</td>
                 <td className="border border-gray-300 p-4">
-                    <button type="button" onClick={event => navigate('/updateapp', {state: {data :appointment}})}>Edit</button>
-                    <button type="button" onClick={()=> DeleteAppointment(appointment._appointmentId)}>Delete</button>
-                    {/* <button type="button" onClick={() => DeleteAppointment(appointment._id)}>Delete</button> */}
+                <button 
+                          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-9"
+                          type="button" 
+                          onClick={event => navigate('/updateapp', { state: { data: appointment } })}
+                > 
+                Edit
+                </button>
+                <button 
+                          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                          type="button" 
+                          onClick={() => DeleteAppointment(appointment.appointmentId)}
+                 >
+                Delete
+                </button>
+                   
 
                 </td>
               </tr>

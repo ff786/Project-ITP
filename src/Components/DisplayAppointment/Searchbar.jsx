@@ -32,7 +32,7 @@ const Searchbar = () => {
       </div>
       <div className="het">
         <div className="addstyles_tobutton">
-        <button className="bg-grey hover:bg-light-blue text-white  py-4 px-2 rounded">AppointmentList</button>
+        <button className="bg-grey hover:bg-light-blue text-white  py-4 px-2 rounded">Click&nbsp;to&nbsp;Generate&nbsp;Appointment&nbsp;Report</button>
         </div>
       </div>
       {activeSearch.length > 0 && (
