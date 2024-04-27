@@ -11,6 +11,9 @@ import UpdateAppointment from './Components/UpdateAppointment/UpdateAppointment'
 import ClaimForm from './Components/ClaimManage/ClaimForm'
 import UpdateForm from './Components/UpdateClaim/UpdateForm'
 import OverviewClaim from './Components/ClaimOverview/OverviewClaim'
+import FeeScheduleManagement from './Components/Insurance/feedash'
+import CreateNInsuranceRecord from './Components/Insurance/insdash'
+import reportdash from './Components/Insurance/reportdash'
 
 import {
   createBrowserRouter,
@@ -66,6 +69,21 @@ const router = createBrowserRouter([
   {
     path: '/ClaimOverview',
     element: <div><OverviewClaim /> </div>
+  },
+
+  {
+    path: '/feedash',
+    element: <div><FeeScheduleManagement /> </div>
+  },
+
+  {
+    path: '/insdash',
+    element: <div><CreateNInsuranceRecord/> </div>
+  },
+  
+  {
+    path: '/reportdash',
+    element: <div><reportdash/> </div>
   }
 
 ])
