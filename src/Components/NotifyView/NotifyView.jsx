@@ -63,7 +63,7 @@ function NotifyView() {
         item.lastName.toLowerCase().includes(searchQuery.toLowerCase()) ||
         item.message.toLowerCase().includes(searchQuery.toLowerCase()) ||
         item.deliveredTime.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    ).sort((a, b) => new Date(b.deliveredTime) - new Date(a.deliveredTime));
 
     function handleDelete(item) {
 
@@ -125,7 +125,7 @@ function NotifyView() {
                         </div>
                         <input
                             type="text"
-                            placeholder="Search..."
+                            placeholder="Search Here"
                             value={searchQuery}
                             onChange={handleSearch}
                         />

@@ -63,7 +63,7 @@ function Navbar() {
           toggleNotifications={toggleNotifications}
           notificationCount={notifications.length}
           isOpen={showNotifications}
-          notifications={notifications}
+          notifications={notifications.sort((a, b) => new Date(b.deliveredTime) - new Date(a.deliveredTime))}
         />
 
 

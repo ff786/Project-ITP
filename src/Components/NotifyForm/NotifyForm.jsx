@@ -19,10 +19,9 @@ const NotifyForm = () => {
     const [receiver, setReceiver] = useState('');
     const [subject, setSubject] = useState('');
     const [message, setMessage] = useState('');
-    const [isAnonymous, setAnnonymous] = useState(false);
-    const [isScheduled, setScheduled] = useState(false);
     const [priority, setPriority] = useState('');
-    const [notificationType, setNotificationType] = useState('instant');
+    const [notificationType, setNotificationType] = useState('scheduled');
+    const [isAnonymous, setAnonymous] = useState(false);
     const [dateSchd, setDateSchd] = useState('');
     const [timeSchd, setTimeSchd] = useState('');
 
@@ -181,21 +180,27 @@ const NotifyForm = () => {
                            </section>
                            <div className="mb-auto">
                                <div>
-                                   <label className="flex text-m font-medium mb-5 text-zinc-700 dark:text-zinc-900 ml-6">Notification Type</label>
+
+                                   <label
+                                       className="flex text-m font-medium mb-5 text-zinc-700 dark:text-zinc-900 ml-6">Notification
+                                       Type</label>
                                    <div className="mt-1">
                                        <label className="inline-flex items-center ml-6">
-                                           <input type="radio" name="isScheduled" value="scheduled" className="text-indigo-600 form-radio"
-                                               checked={notificationType === 'scheduled'}
-                                               onChange={handleNotificationTypeChange}/>
+                                           <input type="radio" name="isScheduled" value="scheduled"
+                                                  className="text-indigo-600 form-radio"
+                                                  checked={notificationType === 'scheduled'}
+                                                  onChange={handleNotificationTypeChange}/>
                                            <span className="ml">Scheduled</span>
                                        </label>
                                        <label className="inline-flex items-center ml-6">
-                                           <input type="radio" name="isScheduled" value="instant" className="text-indigo-600 form-radio"
-                                               checked={notificationType === 'instant'}
-                                               onChange={handleNotificationTypeChange}/>
+                                           <input type="radio" name="isScheduled" value="instant"
+                                                  className="text-indigo-600 form-radio"
+                                                  checked={notificationType === 'instant'}
+                                                  onChange={handleNotificationTypeChange}/>
                                            <span className="ml">Instant</span>
                                        </label>
                                    </div>
+
                                    <div className="ml-6 h-100">
                                        {notificationType === 'scheduled' && (
                                            <div className="scheduled-options">
@@ -218,14 +223,25 @@ const NotifyForm = () => {
                                            </div>
                                        )}
                                    </div>
+                                   <div className="mt-1">
+                                       <label className="inline-flex items-center ml-6">
+                                           <input type="checkbox" name="isScheduled" value="scheduled"
+                                                  className="text-indigo-600 form-radio"
+                                                  checked={isAnonymous}
+                                                  onChange={() => setAnonymous(!isAnonymous)}/>
+                                           <span className="ml">Anonymous</span>
+                                       </label>
+                                   </div>
                                </div>
                            </div>
 
+                       </div>
+                        <div className="col-span-2">
+                            <label className="block text-m font-medium text-zinc-700 dark:text-zinc-900">Subject</label>
+                            <input name='subject' type="text"
+                                   className="mt-1 block w-full py-2 px-3 border border-black-900 dark:border-white-600 bg-white dark:bg-black-900 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                   onChange={event => setSubject(event.target.value)}/>
                         </div>
-                            <div className="col-span-2">
-                                <label className="block text-m font-medium text-zinc-700 dark:text-zinc-900">Subject</label>
-                                <input name='subject' type="text" className="mt-1 block w-full py-2 px-3 border border-black-900 dark:border-white-600 bg-white dark:bg-black-900 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" onChange={event => setSubject(event.target.value)} />
-                            </div>
                             <div className="col-span-2">
                                 <label className="block text-m font-medium text-zinc-700 dark:text-zinc-900">Message</label>
                                 <textarea name='message' rows="4" className="mt-1 block w-full py-2 px-3 border border-zinc-300 dark:border-zinc-600 bg-white dark:bg-black-500 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" onChange={event => setMessage(event.target.value)} ></textarea>
