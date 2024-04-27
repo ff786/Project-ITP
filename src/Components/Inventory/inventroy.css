@@ -1,0 +1,7 @@
+/* Add this CSS to your stylesheets */
+.table-container {
+    width: 150%; /* Adjust the width as needed */
+   
+    overflow-y: auto; /* Enable vertical scrolling if the table exceeds the container height */
+  }
+  

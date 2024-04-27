@@ -1,44 +1,77 @@
 import React, { useState } from 'react';
-import logo from '../common/header/logo.png'
-import icon_prof from '../ClaimManage/icon_prof.png'
-import notify from '../ClaimManage/notify.png'
-import '../../App.css'
-import '../ClaimManage/ClaimForm.css'
+import Topbar from '../common/topbar/Topbar.jsx'
+import Sidebar from '../common/sidebar/Sidebar.jsx'
+import SideNav from '../common/SideNav/sideNav.jsx'
+import ClaimModify from './ClaimModify.jsx'
+import ClaimFormModal from '../ClaimManage/FormClaim.jsx'
+import PendingClaim from '../ApprovalClaim/PendingClaim.jsx'
+import ApprovedClaim from '../ApprovalClaim/ApprovedClaim.jsx'
+import './overView.css'
 
 import { Link } from 'react-router-dom';
 
 function OverviewClaim () {
+    const [CreateClaim, setCreateClaim] = useState(false);
+    const [ClaimStats, setClaimStats] = useState(false);
+    const [PendingClaimVisible, setPendingClaimVisible] = useState(false);
+    const [ApprovedClaimVisible, setApprovedClaimVisible] = useState(false);
 
-    const myProf = () => {
-      console.log("CLICKED");
+    const [totalClaims, setTotalClaims] = useState('');
+    const [searchQuery, setSearchQuery] = useState('');
+
+
+    const toggleCreateClaim = () => {
+        setCreateClaim(!CreateClaim);
     }
-    const myNotifications = () => {
-      console.log("CLICKED");
+    const togglePendingClaim = () => {
+        setPendingClaimVisible(!PendingClaimVisible);
+    }
+    const toggleApprovedClaim = () => {
+        setApprovedClaimVisible(!ApprovedClaimVisible);
+    }
+    const handleSearchInputChange = (event) => {
+        setSearchQuery(event.target.value);
+    }
+
+    const handleSearch = () => {
+        console.log('Search Query:', searchQuery);
     }
 
     return (
+      <div>
 
-    <body>
-        <div className="top">
-              <div className="logo">
-                  <img className="logo" src={logo} alt='logo'/>
-                  <h4 className='h4'></h4>
-              </div>
+        <Topbar />
 
-              <div className="d">
-                <img className="profButton" src={notify} alt='notify' onClick={myNotifications} />
-                <img className="profButton" src={icon_prof} alt='icon_prof' onClick={myProf} />
-              </div>
+        <div className="mid">
+
+                <SideNav />
+
+
+            <div className="main-view">
+                <div className="Maiin">
+                    <button type="create" onClick={toggleCreateClaim} > Create Claim </button>
+                    <button type="create">Assign Staff</button>
+                </div>
+                <div className="mid-btn">
+                    <button type="claim" onClick={togglePendingClaim} >Pending Claims</button>
+                    <button type="claim" onClick={toggleApprovedClaim} >Approved Claims</button>
+                    <button type="claim" >Claim Statistics</button>
+                </div>
+                <div className="mid-btn">
+                    <input type="text" placeholder="Search here... " onChange={handleSearchInputChange} />
+                    <button type="search" onClick={handleSearch}>Search</button>
+                </div>
+                <div className="formView">
+                    <ClaimModify searchQuery={searchQuery} />
+                    {CreateClaim && <ClaimFormModal isOpen={CreateClaim} onClose={toggleCreateClaim} />}
+                    {PendingClaimVisible && <PendingClaim isOpen={PendingClaimVisible} onClose={togglePendingClaim} />}
+                    {ApprovedClaimVisible && <ApprovedClaim isOpen={ApprovedClaimVisible} onClose={toggleApprovedClaim} />}
+                </div>
+            </div>
         </div>
 
-        <div className="side-nav">
 
-
-
-        </div>
-
-
-    </body>
+    </div>
 
     );
 

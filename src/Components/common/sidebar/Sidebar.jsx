@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 
-import logo from './logo.png'
+    import logo from './logo.png'
 
 import './Sidebar.css';
 import { FaInbox } from "react-icons/fa";
@@ -41,7 +41,7 @@ function Sidebar(){
       {title:"submenu 1       "},
       {title:"submenu 2       "},
       {title:"submenu 3       "},
-      {title:"submenu 4 "},
+      {title:"submenu 4       "},
      ],
     },
     {title: "Billing",icon:<FaMoneyBillTransfer />},
@@ -51,7 +51,7 @@ function Sidebar(){
     
   ];
     return(
-        <section className="header">
+        <section className="flex">
           
       {/**
       <div className="thisfill">

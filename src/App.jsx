@@ -1,19 +1,22 @@
 import './App.css'
 import Login from './Components/Login/Login'
+import IndexLogin from './Components/Login/IndexLogin.jsx'
 import Register from './Components/Register/Register'
 import Verify from './Components/Verify/Verify' 
 import Password  from './Components/Password/Password'
 import Dashboard from './Components/common/common'
 import Appointments from './Components/Appointments/Appointments'
-import  Schedule  from  './Components/Schedule/Schedule'
+import Schedule from  './Components/Schedule/Schedule'
 import Scheduleinsurance from './Components/Scheduleinsurance/Scheduleinsurance'
 import UpdateAppointment from './Components/UpdateAppointment/UpdateAppointment'
 import ClaimForm from './Components/ClaimManage/ClaimForm'
 import UpdateForm from './Components/UpdateClaim/UpdateForm'
 import OverviewClaim from './Components/ClaimOverview/OverviewClaim'
-import FeeScheduleManagement from './Components/Insurance/feedash'
-import CreateNInsuranceRecord from './Components/Insurance/insdash'
-import reportdash from './Components/Insurance/reportdash'
+import Diagnosis from './Components/PnD/Diagnosis.jsx'
+import PndView from './Components/ViewPND/PndView.jsx'
+import NotifyForm from './Components/NotifyForm/NotifyForm.jsx'
+import NotifyView from './Components/NotifyView/NotifyView.jsx'
+import PatientForm from './Components/FormPatient/PatientForm.jsx'
 
 import {
   createBrowserRouter,
@@ -23,7 +26,7 @@ import {
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <div><Login /> </div>
+    element: <div><IndexLogin /> </div>
   },
   {
     path: '/register',
@@ -63,27 +66,32 @@ const router = createBrowserRouter([
     element: <div><ClaimForm /> </div>
   },
   {
-    path: '/UpdateClaim',
+    path: '/edit/:id',
     element: <div><UpdateForm /> </div>
   },
   {
     path: '/ClaimOverview',
     element: <div><OverviewClaim /> </div>
   },
-
   {
-    path: '/feedash',
-    element: <div><FeeScheduleManagement /> </div>
+    path: '/PnD',
+    element: <div><Diagnosis /> </div>
   },
-
   {
-    path: '/insdash',
-    element: <div><CreateNInsuranceRecord/> </div>
+    path: '/ViewPND',
+    element: <div><PndView /> </div>
   },
-  
   {
-    path: '/reportdash',
-    element: <div><reportdash/> </div>
+    path: '/NotifyForm',
+    element: <div><NotifyForm /> </div>
+  },
+  {
+    path: '/NotifyView',
+    element: <div><NotifyView /> </div>
+  },
+  {
+    path: '/FormPatient',
+    element: <div><PatientForm /> </div>
   }
 
 ])
@@ -97,4 +105,4 @@ function App() {
   )
 }
 
-export default App
+export default App;

@@ -10,8 +10,6 @@ import { Link } from 'react-router-dom';
 import {getAnalytics, logEvent} from "firebase/analytics";
 import {app} from '../../../firebase.js';
 
-
-
 const analytics = getAnalytics(app);
 
 logEvent(analytics,'test_event', { date : Date.now(), platform : "Innobot-FE-SLIIT"});
@@ -61,13 +59,13 @@ const Login = () => {
               <AiOutlineSwapRight className='icon' />
             </button>
 
-            <Link to={'/insdash'}>
+            <Link to={'/Verify'}>
             <span className='forgotPassword'>
               Forgot your Password? <a href=''>Click Here</a>
-            </span> 
-            </Link> 
-            
-           
+            </span>
+            </Link>
+
+
 
           </form>
         </div>

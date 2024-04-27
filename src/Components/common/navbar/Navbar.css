@@ -1,20 +1,25 @@
 .navbar {
     display: flex;
     flex-direction: row;
+    position: relative;
     background-color: #02072D;
-   margin-right: 30px;
+    margin-right: 30px;
+    height: wrap-content;
   }
-  
-  .navbar-item {
+
+.navbar-item {
     display: flex;
     justify-content: center;
+    position: relative;
     align-items: center;
     margin-left: 30px;
     color: inherit;
     text-decoration: inherit;
     text-transform: uppercase;
     outline: none;
-  }
+    height: auto;
+    z-index: 2;
+}
   /* Navbar.css */
 
 
@@ -22,7 +27,7 @@
 .navbar-item .fa-bell,
 .navbar-item .fa-sign-out-alt {
   font-size: 30px; /* Adjust the icon size as needed */
-  color: #03989e; 
+  color: #68F0F5;
  
 }
 .navbar_item {
