@@ -4,7 +4,7 @@ import SideNav from '../common/SideNav/sideNav.jsx'
 import '../../App.css'
 import '../UpdateClaim/UpdateForm.css'
 import './NotifyForm.css'
-import DropDownWithSearch from "../dropdown/DropDownWithSearch.jsx";
+import DropDownWithSearch from "../dropdown/DropdownWithSearch.jsx";
 import axios from "axios";
 import Swal from 'sweetalert2'
 import { useNavigate } from "react-router-dom";
