@@ -1,5 +1,6 @@
 import './App.css'
 import Login from './Components/Login/Login'
+import IndexLogin from './Components/Login/IndexLogin.jsx'
 import Register from './Components/Register/Register'
 import Verify from './Components/Verify/Verify' 
 import Password  from './Components/Password/Password'
@@ -25,7 +26,7 @@ import {
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <div><Login /> </div>
+    element: <div><IndexLogin /> </div>
   },
   {
     path: '/register',
