@@ -12,9 +12,7 @@ function ClaimForm() {
 
   return (
       <div>
-        <div>
-              <Topbar />
-        </div>
+           <Topbar />
         <div style={{display: 'flex', flexDirection: 'row'}}>
             <div>
                 <SideNav />
