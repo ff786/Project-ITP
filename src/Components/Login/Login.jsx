@@ -6,13 +6,9 @@ import logo from '../../LoginAssets/logo.png';
 import { FaUserShield } from 'react-icons/fa';
 import { BsFillShieldLockFill } from 'react-icons/bs';
 import { AiOutlineSwapRight } from 'react-icons/ai';
-import { MdEmail } from "react-icons/md";
-import { Link, useNavigate } from 'react-router-dom';
-import {getAnalytics, logEvent, setUserProperties} from "firebase/analytics";
-
-const Auth = () => {
-
-  const navigate = useNavigate();
+import { Link } from 'react-router-dom';
+import {getAnalytics, logEvent} from "firebase/analytics";
+import {app} from '../../../firebase.js';
 
   const analytics = getAnalytics();
   setUserProperties(analytics, {
@@ -134,35 +130,20 @@ const Auth = () => {
                 <input className="inputP" type='password' id='password' placeholder='Enter Password' value={password} onChange={(e) => setPassword(e.target.value)} />
               </div>
             </div>
-            {/* {ShowOtpInput && (
-              <div className="inputDiv">
-                <label htmlFor="password">Password</label>
-                <div className="input flex">
-                  <BsFillShieldLockFill className='icon' />
-                  <input className="inputP" type='password' name="password" id='password' placeholder='Enter Password' value={password} onChange={(e) => setPassword(e.target.value)} />
-                </div>
-              </div>
-            )} */}
-              {ShowOtpInput && (
-                <div className="inputDiv">
-                  <label htmlFor="otp">OTP</label>
-                  <div className="input flex">
-                    <input type="text" id='otp' placeholder='Enter OTP' value={otp} onChange={(e) => setOtp(e.target.value)} />
-                  </div>
-                </div>
-              )}
-              <div>
-                <button onClick={handleSubmit} type='submit' className='btn'>
-                  <span>{ShowOtpInput ? "Login" : "Login Verify"}</span>
-                </button>
-              </div>
-              {isLogin && (
-                <span className='forgotPassword' >
-                  Forgot your Password? <Link to='/forgot-password'>Click Here</Link>
-                </span>
-              )}
-            </form>
-          </div>
+            <button type='submit' className='btn flex'>
+              <span>Login</span>
+              <AiOutlineSwapRight className='icon' />
+            </button>
+
+            <Link to={'/Verify'}>
+            <span className='forgotPassword'>
+              Forgot your Password? <a href=''>Click Here</a>
+            </span>
+            </Link> 
+            
+           
+
+          </form>
         </div>
       </div>
     </div>
