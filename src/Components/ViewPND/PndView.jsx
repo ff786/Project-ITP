@@ -38,7 +38,7 @@ function CodeModify({ searchQuery }) {
                 setMembers(members.filter(member => member.id !== id));
             })
             .catch(error => {
-                console.error('Error deleting claim:', error);
+                console.error('Error deleting code:', error);
             });
     };
     const filteredMembers = members.filter(member => {
