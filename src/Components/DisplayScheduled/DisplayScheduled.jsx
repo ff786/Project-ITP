@@ -79,11 +79,17 @@ function DisplayScheduled() {
     //     setAppointmentId(appointments._id);
     //     //set the correct id here
     // }
-    async function DeleteAppointment(appointmentId){
-        await axios.delete("https://dulanga.sliit.xyz/api/innobothealth/appointment/delete/"+ appointmentId);
-        alert("appointment Sucessfully Deleted");
-        Load();
-    }
+    async function DeleteAppointment(appointmentId) {
+      try {
+          await axios.delete("https://dulanga.sliit.xyz/api/innobothealth/appointment/delete/" + appointmentId);
+          alert("Appointment Successfully Deleted");
+          Load();
+      } catch (error) {
+          console.error("Error deleting appointment:", error);
+          alert("Failed to delete appointment. Please try again later.");
+      }
+  }
+  
   return (
     <div>
         <Topbar/>
@@ -122,6 +128,8 @@ function DisplayScheduled() {
                 <td className="border border-gray-300 p-4">
                     <button type="button" onClick={event => navigate('/updateapp', {state: {data :appointment}})}>Edit</button>
                     <button type="button" onClick={()=> DeleteAppointment(appointment._appointmentId)}>Delete</button>
+                    {/* <button type="button" onClick={() => DeleteAppointment(appointment._id)}>Delete</button> */}
+
                 </td>
               </tr>
             ))}

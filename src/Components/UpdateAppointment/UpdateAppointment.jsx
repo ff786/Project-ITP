@@ -10,6 +10,7 @@ function UpdateAppointment() {
 
 	const location = useLocation();
 	const receivedData = location.state?.data;
+	const [appointmentId, setAppointmentId] = useState('');
 
   // const [appointments,setAppointment]=useState([]);
   const [firstname, setFirstname] = useState('');
@@ -34,23 +35,27 @@ function UpdateAppointment() {
       
   // }
 
+	// 
 	useEffect(() => {
-		setFirstname(receivedData.firstname);
-		setLastname(receivedData.lastname);
-		setSpecialMessage(receivedData.special_message);
-		setMemberId(receivedData.member_id);
-		setDate(receivedData.date);
-		setDoctorsSpecialization(receivedData.doctors_specialization);
-		setDoctorId(receivedData.doctor_id);
-		setPhoneNumber(receivedData.phone_number);
-		setMail(receivedData.mail);
-	}, []);
+		if (receivedData) {
+			setFirstname(receivedData.firstname || '');
+			setLastname(receivedData.lastname || '');
+			setSpecialMessage(receivedData.special_message || '');
+			setMemberId(receivedData.member_id || '');
+			setDate(receivedData.date || '');
+			setDoctorsSpecialization(receivedData.doctors_specialization || '');
+			setDoctorId(receivedData.doctor_id || '');
+			setPhoneNumber(receivedData.phone_number || '');
+			setMail(receivedData.mail || '');
+		}
+	}, [receivedData]);
+	
 
 
   async function update(event){
       event.preventDefault();
       try{
-          await axios.put("https://dulanga.sliit.xyz/api/innobothealth/appointment/update" + appointmentId,
+          await axios.put("https://dulanga.sliit.xyz/api/innobothealth/appointment/update/" + appointmentId,
           {
               
               firstname : firstname,
@@ -81,20 +86,20 @@ function UpdateAppointment() {
           alert("Appointment Updating failed");
       }
   }
-  async function editAppointment(appointment)
-  {
-      setFirstname(appointments.firstname);
-      setLastname(appointments.lastname);
-      setSpecialMessage(appointments.special_message);
-      setMemberId(appointments.member_id);
-      setDate(appointments.date);
-      setDoctorsSpecialization(appointments.doctors_specialization);
-      setDoctorId(appointments.doctor_id);
-      setPhoneNumber(appointments.phone_number);
-      setMail(appointments.mail);
-      setAppointmentId(appointments._id);
-      //set the correct id here
-  }
+//   async function editAppointment(appointment)
+//   {
+//       setFirstname(appointment.firstname);
+//       setLastname(appointment.lastname);
+//       setSpecialMessage(appointment.special_message);
+//       setMemberId(appointment.member_id);
+//       setDate(appointment.date);
+//       setDoctorsSpecialization(appointment.doctors_specialization);
+//       setDoctorId(appointment.doctor_id);
+//       setPhoneNumber(appointment.phone_number);
+//       setMail(appointment.mail);
+//       setAppointmentId(appointment._id);
+//       //set the correct id here
+//   }
   return (
     <div>
 			<Topbar />

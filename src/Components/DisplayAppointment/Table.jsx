@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios'; // Import axios
 
 function Table() {
-  // Sample data for demonstration
-  const [doctors, setDoctors] = useState([
-    { id: 1, name: 'Doctor 1', date: '2024-04-15', timeSlots: ['10:00 AM', '11:00 AM'] },
-    { id: 2, name: 'Doctor 2', date: '2024-04-16', timeSlots: ['1:00 PM', '2:00 PM'] },
-  ]);
+  const [doctors, setDoctors] = useState([]);
 
   useEffect(() => {
-    // Fetch data from MongoDB and update the state
-    // Replace this with actual MongoDB data fetching logic
-  }, []);
+    async function fetchData() {
+      try {
+        const response = await axios.get("https://dulanga.sliit.xyz/api/innobothealth/doctor");
+        setDoctors(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+
+    fetchData(); // Call the fetchData function
+  }, []); // Empty dependency array to fetch data only once when the component mounts
 
   return (
     <div className="overflow-x-auto">
