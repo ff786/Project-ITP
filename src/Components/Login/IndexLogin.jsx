@@ -7,7 +7,7 @@ import { AiOutlineSwapRight } from 'react-icons/ai';
 import logo from '../../LoginAssets/logo.png';
 import worldwide_img from './worldwide_img.jpg';
 import Login from './Login';
-import Register from '../Register/Register.jsx';
+import FORM from '../ClaimManage/FORM.jsx';
 
 import { Link } from 'react-router-dom';
 
@@ -61,7 +61,7 @@ const Main = () => {
   return (
       <>
     <Login />
-    <Register />
+    <FORM />
     {/* <div>
         <img className="h-auto w-auto" src={worldwide_img} alt="Logo" />
     </div> */}

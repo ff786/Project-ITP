@@ -7,10 +7,13 @@
 }
 .modal-overlay {
   position: fixed;
-  top: 0;
+  top: 5%;
+  bottom: 5%;
   left: 0;
+  padding: 5%;
   width: 100%;
   height: 100%;
+  overflow: visible;
   background-color: rgba(0, 0, 0, 0.5); /* semi-transparent background */
   display: none; /* hide by default */
   justify-content: center;
@@ -180,7 +183,8 @@ p {
 }
 .FORM_WRAP{
     margin: 0;
-    position: relative;
-    margin-top: 70px;
+    position: sticky;
     margin-left: auto;
+    margin-right: auto;
+
 }
