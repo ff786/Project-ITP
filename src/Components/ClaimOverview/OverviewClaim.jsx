@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Topbar from '../common/topbar/Topbar.jsx'
-import Sidebar from '../common/sidebar/Sidebar.jsx'
 import SideNav from '../common/SideNav/sideNav.jsx'
 import ClaimModify from './ClaimModify.jsx'
 import ClaimFormModal from '../ClaimManage/FormClaim.jsx'
