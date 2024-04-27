@@ -11,6 +11,7 @@ function NotifyView() {
 
     const [data, setData] = useState([]);
     const navigate = useNavigate();
+    const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
 
@@ -50,6 +51,19 @@ function NotifyView() {
         };
         fetchData();
     },[]);
+
+    const handleSearch = (e) => {
+        const value = e.target.value;
+        setSearchQuery(value);
+    };
+
+    const filteredData = data.filter(item =>
+        item.subject.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.lastName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.message.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.deliveredTime.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     function handleDelete(item) {
 
@@ -98,23 +112,34 @@ function NotifyView() {
                 </div>
                 <div style={{marginTop: '90px', display: 'flex', position: 'relative'}}>
                 <div className="flex justify-items-center" style={{ width: '100%', position: 'relative', padding: '10px'}}  >
-                    <div className="max-w-4xl mx-auto p-4">
-                        <div className="flex justify-between items-center mb-4" style={{ maxHeight: '80vh', overflowY: 'auto' }}>
+                    <div className="max-w-4xl mx-auto p-4" style={{width: '50%'}}>
+                        <div className="flex justify-between items-center mb-4"
+                             style={{maxHeight: '80vh', overflowY: 'auto'}}>
                             <h1 className="text-xl font-bold text-black-900 dark:text-black">Sent Notifications</h1>
                             <button type="submit"
-                            className="bg-blue-500 text-white px-4 py-2 rounded-lg" onClick={() => navigate('/NotifyForm')}
-                            style={{ fontFamily: 'arial', fontSize: '18px' }}
-                            >Create New</button>
+                                    className="bg-blue-500 text-white px-4 py-2 rounded-lg"
+                                    onClick={() => navigate('/NotifyForm')}
+                                    style={{fontFamily: 'arial', fontSize: '18px'}}
+                            >Create New
+                            </button>
                         </div>
-
-                        {data.map(item => (
-                            <div key={item.id} className="bg-white dark:bg-white-700 shadow-xl rounded-lg p-4 mb-4">
+                        <input
+                            type="text"
+                            placeholder="Search..."
+                            value={searchQuery}
+                            onChange={handleSearch}
+                        />
+                        {filteredData.map(item => (
+                            <div key={item.id} style={{width: '100%'}}
+                                 className="bg-white dark:bg-white-700 shadow-xl rounded-lg p-4 mb-4">
                                 <div className="flex justify-between items-center mb-3">
                                     <h1 className="text-lg font-semibold text-zinc-800 dark:text-black">{item.subject}</h1>
-                                    <span className="text-sm text-black-600 dark:text-black-300">{item.deliveredTime.substring(0, item.deliveredTime.indexOf('T'))} | {item.deliveredTime.substring(item.deliveredTime.indexOf('T') + 1, item.deliveredTime.length)}</span>
+                                    <span
+                                        className="text-sm text-black-600 dark:text-black-300">{item.deliveredTime.substring(0, item.deliveredTime.indexOf('T'))} | {item.deliveredTime.substring(item.deliveredTime.indexOf('T') + 1, item.deliveredTime.length)}</span>
                                 </div>
                                 <div>
-                                    <h1 className="text-sm font-semibold text-zinc-800 dark:text-black">TO : {item.firstName} {item.lastName}</h1>
+                                    <h1 className="text-sm font-semibold text-zinc-800 dark:text-black">TO
+                                        : {item.firstName} {item.lastName}</h1>
                                 </div>
                                 <p className="text-zinc-600 dark:text-black-200 mb-3">
                                     {item.message.substring(item.message.lastIndexOf('*') + 1, item.message.length).trim()}
@@ -132,12 +157,18 @@ function NotifyView() {
                                         }
                                     </div>
                                     <div className="flex space-x-2">
-                                        <button onClick={() => {navigate('/NotifyForm', {state: {data: item}})}}
+                                        <button onClick={() => {
+                                            navigate('/NotifyForm', {state: {data: item}})
+                                        }}
                                                 className="p-2 text-black hover:text-green-700 dark:text-green-300 dark:hover:text-green">
-                                            <FaEdit />
+                                            <FaEdit/>
                                         </button>
-                                        <button className="p-2 text-black hover:text-red-700 dark:text-red-300 dark:hover:text-red" onClick={() => {handleDelete(item)}}>
-                                            <FaTrash />
+                                        <button
+                                            className="p-2 text-black hover:text-red-700 dark:text-red-300 dark:hover:text-red"
+                                            onClick={() => {
+                                                handleDelete(item)
+                                            }}>
+                                            <FaTrash/>
                                         </button>
                                     </div>
                                 </div>
