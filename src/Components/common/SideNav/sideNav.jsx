@@ -191,9 +191,11 @@ const SideNav = () => {
                      <span className="nav_image">
                        <img src={logo2} alt="logo_img" />
                      </span>
-                     <div className="data_text">
+                     <div className="swm">
+                     <div className={`swm ${isExpanded ? '' : 'close'}`}>
                        <span className="name">{userData.firstName}</span><br/>
                        <span className="email">{userData.email}</span>
+                     </div>
                      </div>
                    </div>
                  )}

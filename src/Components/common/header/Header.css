@@ -10,7 +10,7 @@
     width: 100%;
     height: auto;
     background-color: #02072D;
-
+    position: inline;
 }
   
 .header-top__logo {
@@ -170,15 +170,15 @@ tr, td {
 }
 .top {
   display: flex;
+  position: sticky;
   background-color: #02072D;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
   padding: 10px;
-  position: fixed;
   top: 0;
   left: 0; /* Ensure top bar spans the entire width */
   right: 0; /* Ensure top bar spans the entire width */
   width: 100%;
-  z-index: 900;
+  z-index: 90;
 }
 
 

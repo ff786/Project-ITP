@@ -63,7 +63,6 @@ function Navbar() {
           toggleNotifications={toggleNotifications}
           notificationCount={notifications.length}
           isOpen={showNotifications}
-          isClose={!showNotifications}
           notifications={notifications}
         />
 
