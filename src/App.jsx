@@ -18,10 +18,13 @@ import NotifyForm from './Components/NotifyForm/NotifyForm.jsx'
 import NotifyView from './Components/NotifyView/NotifyView.jsx'
 import PatientForm from './Components/FormPatient/PatientForm.jsx'
 
+import DisplayAppointment from './Components/DisplayAppointment/DisplayAppointment'
+import DisplayScheduled from './Components/DisplayScheduled/DisplayScheduled'
 import {
   createBrowserRouter,
   RouterProvider
 } from 'react-router-dom'
+
 
 const router = createBrowserRouter([
   {
@@ -93,6 +96,15 @@ const router = createBrowserRouter([
     path: '/FormPatient',
     element: <div><PatientForm /> </div>
   },
+  {
+    path: '/displayappointment',
+    element: <div><DisplayAppointment/> </div>
+  },
+  {
+    path: '/displayscheduled',
+    element: <div><DisplayScheduled/> </div>
+  },
+
 
   {
     path: '/login',
