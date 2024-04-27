@@ -1,12 +1,18 @@
 .insurance-record-container {
-    max-width: 600px;
-    margin: 0 auto;
+    max-width: 100%;
+    margin: auto;
     padding: 20px;
+    position: relative;
     background-color: #f5f5f5;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
-  
+.modal-content {
+    width: 60%;
+    height: 70%;
+    overflow-y: auto;
+    margin-bottom: 2%;
+}
   h2 {
     text-align: center;
     margin-bottom: 20px;
