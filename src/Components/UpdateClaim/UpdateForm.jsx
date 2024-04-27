@@ -6,6 +6,8 @@ import video from '../../LoginAssets/video.mp4';
 import './UpdateForm.css';
 import { useParams } from 'react-router-dom';
 
+import { Link } from 'react-router-dom'
+
 const UpdateForm = () => {
   const [memberId, setMemberId] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -14,7 +16,7 @@ const UpdateForm = () => {
   const [email, setEmail] = useState('');
   const [treatmentDate, setTreatmentDate] = useState('');
   const [amount, setAmount] = useState('');
-  const [imageUrl, setImageUrl] = useState();
+  const [receipt, setReceipt] = useState('');
   const { id } = useParams();
 
   const [updateClaims, setUpdateClaims] = useState([]);
@@ -31,7 +33,7 @@ const UpdateForm = () => {
           setEmail(member.email);
           setTreatmentDate(member.treatmentDate);
           setAmount(member.amount);
-          setImageUrl(member.imageUrl);
+          setReceipt(member.receipt);
 
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -43,6 +45,8 @@ const UpdateForm = () => {
     const handleUpdate = async (event) => {
       event.preventDefault();
 
+      const formattedDate = new Date(treatmentDate).toISOString().split('T')[0];
+
       const update = document.getElementById('updateForm');
       event.preventDefault();
           try {
@@ -52,9 +56,9 @@ const UpdateForm = () => {
             formData.append('lastName', lastName);
             formData.append('phoneNumber', phoneNumber);
             formData.append('email', email);
-            formData.append('treatmentDate', treatmentDate);
+            formData.append('treatmentDate', formattedDate);
             formData.append('amount', amount);
-            formData.append('receipt',imageUrl);
+            formData.append('receipt',receipt);
 
             await axios.put(`https://dulanga.sliit.xyz/api/innobothealth/claim/update/${id}`,
 
@@ -65,7 +69,7 @@ const UpdateForm = () => {
               },
             }
             );
-            toast.success('Claim updated successfully');
+            alert('Claim updated successfully');
           } catch (error) {
             console.error('Error updating claim:', error);
             alert('Error updating claim');
@@ -172,7 +176,9 @@ const UpdateForm = () => {
           <div className="bar2">
             <div className="devb">
               <label>Upload Receipt:</label>
-              <input type="file" onChange={(event) => setImageUrl(event.target.value)} />
+              <input
+                type="file"
+                onChange={(event) => setReceipt(event.target.files[0])} />
             </div>
           </div>
 
