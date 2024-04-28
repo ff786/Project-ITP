@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './Auth.css';
 import '../../App.css';
-import Video2 from '../../LoginAssets/Video2.mp4';
-import Video from '../../LoginAssets/Video.mp4';
+// import Video2 from '../../LoginAssets/Video2.mp4';
+import Video from '../../LoginAssets/video.mp4';
 import logo from '../../LoginAssets/logo.png';
 import { FaUserShield } from 'react-icons/fa';
 import { BsFillShieldLockFill } from 'react-icons/bs';
