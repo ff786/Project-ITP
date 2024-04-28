@@ -12,7 +12,7 @@ function User() {
   const [lastname, setLastname] = useState('');
   const [mobileNumber, setMobileNumber] = useState('');
   const [password, setPassword] = useState('');
-  const [email, setemail] = useState('');
+  const [email, setEmail] = useState('');
   const [role, setRole] = useState('');
   const [notipref, setNotipref] = useState({ SMS: false, EMAIL: false, SYS: false });
   const [users, setUsers] = useState([]);
@@ -20,6 +20,7 @@ function User() {
   const [searchQuery, setSearchQuery] = useState('');
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
+  const [isEditMode, setIsEditMode] = useState(false); // State for switching between edit and add mode
 
   useEffect(() => {
     fetchUsers();
@@ -27,7 +28,7 @@ function User() {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('https://dulanga.sliit.xyz/api/innobothealth/admin/users');
+      const response = await axios.get('https://dulanga.sliit.xyz/api/innobothealth/admin/getAll');
       setUsers(response.data);
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -36,20 +37,25 @@ function User() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
+    if (editingUserIndex !== -1) {
+      handleSaveEdit(); // Call handleSaveEdit if in edit mode
+      return;
+    }
+  
     try {
       const response = await axios.post('https://dulanga.sliit.xyz/api/innobothealth/admin/register', {
         email,
         password,
         firstName: firstname,
         lastName: lastname,
-          mobileNumber,
-          role,
+        mobileNumber,
+        role,
         notificationPreference: Object.keys(notipref).filter(key => notipref[key])
       });
-
+  
       setUsers([...users, response.data]);
-
+  
       setUsername('');
       setFirstname('');
       setLastname('');
@@ -58,12 +64,13 @@ function User() {
       setemail('');
       setRole('');
       setNotipref({ SMS: false, email: false, SYS: false });
-
+  
     } catch (error) {
       console.error('Error:', error);
       showCustomPopup('Failed to add user. Please try again later.');
     }
   };
+  
 
   const showCustomPopup = (message) => {
     setModalMessage(message);
@@ -76,12 +83,22 @@ function User() {
 
   const handleDelete = async (index) => {
     try {
-      await axios.delete(`https://dulanga.sliit.xyz/api/innobothealth/admin/users/${users[index]._id}`);
-      const updatedUsers = [...users];
-      updatedUsers.splice(index, 1);
-      setUsers(updatedUsers);
+      // Get the ID of the user to delete
+      const userIdToDelete = users[index].id;
+  
+      // Make the DELETE request to the API
+      await axios.delete(`https://dulanga.sliit.xyz/api/innobothealth/admin/delete/${userIdToDelete}`);
+  
+      // Update the state to remove the deleted user
+      setUsers(prevUsers => {
+        const updatedUsers = [...prevUsers];
+        updatedUsers.splice(index, 1);
+        return updatedUsers;
+      });
     } catch (error) {
       console.error('Error deleting user:', error);
+      // Optionally, you can show a custom error message here
+      showCustomPopup('Failed to delete user. Please try again later.');
     }
   };
 
@@ -102,7 +119,7 @@ function User() {
 
   const handleSaveEdit = async () => {
     try {
-      await axios.put(`https://dulanga.sliit.xyz/api/innobothealth/admin/users/${users[editingUserIndex]._id}`, {
+      const response = await axios.put(`https://dulanga.sliit.xyz/api/innobothealth/admin/update/${users[editingUserIndex].id}`, {
         email,
         firstName: firstname,
         lastName: lastname,
@@ -110,16 +127,20 @@ function User() {
         role,
         notificationPreference: Object.keys(notipref).filter(key => notipref[key])
       });
-      const updatedUsers = [...users];
-      updatedUsers[editingUserIndex] = {
-        ...updatedUsers[editingUserIndex],
+  
+      const updatedUser = {
+        ...users[editingUserIndex],
         email,
         firstName: firstname,
         lastName: lastname,
         mobileNumber,
         role,
         notificationPreference: Object.keys(notipref).filter(key => notipref[key])
-      };
+      };  
+  
+      const updatedUsers = [...users];
+      updatedUsers[editingUserIndex] = updatedUser;
+  
       setUsers(updatedUsers);
       setEditingUserIndex(-1);
       setUsername('');
@@ -133,6 +154,7 @@ function User() {
       showCustomPopup('Failed to save changes. Please try again later.');
     }
   };
+  
 
   const filteredUsers = users.filter(user =>
     user.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -142,6 +164,12 @@ function User() {
     user.lastName.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const toggleMode = () => {
+    setIsEditMode(!isEditMode);
+    clearForm(); // Clear form fields when switching modes
+    setEditingUserIndex(-1); // Reset editing index when switching modes
+  };
+
   return (
     <div>
       <Topbar />
@@ -149,7 +177,8 @@ function User() {
       
       <div className="container">
         <div className="add-staff-container">
-          <h2 className="add-staff-heading">{editingUserIndex === -1 ? 'Add STAFF' : 'Edit STAFF'}</h2>
+        <h2 className="add-staff-heading">{isEditMode ? 'Edit STAFF' : 'Add STAFF'}</h2>
+
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label>Username:</label>
@@ -254,7 +283,17 @@ function User() {
                 </label>
               </div>
             </div>
-            <button type="submit">{editingUserIndex === -1 ? 'Add STAFF' : 'Save Changes'}</button>
+            <button type="submit">{isEditMode ? 'Save Changes' : 'Add STAFF'}</button>
+            <div className="switch">
+  <input
+    type="checkbox"
+    id="modeToggle"
+    checked={isEditMode}
+    onChange={() => setIsEditMode(prevMode => !prevMode)}
+  />
+  <label htmlFor="modeToggle" className="slider round"></label>
+</div>
+
           </form>
         </div>
         <div className="user-list-container">
