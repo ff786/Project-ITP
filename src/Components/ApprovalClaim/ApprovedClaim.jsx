@@ -13,7 +13,7 @@ const ApprovedClaim = ({ isOpen, onClose }) => {
     useEffect(() => {
       const fetchApprovedClaims = async () => {
         try {
-          const response = await axios.get('https://dulanga.sliit.xyz/api/innobothealth/claim/getAll');
+          const response = await axios.get('https://dulanga.azurewebsites.net/api/innobothealth/claim/getAll');
           // Filter out the claims where approved is false
           const filteredClaims = response.data.filter(claim => claim.approved);
           setApprovedClaims(filteredClaims);

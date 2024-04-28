@@ -54,7 +54,7 @@ const inventrorytab = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get("https://dulanga.sliit.xyz/api/innobothealth/medicine/all");
+                const response = await axios.get("https://dulanga.azurewebsites.net/api/innobothealth/medicine/all");
                 setData(response.data);
                 setFilteredData(response.data);
             } catch (error) {

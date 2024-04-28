@@ -9,8 +9,16 @@ import { BsFillShieldLockFill } from 'react-icons/bs';
 import { AiOutlineSwapRight } from 'react-icons/ai';
 import { MdEmail } from "react-icons/md";
 import { Link } from 'react-router-dom';
+/* import {getAnalytics, logEvent, setUserProperties} from "firebase/analytics"; */
 
 const Auth = () => {
+
+/*   const analytics = getAnalytics();
+  setUserProperties(analytics, {
+    favorite_food: 'apples'
+  });
+  logEvent(analytics,'test_event', { date : Date.now(), platform : "Innobot-FE-SLIIT"}); */
+
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   /* const [username, setUsername] = useState(''); */
@@ -27,7 +35,7 @@ const handleSubmit = async (e) => {
   if (isLogin) {
     // Login
     try {
-      const response = await fetch('https://dulanga.sliit.xyz/api/innobothealth/admin/otp/request', {
+      const response = await fetch('https://dulanga.azurewebsites.net/api/innobothealth/admin/otp/request', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -48,7 +56,7 @@ const handleSubmit = async (e) => {
   } else {
     // Validate OTP
     try {
-      const response = await fetch('https://dulanga.sliit.xyz/api/innobothealth/admin/otp/request', {
+      const response = await fetch('https://dulanga.azurewebsites.net/api/innobothealth/admin/request/token', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -70,7 +78,7 @@ const handleSubmit = async (e) => {
 }; /* else {
       // Register
       try {
-        const response = await fetch('https://dulanga.sliit.xyz/api/innobothealth/admin/register', {
+        const response = await fetch('https://dulanga.azurewebsites.net/api/innobothealth/admin/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -115,10 +123,10 @@ const handleSubmit = async (e) => {
                 <label htmlFor="email">Email</label>
                 <div className="input flex">
                   <MdEmail className='icon'></MdEmail>
-                  <input type="text" id='email' placeholder='Enter email' value={email} onChange={(e) => setEmail(e.target.value)} />
+                  <input type="text" name="email" id='email' placeholder='Enter email' value={email} onChange={(e) => setEmail(e.target.value)} />
                 </div>
               </div>
-            {!isLogin && (
+            {/* {!isLogin && (
             <div className="inputDiv">
               <label htmlFor="username">Username</label>
               <div className="input flex">
@@ -126,12 +134,12 @@ const handleSubmit = async (e) => {
                 <input type="text" id='username' placeholder='Enter username' value={username} onChange={(e) => setUsername(e.target.value)} />
               </div>
             </div>
-            )}
+            )} */}
             <div className="inputDiv">
               <label htmlFor="password">Password</label>
               <div className="input flex">
                 <BsFillShieldLockFill className='icon' />
-                <input type='text' id='password' placeholder='Enter Password' value={password} onChange={(e) => setPassword(e.target.value)} />
+                <input type='text' name="password" id='password' placeholder='Enter Password' value={password} onChange={(e) => setPassword(e.target.value)} />
               </div>
             </div>
             {showOtpInput && (

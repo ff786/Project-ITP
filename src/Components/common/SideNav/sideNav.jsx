@@ -83,7 +83,7 @@ const SideNav = () => {
 
   useEffect(() => {
       // Fetch data from the API when the component mounts
-      fetch("https://dulanga.sliit.xyz/api/innobothealth/admin/getAll")
+      fetch("https://dulanga.azurewebsites.net/api/innobothealth/admin/getAll")
         .then(response => response.json())
         .then(data => {
           // Assuming the API response is an array of user objects

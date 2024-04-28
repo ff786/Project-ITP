@@ -76,7 +76,7 @@ const FORM = () => {
       const formData = new FormData(form);
           // Send the form data as a POST request using fetch
       try {
-        const response = await fetch('https://dulanga.sliit.xyz/api/innobothealth/claim/create', {
+        const response = await fetch('https://dulanga.azurewebsites.net/api/innobothealth/claim/create', {
           method: 'POST',
           header: {
             'Accept': 'application/json'
@@ -108,9 +108,9 @@ const FORM = () => {
             <div className="form-row" >
              <div className="devb">
               <label>
-                Member ID:</label>
+                Claim ID:</label>
                 <div>
-                <input type="text" name="memberId" value={memberId} onChange={(event) => setMemberId(event.target.value)} placeholder="Member ID"/>
+                <input type="text" name="memberId" value={memberId} onChange={(event) => setMemberId(event.target.value)} placeholder="Claim ID"/>
                 </div>
              </div>
 

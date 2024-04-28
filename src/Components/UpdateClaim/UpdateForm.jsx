@@ -24,7 +24,7 @@ const UpdateForm = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://dulanga.sliit.xyz/api/innobothealth/claim/getAll?id');
+        const response = await axios.get('https://dulanga.azurewebsites.net/api/innobothealth/claim/getAll?id');
         const member = response.data[0];
           setMemberId(member.memberId);
           setFirstName(member.firstName);
@@ -60,7 +60,7 @@ const UpdateForm = () => {
             formData.append('amount', amount);
             formData.append('receipt',receipt);
 
-            await axios.put(`https://dulanga.sliit.xyz/api/innobothealth/claim/update/${id}`,
+            await axios.put(`https://dulanga.azurewebsites.net/api/innobothealth/claim/update/${id}`,
 
             formData,
             {
