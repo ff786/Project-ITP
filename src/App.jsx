@@ -24,6 +24,7 @@ import {
   createBrowserRouter,
   RouterProvider
 } from 'react-router-dom'
+import NotifyUpdateForm from "./Components/NotifyForm/NotifyUpdateForm.jsx";
 
 
 const router = createBrowserRouter([
@@ -109,6 +110,10 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: <div><Login /> </div>
+  },
+  {
+    path: '/updateNotification',
+    element: <div><NotifyUpdateForm /> </div>
   }
 
 ])

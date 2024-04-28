@@ -158,7 +158,7 @@ function NotifyView() {
                                     </div>
                                     <div className="flex space-x-2">
                                         <button onClick={() => {
-                                            navigate('/NotifyForm', {state: {data: item}})
+                                            navigate('/updateNotification', {state: {data: item}})
                                         }}
                                                 className="p-2 text-black hover:text-green-700 dark:text-green-300 dark:hover:text-green">
                                             <FaEdit/>
