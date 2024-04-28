@@ -5,6 +5,7 @@ import Navbar from './UserNavbar';
 import './User.css';
 import Modal from 'react-modal';
 import Sidebar from '../common/sidebar/Sidebar';
+import SideNav from '../common/SideNav/sideNav';
 
 function User() {
   const [username, setUsername] = useState('');
@@ -171,9 +172,11 @@ function User() {
   };
 
   return (
-    <div>
+    <div class="main-container">
       <Topbar />
       <Navbar />
+      <SideNav/>
+      <div class="content-container">
       
       <div className="container">
         <div className="add-staff-container">
@@ -343,6 +346,7 @@ function User() {
           <button onClick={closeModal}>Close</button>
         </div>
       </Modal>
+      </div>
     </div>
   );
 }
