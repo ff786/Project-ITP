@@ -9,8 +9,16 @@ import { BsFillShieldLockFill } from 'react-icons/bs';
 import { AiOutlineSwapRight } from 'react-icons/ai';
 import { MdEmail } from "react-icons/md";
 import { Link } from 'react-router-dom';
+import {getAnalytics, logEvent, setUserProperties} from "firebase/analytics";
 
 const Auth = () => {
+
+  const analytics = getAnalytics();
+  setUserProperties(analytics, {
+    user: 'Dulanga Wimalagunasekara'
+  });
+  logEvent(analytics,'test_event', { date : Date.now(), platform : "Innobot-FE-SLIIT"});
+
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   /* const [username, setUsername] = useState(''); */
