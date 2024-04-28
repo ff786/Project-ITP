@@ -99,6 +99,8 @@ const ClaimFormModal = ({ isOpen, onClose }) => {
     }
 
     return (
+
+      <>
       <div className={`modal-overlay ${isOpen ? "open" : ''}`}>
        <div className="modal-content">
        <button className="text-zinc-600 hover:text-red-900" onClick={handleCancel}>
@@ -255,7 +257,7 @@ const ClaimFormModal = ({ isOpen, onClose }) => {
           </form>
          </div>
         </div>
-
+        </>
       );
     }
 
