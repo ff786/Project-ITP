@@ -16,6 +16,9 @@ import PndView from './Components/ViewPND/PndView.jsx'
 import NotifyForm from './Components/NotifyForm/NotifyForm.jsx'
 import NotifyView from './Components/NotifyView/NotifyView.jsx'
 import PatientForm from './Components/FormPatient/PatientForm.jsx'
+import Inventorydashboad from './Components/Inventory/inventorydashboad.jsx'
+import AddInventorydashboad from './Components/Inventory/medicineaddFrom.jsx'
+import UpdateInventorydashboad from './Components/Inventory/inventoryupdateFrom.jsx'
 
 import {
   createBrowserRouter,
@@ -91,7 +94,21 @@ const router = createBrowserRouter([
   {
     path: '/FormPatient',
     element: <div><PatientForm /> </div>
-  }
+  },
+  {
+    path: '/Inventory',
+    element: <div><Inventorydashboad /> </div>
+  },
+  {
+    path: '/addInventory',
+    element: <div><AddInventorydashboad /> </div>
+  },
+  {
+    path: '/UpdateInventory/:id',
+    element: <div><UpdateInventorydashboad /> </div>
+},
+
+
 
 ])
 

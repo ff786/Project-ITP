@@ -1,4 +1,6 @@
-import { useState } from 'react';
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/rules-of-hooks */
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 
@@ -10,7 +12,8 @@ import {
 import axios from 'axios';
 
 
-const MedicineAddForm = () => {
+const medicineaddFrom = () => {
+
   const { control, handleSubmit, register, reset, formState: { errors }, setValue } = useForm({
     defaultValues: {
       medicineName: '',
@@ -18,16 +21,25 @@ const MedicineAddForm = () => {
       expiryDate: '',
       quantity: '',
       unitPrice: '',
+      supplierName: '',
     },
   });
   const [isExpiryDateInvalid, setIsExpiryDateInvalid] = useState(false);
   // const onSubmit = (data) => console.log(data);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [suppliers, setSuppliers] = useState([]); // State to store fetched suppliers
   const Submitprocess = async (data) => {
+
     if (isExpiryDateInvalid) {
       alert('Expiry date cannot be in the past');
     }
     try {
+      const selectedSupplierName = data.supplierName;
+      console.log('Selected Supplier Name:', selectedSupplierName);
+      // Assign the selected supplier name to the supplierName field in the data object
+      data.supplierName = selectedSupplierName;
+      console.log('this pass object pass post :', data);
+      // Send the POST request to the server
       const response = await axios.post('https://dulanga.sliit.xyz/api/innobothealth/medicine/saveMedi', data);
       console.log(response.data);
       setIsSuccess(true);
@@ -48,14 +60,31 @@ const MedicineAddForm = () => {
 
     if (selectedDateObj < currentDate) {
       alert('Expiry date cannot be in the past');
-      setValue('expireDate', ''); // Clear the value if it's invalid
-      setIsExpiryDateInvalid(true); // Set the state to indicate invalidity
+      setValue('expireDate', '');
+      setIsExpiryDateInvalid(true);
       return;
     }
 
-    setValue('expireDate', selectedDate); // Set the value only if it's valid
-    setIsExpiryDateInvalid(false); // Reset the state if it's valid
+    setValue('expireDate', selectedDate);
+    setIsExpiryDateInvalid(false);
   };
+  // Fetch suppliers data on component mount
+  useEffect(() => {
+    const fetchSuppliers = async () => {
+      try {
+        const response = await axios.get('https://dulanga.sliit.xyz/api/innobothealth/supplier/all');
+        console.log(response.data);
+        setSuppliers(response.data); // Set the fetched suppliers data into state
+      } catch (error) {
+        console.error('Error fetching suppliers:', error);
+      }
+    };
+
+    fetchSuppliers();
+  }, []); // Fetch suppliers data on component mount
+
+
+
 
   return (
     <div className="h-screen grid place-items-center bg-gray-50">
@@ -111,17 +140,20 @@ const MedicineAddForm = () => {
 
           <div>
             <Typography variant="h6" color="blue-gray" className="-mb-6">
-              SupplierName
+              Supplier Name
             </Typography>
             <br />
             <select
-              {...register('supplierName', { required: "Supplier Name is required" })}
+              {...register('supplier', { required: "Supplier Name is required" })}
               className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
             >
               <option value="">Select supplier</option>
-              <option value="1">Type 1</option>
-              <option value="2">Type 2</option>
-              <option value="3">Type 3</option>
+              {/* Map through the suppliers data and populate options */}
+              {suppliers.map(supplier => (
+                <option key={supplier.Suplierid} value={supplier.supplier_name}>
+                  {supplier.supplier_name}
+                </option>
+              ))}
             </select>
             {errors?.supplierName?.message && (<span className="text-red-500 text-sm">{errors?.supplierName?.message}</span>)}
           </div>
@@ -151,7 +183,8 @@ const MedicineAddForm = () => {
                 required: "Quantity is required",
                 min: { value: 1, message: "Quantity should not be less than 1" },
                 max: { value: 1000, message: "Quantity should not exceed 1000" },
-                pattern: { value: /^[0-9]+$/, message: "Quantity should contain only numbers" }
+                pattern:{ value: /^[0-9]+(\.[0-9]{1,2})?$/, message: "Unit Price should contain only numbers with up to two decimal places" }
+
               })}
               className="py-3 px-4 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
               placeholder="Enter Quantity"
@@ -203,7 +236,7 @@ const MedicineAddForm = () => {
             </Link> */}
             {/* Conditionally render the button based on the isSuccess state */}
             {isSuccess ? (
-              <Link to="/medilist">
+              <Link to="/Inventory">
                 <button
                   type="button"
                   className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 justify-center"
@@ -237,4 +270,4 @@ const MedicineAddForm = () => {
   );
 };
 
-export default MedicineAddForm;
+export default medicineaddFrom;
