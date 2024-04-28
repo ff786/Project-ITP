@@ -11,10 +11,12 @@ import FORM from '../ClaimManage/FORM.jsx';
 
 import { Link } from 'react-router-dom';
 
-const Navbar = ({ scrolled, handleFormToggle, scrollRef }) => {
+const Navbar = ({ scrolled, handleFormToggle }) => {
   const [logoHeight, setLogoHeight] = useState(true);
   const [logoWidth, setLogoWidth] = useState(true);
   const [navbarColor, setNavbarColor] = useState('transparent');
+
+  const [isTryClaim, setIsTryClaim] = useState(true)
 
   useEffect(() => {
     if (scrolled) {
@@ -45,10 +47,9 @@ const Navbar = ({ scrolled, handleFormToggle, scrollRef }) => {
             <a href="#" className="text-base font-medium text-zinc-500 hover:text-zinc-900">Contact Us</a>
           </nav>
 
-            <button onClick={() => {handleFormToggle(); scrollRef.current.scrollIntoView({ behavior: "smooth" });}} className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-950 hover:bg-purple-900">
-              Try Create Claim
+            <button onClick={() => {handleFormToggle(); scrollToForm();}} className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-950 hover:bg-purple-900">
+              {isTryClaim ? "Try Create Claim" : "Close Form" }
             </button>
-
         </div>
       </div>
     </nav>
@@ -56,9 +57,10 @@ const Navbar = ({ scrolled, handleFormToggle, scrollRef }) => {
   );
 };
 
-const Main = ({ displayForm, scrollRef }) => {
+const Main = ({ displayForm}) => {
+    const formRef = useRef(null);
   return (
-    <div ref={scrollRef}>
+    <div ref={formRef}>
       <Login />
       {displayForm && <FORM />}
       {/* <div>
@@ -71,7 +73,6 @@ const Main = ({ displayForm, scrollRef }) => {
 const IndexLogin = () => {
   const [scrolled, setScrolled] = useState(false);
   const [displayForm, setDisplayForm] = useState(false);
-  const scrollRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -89,10 +90,15 @@ const IndexLogin = () => {
     setDisplayForm(!displayForm);
   };
 
+  const scrollToForm = () => {
+    const formPosition = window.pageYOffset + formRef.current.getBoundingClientRect().top;
+    window.scrollTo({ top: formPosition, behavior: 'smooth' });
+  };
+
   return (
     <>
-      <Navbar scrolled={scrolled} handleFormToggle={handleFormToggle} scrollRef={scrollRef} />
-      <Main displayForm={displayForm} scrollRef={scrollRef} />
+      <Navbar scrolled={scrolled} handleFormToggle={handleFormToggle}/>
+      <Main displayForm={displayForm} />
     </>
   );
 };
