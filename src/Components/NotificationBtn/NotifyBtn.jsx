@@ -2,8 +2,15 @@ import React from 'react';
 import './NotifyBtn.css';
 import axios from "axios";
 import Swal from "sweetalert2";
+import {getAnalytics, logEvent, setUserProperties} from "firebase/analytics";
 
 const NotifyBtn = ({ toggleNotifications, notificationCount, isOpen, notifications }) => {
+
+    const analytics = getAnalytics();
+    setUserProperties(analytics, {
+        user: "Dulanga",
+    });
+    logEvent(analytics,'notification-send', { date : Date.now(), platform : "Innobot-FE-SLIIT"});
 
     function handleReply(id) {
 
