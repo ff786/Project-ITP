@@ -38,9 +38,9 @@ function OverviewClaim () {
 
     return (
       <div>
-
-        <Topbar />
-
+        <div>
+            <Topbar />
+        </div>
         <div className="mid">
 
                 <SideNav />
