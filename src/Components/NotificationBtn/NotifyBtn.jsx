@@ -70,7 +70,7 @@ const NotifyBtn = ({ toggleNotifications, notificationCount, isOpen, notificatio
             <div className="notification-dropdown">
                 {notifications.map(item => (
                     <div key={item.id} className="notification-item">
-                        <span>{item.message}</span>
+                        <span className="text-black">{item.message}</span>
                         <button className="icon-button acknowledge-button" onClick={() => handleAcknowledge(item.id)}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 64 64">
                                 <image href="https://img.icons8.com/glyph-neue/64/puzzle.png" width="64" height="64" />
