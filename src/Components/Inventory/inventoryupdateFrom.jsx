@@ -27,7 +27,7 @@ const inventoryupdateFrom = () => {
   useEffect(() => {
     console.log('Component mounted or id changed:', id);
     axios
-      .get(`https://dulanga.sliit.xyz/api/innobothealth/medicine/name/${id}`)
+      .get(`https://dulanga.azurewebsites.net/api/innobothealth/medicine/name/${id}`)
       .then((response) => {
         setData(response.data);
         console.log(response.data);
@@ -59,7 +59,7 @@ const inventoryupdateFrom = () => {
       data.supplierName = selectedSupplierName;
       console.log('this pass object pass post :', data);
       // Send the POST request to the server
-      const response = await axios.put('http://localhost:8080/api/innobothealth/medicine', data);
+      const response = await axios.put('https://dulanga.azurewebsites.net/api/innobothealth/medicine', data);
       console.log(response.data);
       setIsSuccess(true);
     } catch (error) {
@@ -93,7 +93,7 @@ const inventoryupdateFrom = () => {
   useEffect(() => {
     const fetchSuppliers = async () => {
       try {
-        const response = await axios.get('https://dulanga.sliit.xyz/api/innobothealth/supplier/all');
+        const response = await axios.get('https://dulanga.azurewebsites.net/api/innobothealth/supplier/all');
         console.log(response.data);
         setSuppliers(response.data); // Set the fetched suppliers data into state
       } catch (error) {

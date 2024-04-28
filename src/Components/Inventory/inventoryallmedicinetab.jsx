@@ -59,7 +59,7 @@ const InventoryAllMedicineTab = () => {
         const fetchData = async () => {
             try {
                 // const response = await axios.get("https://dulanga.sliit.xyz/api/innobothealth/medicine/all");
-                const response = await axios.get("http://localhost:8080/api/innobothealth/medicine/all");
+                const response = await axios.get("https://dulanga.azurewebsites.net/api/innobothealth/medicine/all");
                 console.log(response.data);
                 setData(response.data);
                 setFilteredData(response.data);
@@ -82,7 +82,7 @@ const InventoryAllMedicineTab = () => {
         const confirmDeleteAction = window.confirm("Are you sure you want to delete this item?");
         if (confirmDeleteAction) {
             try {
-                await axios.delete(`https://dulanga.sliit.xyz/api/innobothealth/medicine/${medicineName}`);
+                await axios.delete(`https://dulanga.azurewebsites.net/api/innobothealth/medicine/${medicineName}`);
                 console.log("Item deleted successfully:", medicineName);
                 const newData = data.filter((item) => item.medicineName !== medicineName);
                 setData(newData);
