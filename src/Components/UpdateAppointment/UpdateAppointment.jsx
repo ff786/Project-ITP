@@ -5,12 +5,13 @@ import { useState } from 'react';
 import axios from 'axios';
 import Sidebar from '../common/sidebar/Sidebar';
 import { useLocation } from 'react-router-dom';
-
+import { useNavigate } from "react-router-dom";
 
 function UpdateAppointment() {
   const location = useLocation();
   const receivedData = location.state?.data;
   const [appointmentId, setAppointmentId] = useState('');
+  const navigate = useNavigate();
 //   const [formSubmitted, setFormSubmitted] = useState(false);
 
 
@@ -87,18 +88,18 @@ function UpdateAppointment() {
 
       );
       alert('Appointment Updated');
-      setAppointmentId('');
-      setFirstname('');
-      setLastname('');
-      setSpecialMessage('');
-      setMemberId('');
-      setDate('');
-      setDoctorsSpecialization('');
-      setDoctorId('');
-      setPhoneNumber('');
-      setMail('');
-      Load();
-	  
+      // setAppointmentId('');
+      // setFirstname('');
+      // setLastname('');
+      // setSpecialMessage('');
+      // setMemberId('');
+      // setDate('');
+      // setDoctorsSpecialization('');
+      // setDoctorId('');
+      // setPhoneNumber('');
+      // setMail('');
+      // Load();
+      navigate('/displayappointment');
     } catch (err) {
       alert('Appointment Updating failed');
     }

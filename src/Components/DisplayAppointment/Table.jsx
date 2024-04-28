@@ -12,14 +12,14 @@ function Table() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get("https://dulanga.sliit.xyz/api/innobothealth/doctor/list", {
+        const response = await axios.get("https://dulanga.azurewebsites.net/api/innobothealth/doctor/list", {
           params: {
-            date: "2024-04-19",
+            date: "2024-05-28",
             specialization: "specialization"
           }
         });
         setDoctors(response.data);
-        navigate('/displayscheduled');
+        
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -34,12 +34,13 @@ function Table() {
     setSearchQuery(value);
   };
   const filteredData = doctors.filter(item =>
-    item.subject.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    
     item.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    item.lastName.toLowerCase().includes(searchQuery.toLowerCase()) ||
     item.specialization.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    item.doctor.availabilityFrom.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    item.doctor.availabilityTo.toLowerCase().includes(searchQuery.toLowerCase())
-).sort((a, b) => new Date(b.deliveredTime) - new Date(a.deliveredTime));
+    item.availabilityFrom.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    item.availabilityTo.toLowerCase().includes(searchQuery.toLowerCase())
+);
 
   return (
 
@@ -67,7 +68,7 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          {doctors.map(doctor => (
+          {filteredData.map(doctor => (
             // <tr key={doctor.id}>
             //   <td className="border border-gray-300 p-4">{doctor.firstname}</td>
             //   <td className="border border-gray-300 p-4">{doctor.lastname}</td>
@@ -83,7 +84,7 @@ function Table() {
                 <td className="border border-gray-300 p-4">{doctor.specialization}</td>
                 <td className="border border-gray-300 p-4">{doctor ? doctor.availabilityFrom : ''}</td>
                 <td className="border border-gray-300 p-4">{doctor? doctor.availabilityTo : ''}</td>
-                <button className="bg-green-300 hover:bg-black text-white font-normal py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-blue active:bg-blue-800 ml-20 mt-2">
+                <button onClick={() =>navigate('/displayscheduled') } className="bg-green-300 hover:bg-black text-white font-normal py-2 px-4 rounded-full focus:outline-none focus:shadow-outline-blue active:bg-blue-800 ml-20 mt-2">
                     Schedule Appointment
                 </button>
               </tr>

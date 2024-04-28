@@ -128,7 +128,7 @@ function DisplayScheduled() {
                 <td className="border border-gray-300 p-4">{appointment.mail}</td>
                 <td className="border border-gray-300 p-4">
                 <button 
-                          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-9"
+                          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2"
                           type="button" 
                           onClick={event => navigate('/updateapp', { state: { data: appointment } })}
                 > 

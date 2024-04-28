@@ -63,7 +63,7 @@ const create = async (event) => {
     if (!isPhoneValid || !isEmailValid) return;
 
     try {
-		await axios.post("https://dulanga.sliit.xyz/api/innobothealth/appointment/create",
+		await axios.post("https://dulanga.azurewebsites.net/api/innobothealth/appointment/create",
 		{
 			firstname : firstname,
 			lastname  : lastname,
