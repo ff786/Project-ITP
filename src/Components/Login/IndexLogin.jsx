@@ -16,7 +16,7 @@ const Navbar = ({ scrolled, handleFormToggle }) => {
   const [logoWidth, setLogoWidth] = useState(true);
   const [navbarColor, setNavbarColor] = useState('transparent');
 
-  const [isTryClaim, setIsTryClaim] = useState(true)
+  const [isTryClaim, setIsTryClaim] = useState(true);
 
   useEffect(() => {
     if (scrolled) {
@@ -48,7 +48,7 @@ const Navbar = ({ scrolled, handleFormToggle }) => {
           </nav>
 
             <button onClick={() => {handleFormToggle(); scrollToForm();}} className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-950 hover:bg-purple-900">
-              {isTryClaim ? "Try Create Claim" : "Close Form" }
+              <span>{isTryClaim ? "Try Create Claim" : "Close"}</span>
             </button>
         </div>
       </div>
