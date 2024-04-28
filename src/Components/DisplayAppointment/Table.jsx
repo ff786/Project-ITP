@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios'; // Import axios
+import { AiOutlineSearch } from 'react-icons/ai';
+import { useNavigate } from "react-router-dom";
 
 function Table() {
   const [doctors, setDoctors] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
+
   // const [doctorAvailability,setAvailability]= useState([]);
   useEffect(() => {
     async function fetchData() {
@@ -14,6 +19,7 @@ function Table() {
           }
         });
         setDoctors(response.data);
+        navigate('/displayscheduled');
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -22,8 +28,33 @@ function Table() {
     fetchData(); // Call the fetchData function
   }, []); // Empty dependency array to fetch data only once when the component mounts
 
+
+  const handleSearch = (e) => {
+    const value = e.target.value;
+    setSearchQuery(value);
+  };
+  const filteredData = doctors.filter(item =>
+    item.subject.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    item.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    item.specialization.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    item.doctor.availabilityFrom.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    item.doctor.availabilityTo.toLowerCase().includes(searchQuery.toLowerCase())
+).sort((a, b) => new Date(b.deliveredTime) - new Date(a.deliveredTime));
+
   return (
+
     <div className="overflow-x-auto">
+      <input
+          type="search"
+          placeholder="Search Name"
+          className="w-6/12 ml-5 mt-1 px-1 py-4 rounded bg-grey text-black placeholder-white"
+          value={searchQuery}
+          onChange={handleSearch}
+        />
+         {/* <button className="mt-1  absolute right-1 top-1/2 -translate-y-1/2 p-3 bg-slate-600 rounded-full"> */}
+         <button  className="absolute top-55  mt-1 mr-10 p-4 bg-slate-600 rounded-full">
+          <AiOutlineSearch />
+        </button>
       <table className="border-collapse border border-gray-800 mt-10 text-black table-auto w-full">
         <thead>
           <tr className="bg-blue-grey">

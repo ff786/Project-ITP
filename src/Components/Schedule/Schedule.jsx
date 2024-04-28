@@ -4,7 +4,12 @@ import "./Schedule.css";
 import Sidebar from "../common/sidebar/Sidebar";
 import {useState } from 'react';
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 function Schedule() {
+
+	const navigate = useNavigate();
+
 	// const handleSubmit = () => {
 		// Add any form submission logic here
 		// const [appointmentId,setId] = useState('');
@@ -90,6 +95,7 @@ const create = async (event) => {
 		setDoctorId("");
 		setPhoneNumber("");
 		setMail("");
+		navigate('/displayappointment');
 	}catch(err){
 			alert("Appointment Registration Failed");
 	}

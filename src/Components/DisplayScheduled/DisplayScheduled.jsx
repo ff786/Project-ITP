@@ -27,7 +27,7 @@ function DisplayScheduled() {
     async function Load()
     {
         const result = await axios.get(
-            "https://dulanga.sliit.xyz/api/innobothealth/appointment/all-appointments");
+            "https://dulanga.azurewebsites.net/api/innobothealth/appointment/all-appointments");
             setAppointments(result.data);
             console.log(result.data);
         
