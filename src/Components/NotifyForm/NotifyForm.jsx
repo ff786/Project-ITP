@@ -29,10 +29,10 @@ const NotifyForm = () => {
 
         e.preventDefault();
 
-        if (!options || !category || !receivertype || !receiver || !subject || !message || !priority || !notificationType) {
-            alert('Please fill in all the required fields');
-            return;
-        }
+        // if (!category || !receivertype || !receiver || !subject || !message || !priority || !notificationType) {
+        //     alert('Please fill in all the required fields');
+        //     return;
+        // }
 
         if (new Date(dateSchd.concat("T").concat(timeSchd).concat(":00")) < new Date(Date.now())) {
             alert('scheduled date and time cannot be a previous date!');
@@ -127,7 +127,7 @@ const NotifyForm = () => {
     };
 
     return (
-
+        
         <body>
 
         <div>
