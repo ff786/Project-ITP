@@ -99,7 +99,7 @@ function UpdateAppointment() {
       // setPhoneNumber('');
       // setMail('');
       // Load();
-      navigate('/displayappointment');
+      navigate('/displayscheduled');
     } catch (err) {
       alert('Appointment Updating failed');
     }

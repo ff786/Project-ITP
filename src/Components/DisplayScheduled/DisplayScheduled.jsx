@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Topbar from '../common/topbar/Topbar'
-import Searchbar from '../DisplayAppointment/Searchbar'
+// import Searchbar from '../DisplayAppointment/Searchbar'
 import RowTable from '../DisplayAppointment/RowTable'
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
@@ -94,7 +94,7 @@ function DisplayScheduled() {
   return (
     <div>
         <Topbar/>
-        <Searchbar/>
+        {/* <Searchbar/> */}
         <RowTable/>
 
 
@@ -127,20 +127,22 @@ function DisplayScheduled() {
                 <td className="border border-gray-300 p-4">{appointment.phone_number}</td>
                 <td className="border border-gray-300 p-4">{appointment.mail}</td>
                 <td className="border border-gray-300 p-4">
-                <button 
-                          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2"
-                          type="button" 
-                          onClick={event => navigate('/updateapp', { state: { data: appointment } })}
-                > 
-                Edit
-                </button>
-                <button 
-                          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                          type="button" 
-                          onClick={() => DeleteAppointment(appointment.appointmentId)}
-                 >
-                Delete
-                </button>
+                <div className="flex">
+                    <button 
+                      className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2"
+                      type="button" 
+                      onClick={event => navigate('/updateapp', { state: { data: appointment } })}
+                    > 
+                      Edit
+                    </button>
+                    <button 
+                      className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                      type="button" 
+                      onClick={() => DeleteAppointment(appointment.appointmentId)}
+                    >
+                      Delete
+                    </button>
+                  </div>
                    
 
                 </td>
