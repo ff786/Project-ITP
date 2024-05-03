@@ -27,7 +27,7 @@ function DisplayScheduled() {
     async function Load()
     {
         const result = await axios.get(
-            "https://dulanga.azurewebsites.net/api/innobothealth/appointment/all-appointments");
+            "https://dulanga.sliit.xyz/api/innobothealth/appointment/all-appointments");
             setAppointments(result.data);
             console.log(result.data);
         
@@ -108,7 +108,7 @@ function DisplayScheduled() {
               <th className="border border-gray-300 p-4">Member ID</th>
               <th className="border border-gray-300 p-4">Date</th>
               <th className="border border-gray-300 p-4">Doctor's Specialization</th>
-              <th className="border border-gray-300 p-4">Doctor ID</th>
+              {/* <th className="border border-gray-300 p-4">Doctor ID</th> */}
               <th className="border border-gray-300 p-4">Phone Number</th>
               <th className="border border-gray-300 p-4">Mail</th>
               <th className="border border-gray-300 p-4">Actions</th>
@@ -123,7 +123,7 @@ function DisplayScheduled() {
                 <td className="border border-gray-300 p-4">{appointment.member_id}</td>
                 <td className="border border-gray-300 p-4">{appointment.date}</td>
                 <td className="border border-gray-300 p-4">{appointment.doctors_specialization}</td>
-                <td className="border border-gray-300 p-4">{appointment.doctor_id}</td>
+                {/* <td className="border border-gray-300 p-4">{appointment.doctor_id}</td> */}
                 <td className="border border-gray-300 p-4">{appointment.phone_number}</td>
                 <td className="border border-gray-300 p-4">{appointment.mail}</td>
                 <td className="border border-gray-300 p-4">

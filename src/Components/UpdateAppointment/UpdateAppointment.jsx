@@ -21,9 +21,10 @@ function UpdateAppointment() {
   const [member_id, setMemberId] = useState('');
   const [date, setDate] = useState('');
   const [doctors_specialization, setDoctorsSpecialization] = useState('');
-  const [doctor_id, setDoctorId] = useState('');
+ // const [doctor_id, setDoctorId] = useState('');
   const [phone_number, setPhoneNumber] = useState('');
   const [mail, setMail] = useState('');
+  const [memberIdError, setMemberIdError] = useState('');
   const [phoneError, setPhoneError] = useState('');
   const [mailError, setMailError] = useState('');
 
@@ -36,7 +37,7 @@ function UpdateAppointment() {
       setMemberId(receivedData.member_id || '');
       setDate(receivedData.date || '');
       setDoctorsSpecialization(receivedData.doctors_specialization || '');
-      setDoctorId(receivedData.doctor_id || '');
+      //setDoctorId(receivedData.doctor_id || '');
       setPhoneNumber(receivedData.phone_number || '');
       setMail(receivedData.mail || '');
     }
@@ -64,6 +65,10 @@ function UpdateAppointment() {
 
   const update = async (event) => {
 	event.preventDefault();
+  if (!firstname || !lastname || !date || !doctors_specialization || !phone_number || !mail) {
+    alert('Please fill out all required fields.');
+    return;
+}
     const isPhoneValid = validatePhoneNumber(phone_number);
     const isEmailValid = validateEmail(mail);
     
@@ -73,7 +78,7 @@ function UpdateAppointment() {
 
     try {
       await axios.put(
-        `https://dulanga.azurewebsites.net/api/innobothealth/appointment/update/${appointmentId}`,
+        `https://dulanga.sliit.xyz/api/innobothealth/appointment/update/${appointmentId}`,
         {
           firstname: firstname,
           lastname: lastname,
@@ -140,6 +145,7 @@ function UpdateAppointment() {
                     onChange={(event) => {
                       setFirstname(event.target.value);
                     }}
+                    required
                   />
                   {/* {error && <p className="text-red-500 text-xs italic">{error}</p>} */}
                 </div>
@@ -159,6 +165,7 @@ function UpdateAppointment() {
                     onChange={(event) => {
                       setLastname(event.target.value);
                     }}
+                    required
                   />
                 </div>
 
@@ -178,6 +185,7 @@ function UpdateAppointment() {
                     onChange={(event) => {
                       setSpecialMessage(event.target.value);
                     }}
+                    required
                   />
                 </div>
               </div>
@@ -196,9 +204,17 @@ function UpdateAppointment() {
                     placeholder="member id"
                     value={member_id}
                     onChange={(event) => {
-                      setMemberId(event.target.value);
-                    }}
+											const input = event.target.value;
+											if (/^\d*$/.test(input)) {
+												setMemberId(input);
+												setMemberIdError('');
+											} else {
+												setMemberIdError('Member ID should contain only digits.');
+											}
+										}}
+                    required
                   />
+                  	 {memberIdError && <p className="text-red-500 text-xs italic">{memberIdError}</p>}
                 </div>
 
                 <div className="w-full md:w-1/2 px-3">
@@ -213,9 +229,11 @@ function UpdateAppointment() {
                     id="date"
                     type="date"
                     value={date}
+                    min={new Date().toISOString().split('T')[0]} 
                     onChange={(event) => {
                       setDate(event.target.value);
                     }}
+                    required
                   />
                 </div>
               </div>
@@ -236,6 +254,7 @@ function UpdateAppointment() {
                       onChange={(event) => {
                         setDoctorsSpecialization(event.target.value);
                       }}
+                      required
                     >
                       <option value="" disabled selected hidden>
                         Select a Healthcare Sector
@@ -250,7 +269,7 @@ function UpdateAppointment() {
                 </div>
               </div>
 
-              <div className="flex flex-wrap -mx-3 mb-6">
+              {/* <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full md:w-1/2 px-3">
                   <label
                     className="block uppercase tracking-wide text-white text-xs font-normal mb-2"
@@ -269,7 +288,7 @@ function UpdateAppointment() {
                     }}
                   />
                 </div>
-              </div>
+              </div> */}
 
               <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full md:w-1/2 px-3">

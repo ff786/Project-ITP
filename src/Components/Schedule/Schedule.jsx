@@ -13,6 +13,7 @@ function Schedule() {
 	// const handleSubmit = () => {
 		// Add any form submission logic here
 		// const [appointmentId,setId] = useState('');
+		const [memberIdError, setMemberIdError] = useState('');
 		const [phoneError, setPhoneError] = useState('');
   		const [mailError, setMailError] = useState('');
 		const [firstname, setFirstname] = useState('');
@@ -21,7 +22,7 @@ function Schedule() {
 		const [member_id, setMemberId] = useState('');
 		const [date, setDate] = useState('');
 		const [doctors_specialization, setDoctorsSpecialization] = useState('');
-		const [doctor_id, setDoctorId] = useState('');
+		//const [doctor_id, setDoctorId] = useState('');
 		const [phone_number, setPhoneNumber] = useState('');
 		const [mail, setMail] = useState('');
 
@@ -57,13 +58,17 @@ function Schedule() {
 
 const create = async (event) => {
     event.preventDefault();
+	if (!firstname || !lastname || !date || !doctors_specialization || !phone_number || !mail) {
+        alert('Please fill out all required fields.');
+        return;
+    }
     const isPhoneValid = validatePhoneNumber(phone_number);
     const isEmailValid = validateEmail(mail);
     
     if (!isPhoneValid || !isEmailValid) return;
 
     try {
-		await axios.post("https://dulanga.azurewebsites.net/api/innobothealth/appointment/create",
+		await axios.post("https://dulanga.sliit.xyz/api/innobothealth/appointment/create",
 		{
 			firstname : firstname,
 			lastname  : lastname,
@@ -71,7 +76,7 @@ const create = async (event) => {
 			member_id : member_id,
 			date  : date,
 			doctors_specialization: doctors_specialization,
-			doctor_id  : doctor_id,
+			//doctor_id  : doctor_id,
 			phone_number  : phone_number,
 			mail  : mail
 		},
@@ -92,7 +97,7 @@ const create = async (event) => {
 		setMemberId("");
 		setDate("");
 		setDoctorsSpecialization("");
-		setDoctorId("");
+		//setDoctorId("");
 		setPhoneNumber("");
 		setMail("");
 		navigate('/displayappointment');
@@ -141,6 +146,7 @@ const create = async (event) => {
 										{
 											setFirstname(event.target.value);
 										}}
+										required 
 									/>
 									{<p className="text-red-500 text-xs italic">Please fill out this field.</p>}
 								</div>
@@ -160,6 +166,7 @@ const create = async (event) => {
 										onChange={(event) => {
 											setLastname(event.target.value);
 										}}
+										required 
 									/>
 								</div>
 
@@ -179,6 +186,7 @@ const create = async (event) => {
 										onChange={(event) => {
 											setSpecialMessage(event.target.value);
 										}}
+										required 
 									/>
 								</div>
 							</div>
@@ -197,9 +205,18 @@ const create = async (event) => {
 										placeholder="member id"
 										value={member_id}
 										onChange={(event) => {
-											setMemberId(event.target.value);
-										  }}
+											const input = event.target.value;
+											if (/^\d*$/.test(input)) {
+												setMemberId(input);
+												setMemberIdError('');
+											} else {
+												setMemberIdError('Member ID should contain only digits.');
+											}
+										}}
+										  required
+
 									/>
+									 {memberIdError && <p className="text-red-500 text-xs italic">{memberIdError}</p>}
 								</div>
 
 								<div className="w-full md:w-1/2 px-3">
@@ -214,9 +231,11 @@ const create = async (event) => {
 										id="date"
 										type="date"
 										value={date}
+										min={new Date().toISOString().split('T')[0]} 
 										onChange={(event) => {
 											setDate(event.target.value);
 										  }}
+										  required 
 									/>
 								</div>
 							</div>
@@ -262,15 +281,15 @@ const create = async (event) => {
 								</div>
 							</div>
 
-							<div className="flex flex-wrap -mx-3 mb-6">
-								<div className="w-full md:w-1/2 px-3">
+							{/* <div className="flex flex-wrap -mx-3 mb-6">
+							<div className="w-full md:w-1/2 px-3">
 									<label
 										className="block uppercase tracking-wide text-white text-xs font-normal mb-2"
 										htmlFor="grid-last-name"
 									>
 										Add a Doctor id
-									</label>
-									<input
+									</label> */}
+									{/* <input
 										className="appearance-none block w-full  bg-light-white text-black border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
 										id="doctor_id"
 										type="text"
@@ -281,7 +300,7 @@ const create = async (event) => {
 											}}
 									/>
 								</div>
-							</div>
+							</div> */}
 
 							<div className="flex flex-wrap -mx-3 mb-6">
 								<div className="w-full md:w-1/2 px-3">
