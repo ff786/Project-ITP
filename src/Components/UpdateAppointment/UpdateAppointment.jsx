@@ -77,8 +77,9 @@ function UpdateAppointment() {
     // if (!validateForm()) return;
 
     try {
+    //  console.log("line 80")
       await axios.put(
-        `https://dulanga.sliit.xyz/api/innobothealth/appointment/update/${appointmentId}`,
+                `https://dulanga.sliit.xyz/api/innobothealth/appointment/update/${appointmentId}`,
         {
           firstname: firstname,
           lastname: lastname,
@@ -86,7 +87,7 @@ function UpdateAppointment() {
           member_id: member_id,
           date: date,
           doctors_specialization: doctors_specialization,
-          doctor_id: doctor_id,
+          //doctor_id: doctor_id,
           phone_number: phone_number,
           mail: mail,
         }
