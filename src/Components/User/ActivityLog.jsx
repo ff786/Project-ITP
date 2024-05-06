@@ -1,38 +1,52 @@
-import React, { useState } from 'react';
-import './ActivityLog.css'; // Import your CSS stylesheet
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './ActivityLog.css'; // Importing my CSS stylesheet
 import Topbar from '../common/topbar/Topbar';
 import Navbar from './UserNavbar';
-
-// Placeholder data
-const users = [
-  { id: 1, username: 'user1', name: 'User One' },
-  { id: 2, username: 'user2', name: 'User Two' },
-];
-
-const activities = [
-  { id: 1, userId: 1, description: 'Did something', timestamp: new Date('2024-04-19T08:00:00') },
-  { id: 2, userId: 2, description: 'Did something else', timestamp: new Date('2024-04-19T09:00:00') },
-  { id: 3, userId: 1, description: 'Did another thing', timestamp: new Date('2024-04-20T10:00:00') },
-  { id: 4, userId: 2, description: 'Did yet another thing', timestamp: new Date('2024-04-20T11:00:00') },
-];
 
 function ActivityLog() {
   const [selectedUser, setSelectedUser] = useState(null);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [filteredActivities, setFilteredActivities] = useState([]);
+  const [users, setUsers] = useState([]); // State for storing user list
+
+  useEffect(() => {
+    fetchUsers(); // Fetch users when the component mounts
+  }, []);
+
+  const fetchUsers = async () => {
+    try {
+      const response = await axios.get('https://dulanga.azurewebsites.net/api/innobothealth/admin/getAll');
+      setUsers(response.data);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchActivities();
+  }, [selectedUser, startDate, endDate]);
+
+  const fetchActivities = async () => {
+    if (!selectedUser || !startDate || !endDate) return;
+
+    try {
+      const response = await axios.get(`https://your-backend-api-url/activities`, {
+        params: {
+          userId: selectedUser,
+          startDate: startDate.toISOString(),
+          endDate: endDate.toISOString()
+        }
+      });
+      setFilteredActivities(response.data);
+    } catch (error) {
+      console.error('Error fetching activities:', error);
+    }
+  };
 
   const handleUserSelect = (userId) => {
     setSelectedUser(userId);
-  };
-
-  const filterActivities = () => {
-    if (!selectedUser || !startDate || !endDate) return [];
-
-    const filtered = activities.filter(activity => 
-      activity.userId === selectedUser && activity.timestamp >= startDate && activity.timestamp <= endDate
-    );
-    setFilteredActivities(filtered);
   };
 
   return (
@@ -42,19 +56,24 @@ function ActivityLog() {
       <div className="activity-log">
         <h1>Activity Log</h1>
         <div className="filter-container">
+          {/* User select dropdown */}
           <select className="user-select" onChange={(e) => handleUserSelect(parseInt(e.target.value))}>
             <option value="">Select User</option>
+            {/* Render options from fetched users */}
             {users.map(user => (
               <option key={user.id} value={user.id}>{user.name}</option>
             ))}
           </select>
+          {/* Date range inputs */}
           <div className="date-range">
             <input type="date" onChange={(e) => setStartDate(new Date(e.target.value))} />
             <span>to</span>
             <input type="date" onChange={(e) => setEndDate(new Date(e.target.value))} />
           </div>
-          <button className="filter-btn" onClick={filterActivities}>Filter</button>
+          {/* Filter button */}
+          <button className="filter-btn" onClick={fetchActivities}>Filter</button>
         </div>
+        {/* Render activity list */}
         <ul className="activity-list">
           {filteredActivities.map(activity => (
             <li key={activity.id} className="activity-item">

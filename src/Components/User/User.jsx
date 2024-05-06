@@ -6,6 +6,8 @@ import './User.css';
 import Modal from 'react-modal';
 import Sidebar from '../common/sidebar/Sidebar';
 import SideNav from '../common/SideNav/sideNav';
+import { saveAs } from 'file-saver';
+import { FaDownload } from 'react-icons/fa';
 
 function User() {
   const [username, setUsername] = useState('');
@@ -29,7 +31,7 @@ function User() {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('https://dulanga.sliit.xyz/api/innobothealth/admin/getAll');
+      const response = await axios.get('https://dulanga.azurewebsites.net/api/innobothealth/admin/getAll');
       setUsers(response.data);
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -45,7 +47,7 @@ function User() {
     }
   
     try {
-      const response = await axios.post('https://dulanga.sliit.xyz/api/innobothealth/admin/register', {
+      const response = await axios.post('https://dulanga.azurewebsites.net/api/innobothealth/admin/register', {
         email,
         password,
         firstName: firstname,
@@ -62,7 +64,7 @@ function User() {
       setLastname('');
       setMobileNumber('');
       setPassword('');
-      setemail('');
+      setEmail('');
       setRole('');
       setNotipref({ SMS: false, email: false, SYS: false });
   
@@ -88,7 +90,7 @@ function User() {
       const userIdToDelete = users[index].id;
   
       // Make the DELETE request to the API
-      await axios.delete(`https://dulanga.sliit.xyz/api/innobothealth/admin/delete/${userIdToDelete}`);
+      await axios.delete(`https://dulanga.azurewebsites.net/api/innobothealth/admin/delete/${userIdToDelete}`);
   
       // Update the state to remove the deleted user
       setUsers(prevUsers => {
@@ -109,7 +111,7 @@ function User() {
     setFirstname(users[index].firstName);
     setLastname(users[index].lastName);
     setMobileNumber(users[index].mobileNumber);
-    setemail(users[index].email);
+    setEmail(users[index].email);
     setRole(users[index].role);
     const preferences = users[index].notificationPreference.reduce((acc, cur) => {
       acc[cur] = true;
@@ -120,7 +122,7 @@ function User() {
 
   const handleSaveEdit = async () => {
     try {
-      const response = await axios.put(`https://dulanga.sliit.xyz/api/innobothealth/admin/update/${users[editingUserIndex].id}`, {
+      const response = await axios.put(`https://dulanga.azurewebsites.net/api/innobothealth/admin/update/${users[editingUserIndex].id}`, {
         email,
         firstName: firstname,
         lastName: lastname,
@@ -145,7 +147,7 @@ function User() {
       setUsers(updatedUsers);
       setEditingUserIndex(-1);
       setUsername('');
-      setemail('');
+      setEmail('');
       setRole('');
       setNotipref({ SMS: false, email: false, SYS: false });
       setFirstname('');
@@ -170,13 +172,22 @@ function User() {
     clearForm(); // Clear form fields when switching modes
     setEditingUserIndex(-1); // Reset editing index when switching modes
   };
-
+  const downloadCSV = () => {
+    const csvContent = "data:text/csv;charset=utf-8," 
+      + filteredUsers.map(user => Object.values(user).join(",")).join("\n");
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "user_list.csv");
+    document.body.appendChild(link);
+    link.click();
+  };
   return (
     <div class="main-container">
       <Topbar />
       <Navbar />
       <SideNav/>
-      <div class="content-container">
+      <div class="content-container"></div>
       
       <div className="container">
         <div className="add-staff-container">
@@ -236,7 +247,7 @@ function User() {
                 type="email"
                 placeholder='user@abc.com'
                 value={email}
-                onChange={(event) => setemail(event.target.value)}
+                onChange={(event) => setEmail(event.target.value)}
                 required
               />
             </div>
@@ -301,6 +312,11 @@ function User() {
         </div>
         <div className="user-list-container">
           <h2>User List</h2>
+          <button className="download-btn" onClick={downloadCSV}>
+  <FaDownload className="download-icon" />
+  Download User List (CSV)
+</button>
+
           <input
             type="text"
             placeholder="Search..."
@@ -346,7 +362,6 @@ function User() {
           <button onClick={closeModal}>Close</button>
         </div>
       </Modal>
-      </div>
     </div>
   );
 }
