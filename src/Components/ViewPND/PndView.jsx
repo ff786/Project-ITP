@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from '../common/header/logo.png'
 import icon_prof from '../ClaimManage/icon_prof.png'
 import notify from '../ClaimManage/notify.png'
@@ -12,7 +12,7 @@ import Topbar from '../common/topbar/Topbar.jsx'
 
 
 import { Link } from 'react-router-dom';
-import axios from "axios";
+import axios from 'axios';
 
 function CodeView({ searchQuery }) {
 
@@ -74,6 +74,7 @@ function CodeView({ searchQuery }) {
                             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                 Add Code
                             </button>
+                            <button type="create" onClick={toggleCreateClaim} > Create Claim </button>
                         </div>
                     <div className="flex justify-between mb-4">
                         <div className="flex gap-2 items-center">

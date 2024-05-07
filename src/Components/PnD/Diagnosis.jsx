@@ -36,7 +36,7 @@ function CodeForm() {
         try {
             const response = await fetch('https://dulanga.sliit.xyz/api/innobothealth/code/create', {
                 method: 'POST',
-                header: {
+                headers: {
                     'Accept': 'application/json'
                 },
                 body: formData,

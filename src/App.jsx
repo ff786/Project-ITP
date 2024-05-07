@@ -29,6 +29,7 @@ import {
   RouterProvider
 } from 'react-router-dom'
 import NotifyUpdateForm from "./Components/NotifyForm/NotifyUpdateForm.jsx";
+import UpdateCode from "./Components/PnD/UpdateCode.jsx";
 
 
 const router = createBrowserRouter([
@@ -84,6 +85,10 @@ const router = createBrowserRouter([
   {
     path: '/PnD',
     element: <div><Diagnosis /> </div>
+  },
+  {
+    path: '/UpdatePnD',
+    element: <div><UpdateCode /> </div>
   },
   {
     path: '/ViewPND',

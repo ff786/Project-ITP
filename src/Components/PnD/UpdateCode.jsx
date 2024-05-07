@@ -11,22 +11,24 @@ import { useParams } from 'react-router-dom';
 import Topbar from "../common/topbar/Topbar.jsx";
 import ConfirmModal from "../ClaimOverview/ConfirmModal.jsx";
 import React from "react";
+import { toast } from 'react-toastify';
 
 const UpdateCode = () => {
+    const { id } = useParams();
     const [memberId, setMemberId] = useState('');
     const [codeType, setCodeType] = useState('');
     const [codeName, setCodeName] = useState('');
     const [codeTitle, setCodeTitle] = useState('');
     const [description, setDescription] = useState('');
-    const {id} = useParams();
+    const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
 
     const [updateCodes, setUpdateCodes] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('https://dulanga.sliit.xyz/api/innobothealth/code/getAll?id');
-                const member = response.data[0];
+                const response = await axios.get(`https://dulanga.sliit.xyz/api/innobothealth/code/getById?id=${id}`);
+                const member = response.data;
                 setMemberId(member.memberId);
                 setCodeType(member.codeType);
                 setCodeName(member.codeName);
@@ -73,7 +75,7 @@ const UpdateCode = () => {
             </div>
             <div className="main-form">
                 <div className="topbaree">
-                    <h5 className="label-head">Add Codes</h5>
+                    <h5 className="label-head">Update Code</h5>
                     <button type="cancel" style={{height: '50px', marginRight: '10px'}}>Back</button>
                 </div>
                 <form name="updateCode" id="updateCode" onSubmit={handleUpdate}>
@@ -113,7 +115,7 @@ const UpdateCode = () => {
                             </div>
                         </div>
                         <div>
-                            <button type="submit">Add Code</button>
+                            <button type="submit">Update</button>
                         </div>
                     </div>
                     {isConfirmModalOpen &&
