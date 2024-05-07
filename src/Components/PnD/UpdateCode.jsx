@@ -3,7 +3,7 @@ import axios from 'axios';
 import SideNav from '../common/SideNav/sideNav.jsx';
 import video from '../../LoginAssets/video.mp4';
 import '../../App.css'
-import 'UpdateCode.css'
+import './UpdateCode.css'
 import Sidebar from '../common/sidebar/Sidebar.jsx'
 import search from '../common/search/Search.jsx'
 import './Diagnosis.css'
