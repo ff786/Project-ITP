@@ -10,7 +10,6 @@ import './Diagnosis.css'
 import { useParams } from 'react-router-dom';
 import Topbar from "../common/topbar/Topbar.jsx";
 import ConfirmModal from "../ClaimOverview/ConfirmModal.jsx";
-import React from "react";
 import { toast } from 'react-toastify';
 
 const UpdateCode = () => {
