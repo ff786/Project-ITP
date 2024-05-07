@@ -14,20 +14,22 @@ import Topbar from '../common/topbar/Topbar.jsx'
 import { Link } from 'react-router-dom';
 import axios from "axios";
 
-function CodeModify({ searchQuery }) {
+function CodeView({ searchQuery }) {
 
     const [members, setMembers] = useState([]);
+    const [filteredMembers, setFilteredMembers] = useState([]);
 
     useEffect(() => {
         // Fetch data from backend when component mounts
         axios.get('https://dulanga.sliit.xyz/api/innobothealth/code/getAll')
             .then(response => {
                 setMembers(response.data);
+                setFilteredMembers(response.data); // Set filtered members initially
             })
             .catch(error => {
                 console.error('Error fetching members:', error);
             });
-    }, []);
+    },[]);
 
     const handleDelete = (id) => {
         // Delete claim by id
@@ -36,21 +38,24 @@ function CodeModify({ searchQuery }) {
                 console.log(response.data);
                 // Update state to remove the deleted claim
                 setMembers(members.filter(member => member.id !== id));
+                setFilteredMembers(filteredMembers.filter(member => member.id !== id)); // Also update filteredMembers
             })
             .catch(error => {
                 console.error('Error deleting code:', error);
             });
     };
-    const filteredMembers = members.filter(member => {
-        const search = searchQuery ? searchQuery.toLowerCase() : ''; // Null check on searchQuery
-        return (
-            (member.memberId && member.memberId.toLowerCase().includes(search)) ||
-            ((member.lastName && member.firstName) && (member.lastName.toLowerCase() + ', ' + member.firstName.toLowerCase()).includes(search)) ||
-            (member.phoneNumber && member.phoneNumber.includes(search)) ||
-            (member.email && member.email.toLowerCase().includes(search)) ||
-            (member.approved ? 'Approved' : 'Pending').toLowerCase().includes(search)
+    // Function to handle search
+    const handleSearch = (event) => {
+        const searchText = event.target.value.toLowerCase();
+        const filtered = members.filter(member =>
+            member.memberId.toLowerCase().includes(searchText) ||
+            member.codeType.toLowerCase().includes(searchText) ||
+            member.codeName.toLowerCase().includes(searchText) ||
+            member.codeTitle.toLowerCase().includes(searchText) ||
+            member.description.toLowerCase().includes(searchText)
         );
-    });
+        setFilteredMembers(filtered);
+    };
 
     return (
         <body>
@@ -81,7 +86,7 @@ function CodeModify({ searchQuery }) {
                             <label>entries</label>
                         </div>
                         <div>
-                            <input type="text" placeholder="Search:" className="form-input block w-full mt-1 border-zinc-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md" />
+                            <input type="text" placeholder="Search:" className="form-input block w-full mt-1 border-zinc-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md" onChange={handleSearch} />
                         </div>
                     </div>
 
@@ -151,4 +156,4 @@ function CodeModify({ searchQuery }) {
     );
 }
 
-export default CodeModify;
+export default CodeView;
