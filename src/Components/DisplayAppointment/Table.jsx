@@ -3,11 +3,15 @@ import axios from 'axios'; // Import axios
 import { AiOutlineSearch } from 'react-icons/ai';
 import { useNavigate } from "react-router-dom";
 import { FaDownload } from 'react-icons/fa';
+import { useLocation } from 'react-router-dom';
+// import { useNavigate } from "react-router-dom";
 
 function Table() {
   const [doctors, setDoctors] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
+  const location = useLocation();
+  const receivedData = location.state?.data;
 
   useEffect(() => {
     async function fetchData() {
@@ -15,7 +19,7 @@ function Table() {
         const response = await axios.get("https://dulanga.sliit.xyz/api/innobothealth/doctor/list", {
           params: {
             date: "2024-05-28",
-            specialization: "specialization"
+            specialization: receivedData.specialization
           }
         });
         setDoctors(response.data);

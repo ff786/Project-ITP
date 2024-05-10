@@ -22,7 +22,6 @@ function Schedule() {
 		const [member_id, setMemberId] = useState('');
 		const [date, setDate] = useState('');
 		const [doctors_specialization, setDoctorsSpecialization] = useState('');
-		//const [doctor_id, setDoctorId] = useState('');
 		const [phone_number, setPhoneNumber] = useState('');
 		const [mail, setMail] = useState('');
 
@@ -100,7 +99,9 @@ const create = async (event) => {
 		//setDoctorId("");
 		setPhoneNumber("");
 		setMail("");
-		navigate('/displayappointment');
+		navigate('/displayappointment',{state: {data: {'specialization':doctors_specialization, 'date':date }}});
+
+
 	}catch(err){
 			alert("Appointment Registration Failed");
 	}
@@ -274,7 +275,7 @@ const create = async (event) => {
 											<option className="text-black">Dieticians</option>
 											<option className="text-black">Neurologist</option>
 											<option className="text-black">Dermatologis</option>
-											<option className="text-black">Cardiologists</option>
+											<option className="text-black">Cardiologist</option>
 											<option className="text-black">Dentists</option>
 										</select>
 									</div>
