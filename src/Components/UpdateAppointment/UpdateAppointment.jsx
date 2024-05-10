@@ -74,7 +74,7 @@ function UpdateAppointment() {
     
     if (!isPhoneValid || !isEmailValid) return;
   
-    // if (!validateForm()) return;
+    
 
     try {
     //  console.log("line 80")
@@ -90,6 +90,14 @@ function UpdateAppointment() {
           //doctor_id: doctor_id,
           phone_number: phone_number,
           mail: mail,
+        },
+        {
+          
+            headers: {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin': '*',
+              'Accept':	'application/json'
+            }
         }
 
       );

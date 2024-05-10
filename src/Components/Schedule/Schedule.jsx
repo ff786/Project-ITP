@@ -1,7 +1,7 @@
 import React from "react";
 import Topbar from "../common/topbar/Topbar";
 import "./Schedule.css";
-import Sidebar from "../common/sidebar/Sidebar";
+import SideNav from '../common/SideNav/sideNav.jsx'
 import {useState } from 'react';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -116,7 +116,7 @@ const create = async (event) => {
 
 			<div className="alignthedisplay">
 				<div className="tofit_content" style={{ width: "fit-content" }}>
-					<Sidebar />
+					<SideNav />
 				</div>
 				
 				<div className="tofit_content">
