@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom"
 import axios from 'axios';
 import {toast} from "react-toastify"
 import Table from 'react-bootstrap/Table';
+import './ApprovalClaim.css'
 
 import { Link } from 'react-router-dom'
 
@@ -13,7 +14,7 @@ const ApprovedClaim = ({ isOpen, onClose }) => {
     useEffect(() => {
       const fetchApprovedClaims = async () => {
         try {
-          const response = await axios.get('https://dulanga.azurewebsites.net/api/innobothealth/claim/getAll');
+          const response = await axios.get('https://dulanga.sliit.xyz/api/innobothealth/claim/getAll');
           // Filter out the claims where approved is false
           const filteredClaims = response.data.filter(claim => claim.approved);
           setApprovedClaims(filteredClaims);

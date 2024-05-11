@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom"
 import axios from 'axios';
 import {toast} from "react-toastify"
 import Table from 'react-bootstrap/Table';
+import './ApprovalClaim.css'
 
 import { Link } from 'react-router-dom'
 
@@ -13,7 +14,7 @@ const PendingClaim = ({ isOpen, onClose }) => {
     useEffect(() => {
       const fetchPendingClaims = async () => {
         try {
-          const response = await axios.get('https://dulanga.azurewebsites.net/api/innobothealth/claim/getAll');
+          const response = await axios.get('https://dulanga.sliit.xyz/api/innobothealth/claim/getAll');
           // Filter out the claims where approved is false
           const filteredClaims = response.data.filter(claim => !claim.approved);
           setPendingClaims(filteredClaims);
@@ -29,7 +30,7 @@ const PendingClaim = ({ isOpen, onClose }) => {
   const handleApproveClaim = async (id) => {
     try {
       // Send a request to update the claim status to approved
-      await axios.put(`https://dulanga.azurewebsites.net/api/innobothealth/claim/approve/${id}`);
+      await axios.put(`https://dulanga.sliit.xyz/api/innobothealth/claim/approve/${id}`);
       // Update the local state to reflect the change
       const updatedClaims = pendingClaims.map(claim => {
         if (claim.id === id) {

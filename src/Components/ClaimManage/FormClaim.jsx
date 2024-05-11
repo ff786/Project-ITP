@@ -74,7 +74,7 @@ const ClaimFormModal = ({ isOpen, onClose }) => {
       const formData = new FormData(form);
       // Send the form data as a POST request using fetch
       try {
-        const response = await fetch('https://dulanga.azurewebsites.net/api/innobothealth/claim/create', {
+        const response = await fetch('https://dulanga.sliit.xyz/api/innobothealth/claim/create', {
           method: 'POST',
           header: {
             'Accept': 'application/json'
@@ -101,8 +101,8 @@ const ClaimFormModal = ({ isOpen, onClose }) => {
     return (
 
       <>
-      <div className={`modal-overlay ${isOpen ? "open" : ''}`}>
-       <div className="modal-content">
+      <div className={`modal-overlay1 ${isOpen ? "open" : ''}`}>
+       <div className="modal-content1">
        <button className="text-zinc-600 hover:text-red-900" onClick={handleCancel}>
            <svg
             xmlns="http://www.w3.org/2000/svg"

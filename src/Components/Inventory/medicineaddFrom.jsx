@@ -28,7 +28,7 @@ const MedicineAddForm = () => {
       alert('Expiry date cannot be in the past');
     }
     try {
-      const response = await axios.post('https://dulanga.azurewebsites.net/api/innobothealth/medicine/saveMedi', data);
+      const response = await axios.post('https://dulanga.sliit.xyz/api/innobothealth/medicine/saveMedi', data);
       console.log(response.data);
       setIsSuccess(true);
 
