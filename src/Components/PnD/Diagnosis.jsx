@@ -12,7 +12,7 @@ import './Diagnosis.css'
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import Swal from "sweetalert2";
-import ConfirmModal from "../ClaimOverview/ConfirmModal.jsx";
+import ConfirmModalPnD from "./ConfirmModalPnD.jsx"
 
 function CodeForm() {
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
@@ -105,7 +105,7 @@ function CodeForm() {
                                 <button type="submit">Add Code</button>
                             </div>
                         </div>
-                        {isConfirmModalOpen && <ConfirmModal isOpen={isConfirmModalOpen} onClose={() => setIsConfirmModalOpen(false)} />}
+                        {isConfirmModalOpen && <ConfirmModalPnD isOpen={isConfirmModalOpen} onClose={() => setIsConfirmModalOpen(false)} />}
                     </form>
                 </div>
             </div>
