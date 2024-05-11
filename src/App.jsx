@@ -87,7 +87,7 @@ const router = createBrowserRouter([
     element: <div><Diagnosis /> </div>
   },
   {
-    path: '/UpdatePnD',
+    path: '/UpdatePnD/:id',
     element: <div><UpdateCode /> </div>
   },
   {

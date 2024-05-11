@@ -74,7 +74,7 @@ function CodeView({ searchQuery }) {
                             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                 Add Code
                             </button>
-                            <button type="create" onClick={toggleCreateClaim} > Create Claim </button>
+                            {/*<button type="create" onClick={toggleCreateClaim} > Create Claim </button>*/}
                         </div>
                     <div className="flex justify-between mb-4">
                         <div className="flex gap-2 items-center">
@@ -122,7 +122,7 @@ function CodeView({ searchQuery }) {
                                     </td>
                                     <td className="px-6 py-4 whitespace-no-wrap border-b border-text-black dark:border-zinc-200">
                                         <div className="flex items-center">
-                                            <Link to={`/edit/${member.id}`} className="bg-zinc-600 hover:bg-white-600 text-white font-bold py-2 px-4 rounded">
+                                            <Link to={`/UpdatePnD/${member.id}`} className="bg-zinc-600 hover:bg-white-600 text-white font-bold py-2 px-4 rounded">
                                                 Edit
                                             </Link>
                                             <button onClick={() => handleDelete(member.id)} className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded ml-5">

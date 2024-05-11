@@ -77,13 +77,13 @@ function CodeForm() {
                                <div className="devb">
                                     <label>CodeType:</label>
                                 <div>
-                                  <input type="text" value={codeType} onChange={(event) => setCodeType(event.target.value)} placeholder="CodeType" />
+                                  <input type="text" value={codeType} name={"codeType"} onChange={(event) => setCodeType(event.target.value)} placeholder="CodeType" />
                                 </div>
                                 </div>
                                <div className="devb">
                                     <label>Code:</label>
                                 <div>
-                                    <input type="text" value={codeName} onChange={(event) => setCodeName(event.target.value)} placeholder="Code" />
+                                    <input type="text" value={codeName} name={"codeName"} onChange={(event) => setCodeName(event.target.value)} placeholder="Code" />
                                 </div>
                                </div>
                             </div>
@@ -91,13 +91,13 @@ function CodeForm() {
                                <div className="devb">
                                     <label>Title:</label>
                                 <div>
-                                    <input type="text" value={codeTitle} onChange={(event) => setCodeTitle(event.target.value)} placeholder="Title" />
+                                    <input type="text" value={codeTitle} name={"codeTitle"} onChange={(event) => setCodeTitle(event.target.value)} placeholder="Title" />
                                 </div>
                                </div>
                                <div className="devb">
                                     <label>Description:</label>
                                 <div>
-                                    <input type="text" value={description} onChange={(event) => setDescription(event.target.value)} placeholder="Description" />
+                                    <input type="text" value={description} name={"description"} onChange={(event) => setDescription(event.target.value)} placeholder="Description" />
                                 </div>
                                </div>
                             </div>
