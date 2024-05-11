@@ -13,7 +13,7 @@ function Schedule() {
 	// const handleSubmit = () => {
 		// Add any form submission logic here
 		// const [appointmentId,setId] = useState('');
-		const [memberIdError, setMemberIdError] = useState('');
+		//const [memberIdError, setMemberIdError] = useState('');
 		const [phoneError, setPhoneError] = useState('');
   		const [mailError, setMailError] = useState('');
 		const [firstname, setFirstname] = useState('');
@@ -207,12 +207,12 @@ const create = async (event) => {
 										value={member_id}
 										onChange={(event) => {
 											const input = event.target.value;
-											if (/^\d*$/.test(input)) {
-												setMemberId(input);
-												setMemberIdError('');
-											} else {
-												setMemberIdError('Member ID should contain only digits.');
-											}
+											// if (/^\d*$/.test(input)) {
+											// 	setMemberId(input);
+											// 	setMemberIdError('');
+											// } else {
+											// 	setMemberIdError('Member ID should contain only digits.');
+											// }
 										}}
 										  required
 
