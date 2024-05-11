@@ -25,7 +25,7 @@ const NotifyBtn = ({ toggleNotifications, notificationCount, isOpen, notificatio
             confirmButtonText: "Send",
             showLoaderOnConfirm: true,
             preConfirm: async (login) => {
-                await axios.post(`https://dulanga.sliit.xyz/api/innobothealth/notification/reply/${id}`, {
+                await axios.post(`http://api.innobot.dulanga.com/api/innobothealth/notification/reply/${id}`, {
                     "reply": login
                 }, {
                     headers: {
@@ -45,7 +45,7 @@ const NotifyBtn = ({ toggleNotifications, notificationCount, isOpen, notificatio
     }
 
     function handleAcknowledge(id) {
-        axios.put(`https://dulanga.sliit.xyz/api/innobothealth/notification/acknowledge/${id}`, {}, {
+        axios.put(`http://api.innobot.dulanga.com/api/innobothealth/notification/acknowledge/${id}`, {}, {
             headers: {
                 'Authorization' : 'Bearer '.concat('eyJhbGciOiJIUzI1NiJ9.eyJ0eXAiOiJhY2Nlc3MtdG9rZW4iLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiQURNSU4ifV0sImlzRW1haWxWZXJpZmllZCI6ZmFsc2UsInN1YiI6ImR1bGFib3lAZHVsYW5nYS5jb20iLCJpYXQiOjE3MTM5ODc1MDcsImV4cCI6MTcxNjU3OTUwN30.CiCUQmJ6d6i3iUX9m9rGV0YcSLgApRBzfUnC2aqu17k')
             }

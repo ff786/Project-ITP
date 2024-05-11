@@ -32,7 +32,7 @@ const Auth = () => {
 
   const handleFirstClick = async () => {
     try {
-      const response = await fetch('https://dulanga.sliit.xyz/api/innobothealth/admin/otp/request', {
+      const response = await fetch('http://api.innobot.dulanga.com/api/innobothealth/admin/otp/request', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ const Auth = () => {
 
   const handleSecondClick = async () => {
     try {
-      const response = await fetch('https://dulanga.sliit.xyz/api/innobothealth/admin/request/token', {
+      const response = await fetch('http://api.innobot.dulanga.com/api/innobothealth/admin/request/token', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

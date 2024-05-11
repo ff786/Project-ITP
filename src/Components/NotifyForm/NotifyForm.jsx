@@ -57,7 +57,7 @@ const NotifyForm = () => {
         }).then((result) => {
             if (result.isConfirmed) {
 
-                axios.post('https://dulanga.sliit.xyz/api/innobothealth/notification/send', {
+                axios.post('http://api.innobot.dulanga.com/api/innobothealth/notification/send', {
                     "category" : category,
                     "receiverType" : receivertype,
                     "receiver" : receiver,
@@ -94,7 +94,7 @@ const NotifyForm = () => {
     }
 
     useEffect(() => {
-        axios.get('https://dulanga.sliit.xyz/api/innobothealth/user/getUsers?userType='.concat(receivertype), {
+        axios.get('http://api.innobot.dulanga.com/api/innobothealth/user/getUsers?userType='.concat(receivertype), {
             headers : {
                 // 'Authorization' : 'Bearer '.concat('eyJhbGciOiJIUzI1NiJ9.eyJ0eXAiOiJhY2Nlc3MtdG9rZW4iLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiQURNSU4ifV0sImlzRW1haWxWZXJpZmllZCI6ZmFsc2UsInN1YiI6ImR1bGFib3lAZHVsYW5nYS5jb20iLCJpYXQiOjE3MTM4NDg5NDQsImV4cCI6MTcxMzkzNTM0NH0.XSlBNiAyD9jYVR5uWUWEPOLo-PWf9HXa-K6AkboDrSI')
             }
@@ -107,7 +107,7 @@ const NotifyForm = () => {
 
     const retrieveOptions = (event) => {
         setReceiverType(event.target.value);
-        axios.get('https://dulanga.sliit.xyz/api/innobothealth/user/getUsers?userType='.concat(event.target.value), {
+        axios.get('http://api.innobot.dulanga.com/api/innobothealth/user/getUsers?userType='.concat(event.target.value), {
             headers : {
                 // 'Authorization' : 'Bearer '.concat('eyJhbGciOiJIUzI1NiJ9.eyJ0eXAiOiJhY2Nlc3MtdG9rZW4iLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiQURNSU4ifV0sImlzRW1haWxWZXJpZmllZCI6ZmFsc2UsInN1YiI6ImR1bGFib3lAZHVsYW5nYS5jb20iLCJpYXQiOjE3MTM4NDg5NDQsImV4cCI6MTcxMzkzNTM0NH0.XSlBNiAyD9jYVR5uWUWEPOLo-PWf9HXa-K6AkboDrSI')
             }

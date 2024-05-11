@@ -27,7 +27,7 @@ function DisplayScheduled() {
     async function Load()
     {
         const result = await axios.get(
-            "https://dulanga.sliit.xyz/api/innobothealth/appointment/all-appointments");
+            "http://api.innobot.dulanga.com/api/innobothealth/appointment/all-appointments");
             setAppointments(result.data);
             console.log(result.data);
         
@@ -35,7 +35,7 @@ function DisplayScheduled() {
     // async function update(event){
     //     event.preventDefault();
     //     try{
-    //         await axios.put("https://dulanga.sliit.xyz/api/innobothealth/appointment/update" + appointmentId,
+    //         await axios.put("http://api.innobot.dulanga.com/api/innobothealth/appointment/update" + appointmentId,
     //         {
                 
     //             firstname : firstname,
@@ -82,7 +82,7 @@ function DisplayScheduled() {
     // }
     async function DeleteAppointment(appointmentId) {
       try {
-          await axios.delete("https://dulanga.sliit.xyz/api/innobothealth/appointment/delete/" + appointmentId);
+          await axios.delete("http://api.innobot.dulanga.com/api/innobothealth/appointment/delete/" + appointmentId);
           alert("Appointment Successfully Deleted");
           Load();
       } catch (error) {

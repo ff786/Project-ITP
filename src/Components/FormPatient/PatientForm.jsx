@@ -26,7 +26,7 @@ const PatientForm = () => {
       const formData = new FormData(form);
       // Send the form data as a POST request using fetch
       try {
-        const response = await fetch('https://dulanga.sliit.xyz/api/innobothealth/patient/create', {
+        const response = await fetch('http://api.innobot.dulanga.com/api/innobothealth/patient/create', {
           method: 'POST',
           header: {
             'Accept': 'application/json'

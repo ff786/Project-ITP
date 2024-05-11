@@ -20,7 +20,7 @@ function CodeModify({ searchQuery }) {
 
     useEffect(() => {
         // Fetch data from backend when component mounts
-        axios.get('https://dulanga.sliit.xyz/api/innobothealth/code/getAll')
+        axios.get('http://api.innobot.dulanga.com/api/innobothealth/code/getAll')
             .then(response => {
                 setMembers(response.data);
             })
@@ -31,7 +31,7 @@ function CodeModify({ searchQuery }) {
 
     const handleDelete = (id) => {
         // Delete claim by id
-        axios.delete(`https://dulanga.sliit.xyz/api/innobothealth/code/delete?id=${id}`)
+        axios.delete(`http://api.innobot.dulanga.com/api/innobothealth/code/delete?id=${id}`)
             .then(response => {
                 console.log(response.data);
                 // Update state to remove the deleted claim

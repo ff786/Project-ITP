@@ -7,7 +7,7 @@ function Table() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get("https://dulanga.sliit.xyz/api/innobothealth/doctor/list", {
+        const response = await axios.get("http://api.innobot.dulanga.com/api/innobothealth/doctor/list", {
           params: {
             date: "2024-04-19",
             specialization: "specialization"

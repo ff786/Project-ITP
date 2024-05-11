@@ -34,7 +34,7 @@ function CodeForm() {
         const formData = new FormData(form);
         // Send the form data as a POST request using fetch
         try {
-            const response = await fetch('https://dulanga.sliit.xyz/api/innobothealth/code/create', {
+            const response = await fetch('http://api.innobot.dulanga.com/api/innobothealth/code/create', {
                 method: 'POST',
                 header: {
                     'Accept': 'application/json'

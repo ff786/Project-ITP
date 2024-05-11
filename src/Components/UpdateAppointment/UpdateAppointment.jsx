@@ -72,7 +72,7 @@ function UpdateAppointment() {
 
     try {
       await axios.put(
-        `https://dulanga.sliit.xyz/api/innobothealth/appointment/update/${appointmentId}`,
+        `http://api.innobot.dulanga.com/api/innobothealth/appointment/update/${appointmentId}`,
         {
           firstname: firstname,
           lastname: lastname,

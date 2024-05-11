@@ -60,7 +60,7 @@ const NotifyUpdateForm = () => {
         }).then((result) => {
             if (result.isConfirmed) {
 
-                axios.post('https://dulanga.sliit.xyz/api/innobothealth/notification/send', {
+                axios.post('http://api.innobot.dulanga.com/api/innobothealth/notification/send', {
                     "category" : category,
                     "receiverType" : receivertype,
                     "receiver" : receiver,

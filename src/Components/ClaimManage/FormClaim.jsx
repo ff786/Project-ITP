@@ -74,7 +74,7 @@ const ClaimFormModal = ({ isOpen, onClose }) => {
       const formData = new FormData(form);
       // Send the form data as a POST request using fetch
       try {
-        const response = await fetch('https://dulanga.sliit.xyz/api/innobothealth/claim/create', {
+        const response = await fetch('http://api.innobot.dulanga.com/api/innobothealth/claim/create', {
           method: 'POST',
           header: {
             'Accept': 'application/json'

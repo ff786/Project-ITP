@@ -25,7 +25,7 @@ const UpdateCode = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('https://dulanga.sliit.xyz/api/innobothealth/code/getAll?id');
+                const response = await axios.get('http://api.innobot.dulanga.com/api/innobothealth/code/getAll?id');
                 const member = response.data[0];
                 setMemberId(member.memberId);
                 setCodeType(member.codeType);
@@ -46,7 +46,7 @@ const UpdateCode = () => {
         const update = document.getElementById('updateCode');
         event.preventDefault();
         try {
-            await axios.put(`https://dulanga.sliit.xyz/api/innobothealth/code/update`, {
+            await axios.put(`http://api.innobot.dulanga.com/api/innobothealth/code/update`, {
                 memberId: memberId,
                 codeType: codeType,
                 codeName: codeName,

@@ -24,7 +24,7 @@ const MedicineUpdate = () => {
 
   useEffect(() => {
     axios
-      .get(`https://dulanga.sliit.xyz/api/innobothealth/medicine/name/${id}`)
+      .get(`http://api.innobot.dulanga.com/api/innobothealth/medicine/name/${id}`)
       .then((response) => {
         setData(response.data);
         console.log(response.data);
@@ -50,7 +50,7 @@ const MedicineUpdate = () => {
     }
 
     try {
-      const response = await axios.put('https://dulanga.sliit.xyz/api/innobothealth/medicine', data);
+      const response = await axios.put('http://api.innobot.dulanga.com/api/innobothealth/medicine', data);
       console.log(response.data);
       setIsSuccess(true);
     } catch (error) {
