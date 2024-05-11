@@ -19,7 +19,7 @@ function NotifyView() {
         Swal.fire({
             title: "Fetching Notifications",
             html: "I will close in <b></b> milliseconds.",
-            timer: 4000,
+            timer: 2000,
             timerProgressBar: true,
             didOpen: () => {
                 Swal.showLoading();

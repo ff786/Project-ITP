@@ -24,6 +24,10 @@ import UpdateInventorydashboad from './Components/Inventory/inventoryupdateFrom.
 
 import DisplayAppointment from './Components/DisplayAppointment/DisplayAppointment'
 import DisplayScheduled from './Components/DisplayScheduled/DisplayScheduled'
+import ActivityLog from './Components/User/ActivityLog'
+import User from './Components/User/User'
+import UserMenu from './Components/User/UserMenu'
+
 import {
   createBrowserRouter,
   RouterProvider
