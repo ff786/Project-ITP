@@ -13,23 +13,37 @@ function CreateNInsuranceRecord({ isOpen, onClose }) {
   const [zip, setZip] = useState('');
 
   const handleCreate = async (event) => {
-    const form = document.getElementById('patientForm');
     event.preventDefault();
+    const form = document.getElementById('patientForm');
     const formData = new FormData(form);
-  
-
+    
+    // Validation
+    const phoneRegex = /^\d{10}$/; // Validates 10-digit phone number
+    const zipRegex = /^\d{5}$/; // Validates 5-digit ZIP code
+    
+    if (!phoneRegex.test(phoneNumber)) {
+      alert('Please enter a valid phone number (10 digits).');
+      return;
+    }
+    
+    if (!zipRegex.test(zip)) {
+      alert('Please enter a valid ZIP code (5 digits).');
+      return;
+    }
+    
     // Send the form data as a POST request using fetch
     try {
-      const response = await fetch('https://dulanga.azurewebsites.net/api/innobothealth/insurance/create', {
+      const response = await fetch('http://api.innobot.dulanga.com/api/innobothealth/insurance/create', {
         method: 'POST',
-        header: {
+        headers: {
           'Accept': 'application/json'
         },
         body: formData,
       });
       if (response.ok) {
         console.log("Form Submitted");
-        formRef.current.reset();
+        form.reset();
+        onClose(); // Close modal after successful submission
       } else {
         console.error('Failed to submit form');
       }
@@ -58,7 +72,7 @@ function CreateNInsuranceRecord({ isOpen, onClose }) {
   };
 
   return (
-    <div className={`modal-overlay ${isOpen ? "open" : ''}`}>
+    <div className={`modal-overlay ${isOpen ? "open" : ''}`}> 
       <div className="modal-content">
         <button className="text-zinc-600 hover:text-red-900" onClick={handleCancel}>
           <svg
@@ -82,18 +96,17 @@ function CreateNInsuranceRecord({ isOpen, onClose }) {
             <div className="form-group">
               <label htmlFor="memberId">Member ID</label>
               <input
-                name= {"memberId"}
+                name="memberId"
                 type="text"
                 id="memberId"
                 value={memberId}
                 onChange={(e) => setMemberId(e.target.value)}
               />
-            
             </div>
             <div className="form-group">
               <label htmlFor="name">Name</label>
               <input
-                name = {"name"}
+                name="name"
                 type="text"
                 id="name"
                 value={name}
@@ -103,7 +116,7 @@ function CreateNInsuranceRecord({ isOpen, onClose }) {
             <div className="form-group">
               <label htmlFor="address">Address</label>
               <input
-                name = {"address"}
+                name="address"
                 type="text"
                 id="address"
                 value={address}
@@ -113,29 +126,27 @@ function CreateNInsuranceRecord({ isOpen, onClose }) {
             <div className="form-group">
               <label htmlFor="phoneNumber">Phone Number</label>
               <input 
-                name = {"phoneNumber"}
+                name="phoneNumber"
                 type="tel"
                 id="phoneNumber"
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
               />
-             
             </div>
             <div className="form-group">
               <label htmlFor="payerId">Payer ID</label>
               <input
-                name = {"payerId"}
+                name="payerId"
                 type="text"
                 id="payerId"
                 value={payerId}
                 onChange={(e) => setPayerId(e.target.value)}
-
               />
-                    </div>
+            </div>
             <div className="form-group">
               <label htmlFor="activeStatus">Active Status</label>
               <input
-                name= {"activeStatus"}
+                name="activeStatus"
                 type="text"
                 id="activeStatus"
                 value={activeStatus}
@@ -145,7 +156,7 @@ function CreateNInsuranceRecord({ isOpen, onClose }) {
             <div className="form-group">
               <label htmlFor="city">City</label>
               <input
-                name = {"city"}
+                name="city"
                 type="text"
                 id="city"
                 value={city}
@@ -155,7 +166,7 @@ function CreateNInsuranceRecord({ isOpen, onClose }) {
             <div className="form-group">
               <label htmlFor="state">State</label>
               <input
-                name = {"state"}
+                name="state"
                 type="text"
                 id="state"
                 value={state}
@@ -165,7 +176,7 @@ function CreateNInsuranceRecord({ isOpen, onClose }) {
             <div className="form-group">
               <label htmlFor="zip">ZIP</label>
               <input
-                name ={"zip"}
+                name="zip"
                 type="text"
                 id="zip"
                 value={zip}
@@ -176,7 +187,7 @@ function CreateNInsuranceRecord({ isOpen, onClose }) {
               <button className="reset-btn" onClick={handleReset}>
                 Reset
               </button>
-              <button className="create-btn" onClick={handleCreate}>
+              <button className="create-btn" type="submit">
                 Create
               </button>
             </div>
