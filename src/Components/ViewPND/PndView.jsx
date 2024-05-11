@@ -49,6 +49,7 @@ function CodeView({ searchQuery }) {
     const handleSearch = (event) => {
         const searchText = event.target.value.toLowerCase();
         const filtered = members.filter(member =>
+            member.memberId.toLowerCase().includes(searchText) ||
             member.codeType.toLowerCase().includes(searchText) ||
             member.codeName.toLowerCase().includes(searchText) ||
             member.codeTitle.toLowerCase().includes(searchText) ||
