@@ -8,10 +8,12 @@ import { FaUserShield } from 'react-icons/fa';
 import { BsFillShieldLockFill } from 'react-icons/bs';
 import { AiOutlineSwapRight } from 'react-icons/ai';
 import { MdEmail } from "react-icons/md";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {getAnalytics, logEvent, setUserProperties} from "firebase/analytics";
 
 const Auth = () => {
+
+  const navigate = useNavigate();
 
   const analytics = getAnalytics();
   setUserProperties(analytics, {
@@ -40,8 +42,8 @@ const Auth = () => {
         body: JSON.stringify({ email, password }),
       });
       console.log('Response:', response);
-      const data = await response.json();
-      console.log('Data:', data);
+      /* const data = await response.json();
+      console.log('Data:', data); */
       if (response.ok) {
         // OTP request successful, show OTP input
         setShowOtpInput(true);
@@ -66,7 +68,10 @@ const Auth = () => {
       const data = await response.json();
       if (response.ok) {
         // OTP validation successful, proceed with login
-        console.log("Login Successful");
+        setShowOtpInput(true);
+        //console.log("Login Successful");
+        sessionStorage.setItem('access_token', data.access_token);
+        navigate('./NotifyForm');
 
       } else {
         // Handle error
@@ -127,10 +132,10 @@ const Auth = () => {
               <label htmlFor="password">Password</label>
               <div className="input flex">
                 <BsFillShieldLockFill className='icon' />
-                <input type='text' id='password' placeholder='Enter Password' value={password} onChange={(e) => setPassword(e.target.value)} />
+                <input className="inputP" type='password' id='password' placeholder='Enter Password' value={password} onChange={(e) => setPassword(e.target.value)} />
               </div>
             </div>
-            {/* {showOtpInput && (
+            {/* {ShowOtpInput && (
               <div className="inputDiv">
                 <label htmlFor="password">Password</label>
                 <div className="input flex">
@@ -138,7 +143,7 @@ const Auth = () => {
                   <input className="inputP" type='password' name="password" id='password' placeholder='Enter Password' value={password} onChange={(e) => setPassword(e.target.value)} />
                 </div>
               </div>
-            )}
+            )} */}
               {ShowOtpInput && (
                 <div className="inputDiv">
                   <label htmlFor="otp">OTP</label>
@@ -146,7 +151,7 @@ const Auth = () => {
                     <input type="text" id='otp' placeholder='Enter OTP' value={otp} onChange={(e) => setOtp(e.target.value)} />
                   </div>
                 </div>
-              )} */}
+              )}
               <div>
                 <button onClick={handleSubmit} type='submit' className='btn'>
                   <span>{ShowOtpInput ? "Login" : "Login Verify"}</span>
