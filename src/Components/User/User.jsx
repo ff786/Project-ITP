@@ -9,6 +9,8 @@ import SideNav from '../common/SideNav/sideNav';
 import { saveAs } from 'file-saver';
 import { FaDownload } from 'react-icons/fa';
 
+import backgroundImage from './background.jpg';
+
 function User() {
   const [username, setUsername] = useState('');
   const [firstname, setFirstname] = useState('');
@@ -31,7 +33,7 @@ function User() {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('https://dulanga.azurewebsites.net/api/innobothealth/admin/getAll');
+      const response = await axios.get('http://api.innobot.dulanga.com/api/innobothealth/admin/getAll');
       setUsers(response.data);
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -47,7 +49,7 @@ function User() {
     }
   
     try {
-      const response = await axios.post('https://dulanga.azurewebsites.net/api/innobothealth/admin/register', {
+      const response = await axios.post('http://api.innobot.dulanga.com/api/innobothealth/admin/register', {
         email,
         password,
         firstName: firstname,
@@ -66,7 +68,7 @@ function User() {
       setPassword('');
       setEmail('');
       setRole('');
-      setNotipref({ SMS: false, email: false, SYS: false });
+      setNotipref({ SMS: false, EMAIL: false, SYS: false });
   
     } catch (error) {
       console.error('Error:', error);
@@ -84,13 +86,23 @@ function User() {
     setModalIsOpen(false);
   };
 
+  const clearForm = () => {
+    setUsername('');
+    setFirstname('');
+    setLastname('');
+    setMobileNumber('');
+    setPassword('');
+    setEmail('');
+    setRole('');
+    setNotipref({ SMS: false, EMAIL: false, SYS: false });
+  };
   const handleDelete = async (index) => {
     try {
       // Get the ID of the user to delete
       const userIdToDelete = users[index].id;
   
       // Make the DELETE request to the API
-      await axios.delete(`https://dulanga.azurewebsites.net/api/innobothealth/admin/delete/${userIdToDelete}`);
+      await axios.delete(`http://api.innobot.dulanga.com/api/innobothealth/admin/delete/${userIdToDelete}`);
   
       // Update the state to remove the deleted user
       setUsers(prevUsers => {
@@ -116,13 +128,13 @@ function User() {
     const preferences = users[index].notificationPreference.reduce((acc, cur) => {
       acc[cur] = true;
       return acc;
-    }, { SMS: false, email: false, SYS: false });
+    }, { SMS: false, EMAIL: false, SYS: false });
     setNotipref(preferences);
   };
 
   const handleSaveEdit = async () => {
     try {
-      const response = await axios.put(`https://dulanga.azurewebsites.net/api/innobothealth/admin/update/${users[editingUserIndex].id}`, {
+      const response = await axios.put(`http://api.innobot.dulanga.com/api/innobothealth/admin/update/${users[editingUserIndex].id}`, {
         email,
         firstName: firstname,
         lastName: lastname,
@@ -149,7 +161,7 @@ function User() {
       setUsername('');
       setEmail('');
       setRole('');
-      setNotipref({ SMS: false, email: false, SYS: false });
+      setNotipref({ SMS: false, EMAIL: false, SYS: false });
       setFirstname('');
       setLastname('');
     } catch (error) {
@@ -183,76 +195,75 @@ function User() {
     link.click();
   };
   return (
-    <div class="main-container">
+    <div>
+      
+      <SideNav/>
       <Topbar />
       <Navbar />
-      <SideNav/>
-      <div class="content-container"></div>
       
-      <div className="container">
+   
+    <div className="staff-container" style={{ backgroundImage: `url(${backgroundImage})` }}  >
+    
+      
+      <div className="content-container"></div>
+     
+      <div className="add-staff-container-unique" style={{ backgroundImage: `url(${backgroundImage})` }}>
         <div className="add-staff-container">
-        <h2 className="add-staff-heading">{isEditMode ? 'Edit STAFF' : 'Add STAFF'}</h2>
+        <h2 className="add-staff-heading-unique">{isEditMode ? 'Edit STAFF' : 'Add STAFF'}</h2>
 
           <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label>Username:</label>
+            <div className="form-group-unique">
+              <label htmlFor="username">Username</label>
               <input
                 type="text"
+                id="username"
                 value={username}
-                onChange={(event) => setUsername(event.target.value)}
+                onChange={(e) => setUsername(e.target.value)}
                 required
               />
             </div>
-            <div className="form-group">
-              <label>First Name:</label>
+            <div className="form-group-unique">
+              <label htmlFor="firstname">First Name</label>
               <input
                 type="text"
+                id="firstname"
                 value={firstname}
-                onChange={(event) => setFirstname(event.target.value)}
+                onChange={(e) => setFirstname(e.target.value)}
                 required
               />
             </div>
-            <div className="form-group">
-              <label>Last Name:</label>
+            <div className="form-group-unique">
+              <label htmlFor="lastname">Last Name</label>
               <input
                 type="text"
-                
+                id="lastname"
                 value={lastname}
-                onChange={(event) => setLastname(event.target.value)}
+                onChange={(e) => setLastname(e.target.value)}
                 required
               />
             </div>
-            <div className="form-group">
-              <label>Password:</label>
-              <input
-                type="text"
-                placeholder='Enter password for the user account'
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label>Mobile Number:</label>
-              <input
-                type="text"
-                value={mobileNumber}
-                onChange={(event) => setMobileNumber(event.target.value)}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label>Email:</label>
+            <div className="form-group-unique">
+              <label htmlFor="email">Email</label>
               <input
                 type="email"
-                placeholder='user@abc.com'
+                id="email"
                 value={email}
-                onChange={(event) => setEmail(event.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
-            <div className="form-group">
-              <label>Role:</label>
+            <div className="form-group-unique">
+              <label htmlFor="mobileNumber">Mobile Number</label>
+              <input
+                type="text"
+                id="mobileNumber"
+                value={mobileNumber}
+                onChange={(e) => setMobileNumber(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group-unique">
+              <label htmlFor="role">Role</label>
               <select
                 value={role}
                 onChange={(event) => setRole(event.target.value)}
@@ -264,106 +275,100 @@ function User() {
                 <option value="ADMIN">ADMIN</option>
               </select>
             </div>
-            <div className="form-group">
-              <label>Notification Preference:</label>
-              <div>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={notipref.SMS}
-                    onChange={() => setNotipref({ ...notipref, SMS: !notipref.SMS })}
-                  />
-                  SMS
-                </label>
-              </div>
-              <div>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={notipref.EMAIL}
-                    onChange={() => setNotipref({ ...notipref, EMAIL: !notipref.EMAIL })}
-                  />
-                  EMAIL
-                </label>
-              </div>
-              <div>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={notipref.SYS}
-                    onChange={() => setNotipref({ ...notipref, SYS: !notipref.SYS })}
-                  />
-                  SYS
-                </label>
+            <div className="form-group-unique">
+              <label>Notification Preferences</label>
+              <div className="form-Para" style={{ marginBottom: '20px' }}>
+                <input
+                  type="checkbox"
+                  id="SMS"
+                  checked={notipref.SMS}
+                  onChange={(e) => setNotipref({ ...notipref, SMS: e.target.checked })}
+                />
+                <label htmlFor="SMS">SMS</label>
+                <input
+                  type="checkbox"
+                  id="EMAIL"
+                  checked={notipref.EMAIL}
+                  onChange={(e) => setNotipref({ ...notipref, EMAIL: e.target.checked })}
+                />
+                <label htmlFor="EMAIL">Email</label>
+                <input
+                  type="checkbox"
+                  id="SYS"
+                  checked={notipref.SYS}
+                  onChange={(e) => setNotipref({ ...notipref, SYS: e.target.checked })}
+                />
+                <label htmlFor="SYS">System</label>
               </div>
             </div>
-            <button type="submit">{isEditMode ? 'Save Changes' : 'Add STAFF'}</button>
-            <div className="switch">
-  <input
-    type="checkbox"
-    id="modeToggle"
-    checked={isEditMode}
-    onChange={() => setIsEditMode(prevMode => !prevMode)}
-  />
-  <label htmlFor="modeToggle" className="slider round"></label>
-</div>
-
+            <div className="form-group-unique">
+              <button type="submit" className="unique-button">
+                {isEditMode ? 'Save' : 'Add'}
+              </button>
+              <button type="button" onClick={clearForm} className="unique-button">
+                Clear
+              </button>
+            </div>
           </form>
         </div>
-        <div className="user-list-container">
-          <h2>User List</h2>
-          <button className="download-btn" onClick={downloadCSV}>
-  <FaDownload className="download-icon" />
-  Download User List (CSV)
-</button>
-
+      </div>
+      <div className="user-list-container-unique">
+        <h2 className="user-list-heading-unique">Staff List</h2>
+        <div className="table-container">
           <input
             type="text"
+            className="unique-input"
             placeholder="Search..."
             value={searchQuery}
-            onChange={(event) => setSearchQuery(event.target.value)}
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <table>
-            <thead>
+          <table className="unique-table">
+            <thead className="unique-thead">
               <tr>
                 <th>Username</th>
                 <th>First Name</th>
-                <th>email</th>
+                <th>Last Name</th>
+                <th>Email</th>
                 <th>Role</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               {filteredUsers.map((user, index) => (
-                <tr key={index}>
+                <tr key={user.id}>
                   <td>{user.username}</td>
                   <td>{user.firstName}</td>
+                  <td>{user.lastName}</td>
                   <td>{user.email}</td>
                   <td>{user.role}</td>
                   <td>
-                    <button onClick={() => handleEdit(index)}>Edit</button>
-                    <button onClick={() => handleDelete(index)}>Delete</button>
+                    <button onClick={() => handleEdit(index)} className="unique-button">Edit</button>
+                    <button onClick={() => handleDelete(index)} className="unique-button">Delete</button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+          <button onClick={toggleMode} className="unique-button">Switch to {isEditMode ? 'Add' : 'Edit'} Mode</button>
+          <button onClick={downloadCSV} className="download-btn-unique">
+            <FaDownload className="download-icon-unique" /> Download CSV
+          </button>
         </div>
       </div>
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
-        className="modal"
-        overlayClassName="overlay"
-        contentLabel="Custom Modal"
+        className="modal-unique"
+        overlayClassName="overlay-unique"
       >
-        <div className="modal-content">
-          <h2>{modalMessage}</h2>
-          <button onClick={closeModal}>Close</button>
-        </div>
+        <h2>Error</h2>
+        <p>{modalMessage}</p>
+        <button onClick={closeModal} className="unique-button">Close</button>
       </Modal>
+    </div>
     </div>
   );
 }
 
 export default User;
+
