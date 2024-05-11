@@ -4,16 +4,35 @@ import SideNav from '../common/SideNav/sideNav.jsx';
 import InsuranceForm from './InsuranceForm.jsx'
 import InsuranceMenu from './menu.jsx';
 import FeeScheduleManagement from './feedash.jsx'
-
-
 import { Link } from 'react-router-dom';
+import { Tabs, TabsHeader, TabsBody, Tab, TabPanel } from "@material-tailwind/react";
+
 
 const InsuranceDashboard = () => {
+    
+    const [CreateInsuranceRecord, setCreateInsuranceRecord ] = useState("CreateNInsuranceRecord");
 
-    const [createInsurance, setCreateInsurance] = useState(false);
+   
+    const [activeTab, setActiveTab ] = useState("CreateNInsuranceRecord");
+    
+
+    const data = [
+        {
+          label: "Create Insurance",
+          value: "insurance",
+          component: <CreateInsuranceRecord />,
+        },
+        {
+          label: "Fee Schedule ",
+          value: "fee",
+          component: <FeeScheduleManagement />,
+        },
+       
+      ];
+    
     
     const toggleCreateForm = () => {
-        setCreateInsurance(!createInsurance);
+        setCreateInsurance(!CreateInsurance);
     }
 
     return (
@@ -27,22 +46,33 @@ const InsuranceDashboard = () => {
                    <h2 className="text-center md:text-5xl text-4xl font-bold md:leading-snug leading-snug">
                        Insurance Management
                    </h2>
-                   <div className="border-b border-gray-200 dark:border-neutral-700">
-                       <nav className="flex justify-between space-x-1" aria-label="Tabs" role="tablist">
-                           {/* Add your tab buttons here */}
-                           <nav className="hidden md:flex space-x-10">
-                               <a onClick={toggleCreateForm} className="text-base font-medium text-zinc-500 hover:text-zinc-900 cursor-pointer">Create Insurance</a>
-                           </nav>
-                           <nav className="hidden md:flex space-x-10">
-                               <a href="#" className="text-base font-medium text-zinc-500 hover:text-zinc-900">Fee Schedule</a>
-                           </nav>
-                           <nav className="hidden md:flex space-x-10">
-                               <a href="#" className="text-base font-medium text-zinc-500 hover:text-zinc-900">Reports</a>
-                           </nav>
-                       </nav>
-                   </div>
-                   <InsuranceMenu />
-                   {createInsurance && <InsuranceForm isOpen={createInsurance} onClose={toggleCreateForm} />}
+                   <Tabs value={activeTab}>
+              <TabsHeader
+                className="rounded-none border-b border-blue-gray-50 bg-transparent p-0"
+                indicatorProps={{
+                  className:
+                    "bg-transparent border-b-2 border-gray-900 shadow-none rounded-none",
+                }}
+              >
+                {data.map(({ label, value }) => (
+                  <Tab
+                    key={value}
+                    value={value}
+                    onClick={() => setActiveTab(value)}
+                    className={activeTab === value ? "text-gray-900" : ""}
+                  >
+                    {label}
+                  </Tab>
+                ))}
+              </TabsHeader>
+              <TabsBody>
+                {data.map(({ value, component }) => (
+                  <TabPanel key={value} value={value}>
+                    {component}
+                  </TabPanel>
+                ))}
+              </TabsBody>
+            </Tabs>
                </div>
            </div>
             

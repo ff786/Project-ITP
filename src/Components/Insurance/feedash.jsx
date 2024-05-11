@@ -1,43 +1,110 @@
-import React from 'react';
-import './feedash.css';
-
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import DataTable from 'react-data-table-component';
 
 function FeeScheduleManagement() {
-  const feeSchedules = [
-    { ctp_code: '99201', description: 'ECG testing', current_fee: '$150' },
-    { ctp_code: '99203', description: 'MRI (Magnetic Resonance Imaging) ', current_fee: '$175' },
-    { ctp_code: '99204', description: 'Bone density test (DEXA scan)', current_fee: '$210' },
-    { ctp_code: '99205', description: ' Endoscopy ', current_fee: '$170' },
+  const [data, setData] = useState([]);
+  const [search, setSearch] = useState('');
+  const [filteredData, setFilteredData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const columnTable = [
+    { name: 'mem_ID', selector: 'mem_ID' },
+    { name: 'Name', selector: 'name' },
+    { name: 'Address', selector: 'address' },
+    { name: 'Phone Number', selector: 'phone_number' },
+    { name: 'Payer ID', selector: 'payID' },
+    { name: 'City', selector: 'city' },
+    { name: 'State', selector: 'state' },
+    { name: 'ZIP', selector: 'zip' },
+    {
+      name: 'Action',
+      cell: (row) => (
+        <div>
+          <Link to={`/update/${row.id}`}>&gt;</Link>
+          <button
+            type="button"
+            className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-yellow-500 hover:bg-yellow-100 hover:text-yellow-800 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-yellow-800/30 dark:hover:text-yellow-400"
+          >
+            Edit
+          </button>
+          <button
+            type="button"
+            className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-red-500 hover:bg-red-100 hover:text-red-800 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-red-800/30 dark:hover:text-red-400"
+            onClick={() => handleDelete(row.ctp_code)}
+          >
+            Delete
+          </button>
+        </div>
+      ),
+    },
   ];
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://dulanga.sliit.xyz/api/innobothealth/insurance/getAll');
+        setData(response.data);
+        setFilteredData(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, [loading]);
+
+  useEffect(() => {
+    const result = data.filter((item) => item.name.toLowerCase().includes(search.toLowerCase()));
+    setFilteredData(result);
+  }, [search, data]);
+
+  const handleDelete = async (ctp_code) => {
+    const confirmDeleteAction = window.confirm('Are you sure you want to delete this item?');
+    if (confirmDeleteAction) {
+      try {
+        await axios.delete(`https://dulanga.azurewebsites.net/api/innobothealth/insurance/${ctp_code}`);
+        const newData = data.filter((item) => item.ctp_code !== ctp_code);
+        setData(newData);
+        setLoading(true);
+        setFilteredData(newData); // Update filtered data as well
+      } catch (error) {
+        console.log('Error deleting item:', error);
+      }
+    } else {
+      console.log('Delete action canceled for item:', ctp_code);
+    }
+  };
 
   return (
     <div className="fee-schedule-management">
       <h2>Fee Schedule Management</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>CTP Code</th>
-            <th>Description</th>
-            <th>Current Fee</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {feeSchedules.map((schedule, index) => (
-            <tr key={index}>
-              <td>{schedule.ctp_code}</td>
-              <td>{schedule.description}</td>
-              <td>{schedule.current_fee}</td>
-              <td>
-                <div className="action-buttons">
-                  <button className="edit-btn">Edit</button>
-                  <button className="delete-btn">Delete</button>
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="table-container" style={{ overflowX: 'auto', width: '90vw', overflowY: 'hidden', margin: 'auto' }}>
+        <React.Fragment>
+          <DataTable
+            columns={columnTable}
+            data={filteredData}
+            pagination
+            fixedHeader
+            selectableRowsHighlight
+            highlightOnHover
+            subHeader
+            subHeaderComponent={
+              <input
+                type="text"
+                className="w-25 form-control float-right"
+                placeholder="Search..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            }
+            subHeaderAlign="left"
+            style={{ width: '100%' }}
+            onRowClicked={(row) => console.log(row)}
+          />
+        </React.Fragment>
+      </div>
     </div>
   );
 }
