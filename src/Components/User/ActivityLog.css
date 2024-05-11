@@ -1,10 +1,10 @@
-.activity-log-container {
+.activity-log-container-Unique  {
     display: flex;
     flex-direction: column;
     height: 100%;
   }
   
-  .activity-log {
+  .activity-log-Unique  {
     max-width: 800px;
     margin: 20px auto;
     padding: 20px;
@@ -13,30 +13,30 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
   
-  .activity-log h1 {
+  .activity-log-Unique  h1 {
     margin-top: 0;
     text-align: center;
     color: #333;
   }
   
-  .filter-container {
+  .filter-container-Unique  {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
   }
   
-  .user-select,
-  .date-range,
-  .filter-btn {
+  .user-select-Unique ,
+  .date-range-Unique ,
+  .filter-btn-Unique  {
     margin-right: 10px;
   }
   
-  .activity-list {
+  .activity-list-Unique  {
     list-style-type: none;
     padding: 0;
   }
   
-  .activity-item {
+  .activity-item-Unique  {
     background-color: #fff;
     padding: 10px;
     border-radius: 4px;
@@ -44,11 +44,11 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
-  .activity-description {
+  .activity-description-Unique  {
     font-weight: bold;
   }
   
-  .activity-timestamp {
+  .activity-timestamp-Unique  {
     color: #666;
   }
   

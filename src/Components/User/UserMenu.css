@@ -1,5 +1,5 @@
 /* UserMenu.css */
-.navbar {
+.navbar-Unique {
   background-color: #02072D;
   color: white;
   padding: 10px 20px;
@@ -8,11 +8,11 @@
   align-items: center;
 }
 
-.navbar-brand {
+.navbar-brand-Unique {
   font-size: 1.2rem;
 }
 
-.navbar-toggle {
+.navbar-toggle-Unique {
   background-color: transparent;
   border: none;
   color: white;
@@ -20,12 +20,12 @@
   font-size: 1rem;
 }
 
-.navbar-menu {
+.navbar-menu-Unique {
   display: flex;
   align-items: center;
 }
 
-.navbar-list {
+.navbar-list-Unique {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -33,17 +33,17 @@
   gap: 15px;
 }
 
-.navbar-list li a {
+.navbar-list-Unique li a {
   color: white;
   text-decoration: none;
   font-size: 1rem;
   transition: color 0.3s ease;
 }
 
-.navbar-list li a:hover {
+.navbar-list-Unique li a:hover {
   color: #ffffffcc;
 }
 
-.navbar-brand-text  a:hover {
+.navbar-brand-text-Unique  a:hover {
   color: #ffffffcc;
 }

@@ -10,15 +10,15 @@ const Navbar = () => {
   };
     return(
     <div>
-    <nav className="navbar">
-    <div className="navbar-brand" >
-      <Link to="/UserMenu"><span className="navbar-brand-text"  >Menu</span></Link>
+    <nav className="navbar-Unique">
+    <div className="navbar-brand-Unique" >
+      <Link to="/UserMenu"><span className="navbar-brand-text-Unique"  >Menu</span></Link>
     </div>
-    <button className="navbar-toggle" onClick={toggleMenu}>
-      <i className={`fas ${isOpen ? 'fa-times' : 'fa-bars'}`}></i>
+    <button className="navbar-toggle-Unique" onClick={toggleMenu}>
+      <i className={`fas ${isOpen ? 'fa-times-Unique' : 'fa-bars-Unique'}`}></i>
     </button>
-    <div className={`navbar-menu ${isOpen ? 'active' : ''}`}>
-      <ul className="navbar-list">
+    <div className={`navbar-menu-Unique ${isOpen ? 'active' : ''}`}>
+      <ul className="navbar-list-Unique">
         <li>
           <Link to="/User">Staff Management</Link>
         </li>

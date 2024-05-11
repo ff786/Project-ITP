@@ -117,6 +117,8 @@ function User() {
     }
   };
 
+
+  
   const handleEdit = (index) => {
     setEditingUserIndex(index);
     setUsername(users[index].username);
@@ -195,7 +197,7 @@ function User() {
     link.click();
   };
   return (
-    <div>
+    <div >
       
       <SideNav/>
       <Topbar />
@@ -312,7 +314,7 @@ function User() {
           </form>
         </div>
       </div>
-      <div className="user-list-container-unique">
+      <div className="user-list-container-unique" >
         <h2 className="user-list-heading-unique">Staff List</h2>
         <div className="table-container">
           <input
