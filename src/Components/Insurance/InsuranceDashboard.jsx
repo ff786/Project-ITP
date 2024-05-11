@@ -3,13 +3,15 @@ import Topbar from '../common/topbar/Topbar.jsx';
 import SideNav from '../common/SideNav/sideNav.jsx';
 import InsuranceForm from './InsuranceForm.jsx'
 import InsuranceMenu from './menu.jsx';
+import FeeScheduleManagement from './feedash.jsx'
+
 
 import { Link } from 'react-router-dom';
 
 const InsuranceDashboard = () => {
 
     const [createInsurance, setCreateInsurance] = useState(false);
-
+    
     const toggleCreateForm = () => {
         setCreateInsurance(!createInsurance);
     }
@@ -39,10 +41,11 @@ const InsuranceDashboard = () => {
                            </nav>
                        </nav>
                    </div>
+                   <InsuranceMenu />
                    {createInsurance && <InsuranceForm isOpen={createInsurance} onClose={toggleCreateForm} />}
                </div>
            </div>
-            <InsuranceMenu />
+            
         </>
     );
 }

@@ -143,7 +143,7 @@ const menu = () => {
                             <div className="flex gap-4">
                                 <Link to="/addInventory">
                                     <button type="button" className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
-                                        Add to Medicine
+                                        
                                         <svg className="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                             <path d="m5 11 4-7"></path>
                                             <path d="m19 11-4-7"></path>
