@@ -32,15 +32,14 @@ const InventoryDashboard = () => {
   const [activeTab, setActiveTab] = useState("inventory");
 
   return (
-    <div className="dashboard-container">
+    <div>
       <Topbar />
-      <div className="side-nav-container">
+      <div>
         <SideNav />
       </div>
       <div className="content-container">
         <div className="py-24 flex flex-col items-center justify-between gap-8">
-          <br />
-          <div className="px-4 space-y-7">
+          <div className="px-4 space-y-7 ml-20">
             <h2 className="text-center md:text-5xl text-4xl font-bold md:leading-snug leading-snug">
               Inventory management <span className="text-red">Medicines</span>
             </h2>
