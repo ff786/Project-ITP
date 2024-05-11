@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
+import Swal from 'sweetalert2';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -48,7 +49,9 @@ const inventoryupdateFrom = () => {
   const Submitprocess = async (data) => {
     console.log(data);
     if (isExpiryDateInvalid) {
-      alert('Expiry date cannot be in the past');
+      // alert('Expiry date cannot be in the past');
+      Swal.fire("Expiry date cannot be in the past");
+      
       return;
     }
 
@@ -73,7 +76,7 @@ const inventoryupdateFrom = () => {
     const selectedDateObj = new Date(selectedDate);
 
     if (selectedDateObj < currentDate) {
-      alert('Expiry date cannot be in the past');
+      Swal.fire("Expiry date cannot be in the past");
       setValue('expireDate', '');
       setIsExpiryDateInvalid(true);
       return;

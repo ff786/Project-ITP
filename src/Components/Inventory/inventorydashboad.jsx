@@ -33,7 +33,7 @@ const InventoryDashboard = () => {
 
   return (
     <div className="dashboard-container">
-      <Topbar />
+      {/* <Topbar /> */}
       <div className="side-nav-container">
         <SideNav />
       </div>

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from 'react-router-dom';
 import DataTable from 'react-data-table-component';
+import Swal from 'sweetalert2';
 
 const InventoryAllMedicineTab = () => {
     const [data, setData] = useState([]);
@@ -78,9 +79,19 @@ const InventoryAllMedicineTab = () => {
         setFilteredData(result);
     }, [search, data]);
 
+   
     const handleDelete = async (medicineName) => {
-        const confirmDeleteAction = window.confirm("Are you sure you want to delete this item?");
-        if (confirmDeleteAction) {
+        const confirmDeleteAction = await Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        });
+
+        if (confirmDeleteAction.isConfirmed) {
             try {
                 await axios.delete(`http://api.innobot.dulanga.com/api/innobothealth/medicine/${medicineName}`);
                 console.log("Item deleted successfully:", medicineName);
@@ -88,8 +99,10 @@ const InventoryAllMedicineTab = () => {
                 setData(newData);
                 setLoading(true);
                 setFilteredData(newData); // Update filtered data as well
+                Swal.fire("Deleted!", "Your file has been deleted.", "success");
             } catch (error) {
                 console.log("Error deleting item:", error);
+                Swal.fire("Error!", "There was an error deleting the item.", "error");
             }
         } else {
             console.log("Delete action canceled for item:", medicineName);

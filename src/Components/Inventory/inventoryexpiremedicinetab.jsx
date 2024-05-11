@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from 'react-router-dom';
 import DataTable from 'react-data-table-component';
+import Swal from 'sweetalert2';
+
 
 const inventoryexpiremedicinetab = () => {
   const [data, setData] = useState([]);
@@ -69,40 +71,67 @@ const inventoryexpiremedicinetab = () => {
     setFilteredData(result);
   }, [search, data]);
 
+ 
   const handleDelete = async (medicineName) => {
-    const confirmDeleteAction = window.confirm("Are you sure you want to delete this item?");
-    if (confirmDeleteAction) {
-      try {
-        await axios.delete(`http://api.innobot.dulanga.com/api/innobothealth/medicine/${medicineName}`);
-        console.log("Item deleted successfully:", medicineName);
-        const newData = data.filter((item) => item.medicineName !== medicineName);
-        setData(newData);
-        setLoading(true);
-        setFilteredData(newData);
-        setLoading(true);
-      } catch (error) {
-        console.log("Error deleting item:", error);
-      }
+    const confirmDeleteAction = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+    });
+
+    if (confirmDeleteAction.isConfirmed) {
+        try {
+            await axios.delete(`http://api.innobot.dulanga.com/api/innobothealth/medicine/${medicineName}`);
+            console.log("Item deleted successfully:", medicineName);
+            const newData = data.filter((item) => item.medicineName !== medicineName);
+            setData(newData);
+            setLoading(true);
+            setFilteredData(newData); // Update filtered data as well
+            Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        } catch (error) {
+            console.log("Error deleting item:", error);
+            Swal.fire("Error!", "There was an error deleting the item.", "error");
+        }
     } else {
-      console.log("Delete action canceled for item:", medicineName);
+        console.log("Delete action canceled for item:", medicineName);
     }
-  };
+};
+  // const handleDownloadPDF = async () => {
+  //   try {
+  //     const response = await axios.get("http://api.innobot.dulanga.com/api/innobothealth/medicine/generate-pdf/expired", {
+  //       responseType: 'blob', // Important for receiving binary data
+  //     });
+
+  //     const url = window.URL.createObjectURL(new Blob([response.data]));
+  //     const link = document.createElement('a');
+  //     link.href = url;
+  //     link.setAttribute('download', 'inventory.pdf');
+  //     document.body.appendChild(link);
+  //     link.click();
+  //   } catch (error) {
+  //     console.error('Error downloading PDF:', error);
+  //   }
+  // };
   const handleDownloadPDF = async () => {
     try {
-      const response = await axios.get("http://api.innobot.dulanga.com/api/innobothealth/medicine/generate-pdf/expired", {
-        responseType: 'blob', // Important for receiving binary data
-      });
+        const response = await axios.get("http://api.innobot.dulanga.com/api/innobothealth/medicine/generate-pdf/expired", {
+            responseType: 'blob', // Important for receiving binary data
+        });
 
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', 'inventory.pdf');
-      document.body.appendChild(link);
-      link.click();
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'inventory.pdf');
+        document.body.appendChild(link);
+        link.click();
     } catch (error) {
-      console.error('Error downloading PDF:', error);
+        console.error('Error downloading PDF:', error);
     }
-  };
+};
   return (
     <div>
       {/* Inventory Content */}
