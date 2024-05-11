@@ -17,10 +17,7 @@ import PndView from './Components/ViewPND/PndView.jsx'
 import NotifyForm from './Components/NotifyForm/NotifyForm.jsx'
 import NotifyView from './Components/NotifyView/NotifyView.jsx'
 import PatientForm from './Components/FormPatient/PatientForm.jsx'
-
-import ActivityLog from './Components/User/ActivityLog'
-import User from './Components/User/User'
-import UserMenu from './Components/User/UserMenu'
+import NotifyUpdateForm from "./Components/NotifyForm/NotifyUpdateForm.jsx";
 
 import DisplayAppointment from './Components/DisplayAppointment/DisplayAppointment'
 import DisplayScheduled from './Components/DisplayScheduled/DisplayScheduled'
@@ -28,8 +25,6 @@ import {
   createBrowserRouter,
   RouterProvider
 } from 'react-router-dom'
-import NotifyUpdateForm from "./Components/NotifyForm/NotifyUpdateForm.jsx";
-
 
 const router = createBrowserRouter([
   {
@@ -120,18 +115,6 @@ const router = createBrowserRouter([
     element: <div><NotifyUpdateForm /> </div>
   },
 
-  {
-    path: '/User',
-    element: <div><User /> </div>
-  },
-  {
-    path: '/UserMenu',
-    element: <div><UserMenu /> </div>
-  },
-  {
-    path: '/ActivityLog',
-    element: <div><ActivityLog /> </div>
-  },
 
 ])
 

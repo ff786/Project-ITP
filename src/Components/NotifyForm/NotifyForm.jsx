@@ -248,7 +248,7 @@ const NotifyForm = () => {
                        </div>
                         <div className="col-span-2">
                             <label className="block text-m font-medium text-zinc-700 dark:text-zinc-900">Subject</label>
-                            <input name='subject' type="text"
+                            <input name='subject' type="subject"
                                    className="mt-1 block w-full py-2 px-3 border border-black-900 dark:border-white-600 bg-white dark:bg-black-900 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                    onChange={event => setSubject(event.target.value)}/>
                         </div>

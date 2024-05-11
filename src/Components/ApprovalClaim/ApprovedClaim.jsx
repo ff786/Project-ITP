@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom"
 import axios from 'axios';
 import {toast} from "react-toastify"
 import Table from 'react-bootstrap/Table';
+import './ApprovalClaim.css'
 
 import { Link } from 'react-router-dom'
 

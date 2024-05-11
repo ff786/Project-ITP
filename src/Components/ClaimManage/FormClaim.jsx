@@ -101,8 +101,8 @@ const ClaimFormModal = ({ isOpen, onClose }) => {
     return (
 
       <>
-      <div className={`modal-overlay ${isOpen ? "open" : ''}`}>
-       <div className="modal-content">
+      <div className={`modal-overlay1 ${isOpen ? "open" : ''}`}>
+       <div className="modal-content1">
        <button className="text-zinc-600 hover:text-red-900" onClick={handleCancel}>
            <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -136,10 +136,10 @@ const ClaimFormModal = ({ isOpen, onClose }) => {
                 <label>I, the undersigned hereby declare that the information on below is true and complete and that reimbursement requested is for expenses made on me for the treatment of my medical condition.
                 </label>
              </div>
-            <div style={{gap: '10px', marginRight: '15px', padding: "10px"}}>
+            {/* <div className="g-10 p-10 mr-15"> */}
               <button type="cancel" className="close-modal" onClick={handleCancel}>Cancel</button>
               <button type="submit">Submit</button>
-            </div>
+            {/* </div> */}
             </div>
             </div>
             <div className="form-side">

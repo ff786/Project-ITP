@@ -18,6 +18,7 @@ function ClaimModify({ searchQuery }) {
             .catch(error => {
               console.error('Error fetching members:', error);
             });
+
         }, []);
 
     const handleDelete = (id) => {
