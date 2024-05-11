@@ -18,6 +18,9 @@ import NotifyForm from './Components/NotifyForm/NotifyForm.jsx'
 import NotifyView from './Components/NotifyView/NotifyView.jsx'
 import PatientForm from './Components/FormPatient/PatientForm.jsx'
 import NotifyUpdateForm from "./Components/NotifyForm/NotifyUpdateForm.jsx";
+import Inventorydashboad from './Components/Inventory/inventorydashboad.jsx'
+import AddInventorydashboad from './Components/Inventory/medicineaddFrom.jsx'
+import UpdateInventorydashboad from './Components/Inventory/inventoryupdateFrom.jsx'
 
 import DisplayAppointment from './Components/DisplayAppointment/DisplayAppointment'
 import DisplayScheduled from './Components/DisplayScheduled/DisplayScheduled'
@@ -114,6 +117,18 @@ const router = createBrowserRouter([
     path: '/updateNotification',
     element: <div><NotifyUpdateForm /> </div>
   },
+    {
+        path: '/Inventory',
+        element: <div><Inventorydashboad /> </div>
+    },
+    {
+        path: '/addInventory',
+        element: <div><AddInventorydashboad /> </div>
+    },
+    {
+        path: '/UpdateInventory/:id',
+        element: <div><UpdateInventorydashboad /> </div>
+    },
 
 
 ])

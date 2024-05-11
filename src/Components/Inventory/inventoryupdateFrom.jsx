@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -5,7 +7,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { Card, Typography } from '@material-tailwind/react';
 import axios from 'axios';
 
-const MedicineUpdate = () => {
+const inventoryupdateFrom = () => {
   const { control, handleSubmit, reset, formState: { errors }, setValue, register } = useForm({
     defaultValues: {
       Stockid: '',
@@ -23,8 +25,9 @@ const MedicineUpdate = () => {
   const [data, setData] = useState({});
 
   useEffect(() => {
+    console.log('Component mounted or id changed:', id);
     axios
-      .get(`http://api.innobot.dulanga.com/api/innobothealth/medicine/name/${id}`)
+      .get(`https://dulanga.azurewebsites.net/api/innobothealth/medicine/name/${id}`)
       .then((response) => {
         setData(response.data);
         console.log(response.data);
@@ -50,7 +53,13 @@ const MedicineUpdate = () => {
     }
 
     try {
-      const response = await axios.put('http://api.innobot.dulanga.com/api/innobothealth/medicine', data);
+      const selectedSupplierName = data.supplierName;
+      console.log('Selected Supplier Name:', selectedSupplierName);
+      // Assign the selected supplier name to the supplierName field in the data object
+      data.supplierName = selectedSupplierName;
+      console.log('this pass object pass post :', data);
+      // Send the POST request to the server
+      const response = await axios.put('https://dulanga.azurewebsites.net/api/innobothealth/medicine', data);
       console.log(response.data);
       setIsSuccess(true);
     } catch (error) {
@@ -78,6 +87,24 @@ const MedicineUpdate = () => {
     reset();
   };
 
+  const [suppliers, setSuppliers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  // Fetch suppliers data on component mount
+  useEffect(() => {
+    const fetchSuppliers = async () => {
+      try {
+        const response = await axios.get('https://dulanga.azurewebsites.net/api/innobothealth/supplier/all');
+        console.log(response.data);
+        setSuppliers(response.data); // Set the fetched suppliers data into state
+      } catch (error) {
+        console.error('Error fetching suppliers:', error);
+      }
+    };
+
+    fetchSuppliers();
+  }, []); // Fetch suppliers data on component mount
+
+
   return (
     <div className="h-screen grid place-items-center bg-gray-50">
       <Card color="transparent" shadow={true} className="p-7 bg-white">
@@ -90,36 +117,6 @@ const MedicineUpdate = () => {
         <br />
 
         <form className="mb-4 w-[500px] grid grid-cols-2 gap-6">
-
-          <div>
-            <Typography variant="h6" color="blue-gray" className="-mb-3">
-              Stock id
-            </Typography>
-            <br />
-            {/* <Controller
-              name="Stockid"
-              control={control}
-              render={({ field }) => (
-                <input
-                type="text"
-                {...field}
-                value={field.value || ''}
-                className="py-3 px-4 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
-                placeholder="Stock Id"
-              />
-              )}
-            /> */}
-            <input
-              readOnly
-              type="text"
-              value={data.supplierName}
-              {...register('Stockid', {
-
-              })}
-              className="py-3 px-4 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
-              placeholder="stockid"
-            />
-          </div>
 
           <div>
             <Typography variant="h6" color="blue-gray" className="-mb-3">
@@ -163,7 +160,7 @@ const MedicineUpdate = () => {
             {errors?.medicineType?.message && (<span className="text-red-500 text-sm">{errors?.medicineType?.message}</span>)}
           </div>
 
-          <div>
+          {/* <div>
             <Typography variant="h6" color="blue-gray" className="-mb-6">
               SupplierName
             </Typography>
@@ -179,8 +176,26 @@ const MedicineUpdate = () => {
               <option value="3">Type 3</option>
             </select>
             {errors?.supplierName?.message && (<span className="text-red-500 text-sm">{errors?.supplierName?.message}</span>)}
+          </div> */}
+          <div>
+            <Typography variant="h6" color="blue-gray" className="-mb-6">
+              Supplier Name
+            </Typography>
+            <br />
+            <select
+              {...register('supplier', { required: "Supplier Name is required" })}
+              className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
+            >
+              <option value="">Select supplier</option>
+              {/* Map through the suppliers data and populate options */}
+              {suppliers.map(supplier => (
+                <option key={supplier.Suplierid} value={supplier.supplier_name}>
+                  {supplier.supplier_name}
+                </option>
+              ))}
+            </select>
+            {errors?.supplierName?.message && (<span className="text-red-500 text-sm">{errors?.supplierName?.message}</span>)}
           </div>
-
           <div>
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               Expiry Date
@@ -224,11 +239,12 @@ const MedicineUpdate = () => {
             <br />
             <input
               type="text"
+
               {...register('unitPrice', {
                 required: "Unit Price is required",
                 min: { value: 1, message: "Unit Price should not be less than 1" },
                 max: { value: 1000, message: "Unit Price should not exceed 1000" },
-                pattern: { value: /^[0-9]+$/, message: "Unit Price should contain only numbers" }
+                pattern: { value: /^[0-9]+(\.[0-9]{1,2})?$/, message: "Unit Price should contain only numbers with up to two decimal places" }
               })}
               className="py-3 px-4 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
               placeholder="Enter Unit Price"
@@ -241,7 +257,7 @@ const MedicineUpdate = () => {
 
           <div className="col-span-2 grid grid-cols-2 gap-3 justify-center">
             {isSuccess ? (
-              <Link to="/medilist">
+              <Link to="/Inventory">
                 <button
                   type="button"
                   className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 justify-center"
@@ -273,4 +289,4 @@ const MedicineUpdate = () => {
   );
 };
 
-export default MedicineUpdate;
+export default inventoryupdateFrom;
