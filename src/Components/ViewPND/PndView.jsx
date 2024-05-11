@@ -13,6 +13,7 @@ import Topbar from '../common/topbar/Topbar.jsx'
 
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Diagnosis from "../PnD/Diagnosis.jsx";
 
 function CodeView({ searchQuery }) {
 
@@ -70,11 +71,12 @@ function CodeView({ searchQuery }) {
                 <div className="mid">
                     <div className="container mx-auto px-4">
                         <div className="flex justify-between items-center py-4">
-                            <h1 className="text-2xl font-semibold">Procedure and Diagnosis codes</h1>
-                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                Add Code
-                            </button>
-                            {/*<button type="create" onClick={toggleCreateClaim} > Create Claim </button>*/}
+                            <h1 className="text-2xl font-semibold ml-4">Procedure and Diagnosis codes</h1>
+                            <Link to={`/PnD`}>
+                                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-4" >
+                                    Add Code
+                                </button>
+                            </Link>
                         </div>
                     <div className="flex justify-between mb-4">
                         <div className="flex gap-2 items-center">
@@ -84,30 +86,32 @@ function CodeView({ searchQuery }) {
                                 <option>20</option>
                                 <option>50</option>
                             </select>
-                            <label>entries</label>
+                            <label>Entries</label>
                         </div>
                         <div>
-                            <input type="text" placeholder="Search:" className="form-input block w-full mt-1 border-zinc-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md" onChange={handleSearch} />
+                            <input type="text" placeholder="Search:" className="form-input block w-full mt-1 border-zinc-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md ml-4" onChange={handleSearch} />
+
                         </div>
                     </div>
 
                     <div className="overflow-x-auto bg-white rounded-lg shadow overflow-y-auto relative">
                         <table className="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative">
                             <thead>
-                                <tr className="text-left">
-                                    <th className="py-2 px-3 sticky top-0 border-b border-zinc-200 bg-zinc-100">Code</th>
-                                    <th className="py-2 px-3 sticky top-0 border-b border-zinc-200 bg-zinc-100">Code Type</th>
-                                    <th className="py-2 px-3 sticky top-0 border-b border-zinc-200 bg-zinc-100">Title</th>
-                                    <th className="py-2 px-3 sticky top-0 border-b border-zinc-200 bg-zinc-100">Description</th>
-                                    <th className="py-2 px-3 sticky top-0 border-b border-zinc-200 bg-zinc-100">Action</th>
-                                </tr>
+                            <tr className="text-center">
+
+                                <th className="py-2 px-3 sticky top-0 border-b border-zinc-200 bg-zinc-100 text-gray-800 font-semibold">Code Type</th>
+                                <th className="py-2 px-3 sticky top-0 border-b border-zinc-200 bg-zinc-100 text-gray-800 font-semibold">Code</th>
+                                <th className="py-2 px-3 sticky top-0 border-b border-zinc-200 bg-zinc-100 text-gray-800 font-semibold">Title</th>
+                                <th className="py-2 px-3 sticky top-0 border-b border-zinc-200 bg-zinc-100 text-gray-800 font-semibold">Description</th>
+                                <th className="py-2 px-3 sticky top-0 border-b border-zinc-200 bg-zinc-100 text-gray-800 font-semibold">Action</th>
+                            </tr>
                             </thead>
                             <tbody className="bg-white dark:text-white">
                             {filteredMembers.map(member => (
                                 <tr key={member.id} className="text-zinc-700 dark:text-black">
-                                    <td className="px-8 py-4 whitespace-no-wrap border-b border-text-black dark:border-zinc-200">
-                                        {member.memberId}
-                                    </td>
+                                    {/*<td className="px-8 py-4 whitespace-no-wrap border-b border-text-black dark:border-zinc-200">*/}
+                                    {/*    {member.memberId}*/}
+                                    {/*</td>*/}
                                     <td className="px-8 py-4 whitespace-no-wrap border-b border-text-black dark:border-zinc-200">
                                         {member.codeType}
                                     </td>
@@ -137,12 +141,12 @@ function CodeView({ searchQuery }) {
                     </div>
 
                     <div className="flex justify-between items-center py-4">
-                        <span>Showing 1 to 2 of 2 entries</span>
+                        <span>Showing 1 to 2 of 2 entries:</span>
                         <div className="inline-flex">
-                            <button className="text-sm bg-zinc-300 hover:bg-zinc-400 text-zinc-800 font-semibold py-2 px-4 rounded-l">
+                            <button className="text-sm bg-zinc-300 hover:bg-zinc-400 text-zinc-800 font-semibold py-2 px-4 rounded-l ml-3">
                                 Previous
                             </button>
-                            <button className="text-sm bg-zinc-300 hover:bg-zinc-400 text-zinc-800 font-semibold py-2 px-4 rounded-r">
+                            <button className="text-sm bg-zinc-300 hover:bg-zinc-400 text-zinc-800 font-semibold py-2 px-4 rounded-r ml-3">
                                 Next
                             </button>
                         </div>
