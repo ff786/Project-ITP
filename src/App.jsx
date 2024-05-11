@@ -117,18 +117,31 @@ const router = createBrowserRouter([
     path: '/updateNotification',
     element: <div><NotifyUpdateForm /> </div>
   },
-    {
-        path: '/Inventory',
-        element: <div><Inventorydashboad /> </div>
-    },
-    {
-        path: '/addInventory',
-        element: <div><AddInventorydashboad /> </div>
-    },
-    {
-        path: '/UpdateInventory/:id',
-        element: <div><UpdateInventorydashboad /> </div>
-    },
+  {
+    path: '/Inventory',
+    element: <div><Inventorydashboad /> </div>
+  },
+  {
+    path: '/addInventory',
+    element: <div><AddInventorydashboad /> </div>
+  },
+  {
+    path: '/UpdateInventory/:id',
+    element: <div><UpdateInventorydashboad /> </div>
+  },
+  {
+    path: '/User',
+    element: <div><User /> </div>
+  },
+  {
+    path: '/UserMenu',
+    element: <div><UserMenu /> </div>
+  },
+  {
+    path: '/ActivityLog',
+    element: <div><ActivityLog /> </div>
+  },
+
 
 
 ])
