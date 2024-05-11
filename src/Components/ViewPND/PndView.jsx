@@ -49,14 +49,13 @@ function CodeView({ searchQuery }) {
     const handleSearch = (event) => {
         const searchText = event.target.value.toLowerCase();
         setSearchText(searchText);
-        const filteredData = members.filter(member =>
-            member.codeType.toLowerCase().includes(searchText) ||
-            member.codeName.toLowerCase().includes(searchText) ||
-            member.codeTitle.toLowerCase().includes(searchText) ||
-            member.description.toLowerCase().includes(searchText)
-        );
-        setFilteredMembers(filteredData);
-    };
+        };
+    const filteredData = members.filter(member =>
+        member.codeType.toLowerCase().includes(searchText) ||
+        member.codeName.toLowerCase().includes(searchText) ||
+        member.codeTitle.toLowerCase().includes(searchText) ||
+        member.description.toLowerCase().includes(searchText)
+    );
 
     return (
         <body>
