@@ -50,13 +50,12 @@ function CodeView({ searchQuery }) {
         const searchText = event.target.value.toLowerCase();
         setSearchText(searchText);
         const filteredData = members.filter(member =>
-            member.memberId.toLowerCase().includes(searchText) ||
             member.codeType.toLowerCase().includes(searchText) ||
             member.codeName.toLowerCase().includes(searchText) ||
             member.codeTitle.toLowerCase().includes(searchText) ||
             member.description.toLowerCase().includes(searchText)
         );
-        setFilteredMembers(filtered);
+        setFilteredMembers(filteredData);
     };
 
     return (
