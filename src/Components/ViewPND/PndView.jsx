@@ -18,7 +18,7 @@ import Diagnosis from "../PnD/Diagnosis.jsx";
 function CodeView({ searchQuery }) {
 
     const [members, setMembers] = useState([]);
-    const [filteredMembers, setFilteredMembers] = useState([]);
+    const [searchText, setSearchText] = useState('');
 
     useEffect(() => {
         // Fetch data from backend when component mounts
@@ -48,15 +48,15 @@ function CodeView({ searchQuery }) {
     // Function to handle search
     const handleSearch = (event) => {
         const searchText = event.target.value.toLowerCase();
-        const filtered = members.filter(member =>
-            member.memberId.toLowerCase().includes(searchText) ||
-            member.codeType.toLowerCase().includes(searchText) ||
-            member.codeName.toLowerCase().includes(searchText) ||
-            member.codeTitle.toLowerCase().includes(searchText) ||
-            member.description.toLowerCase().includes(searchText)
-        );
-        setFilteredMembers(filtered);
+        setSearchText(searchText);
     };
+
+    const filteredData = members.filter(member =>
+        member.codeType.toLowerCase().includes(searchText) ||
+        member.codeName.toLowerCase().includes(searchText) ||
+        member.codeTitle.toLowerCase().includes(searchText) ||
+        member.description.toLowerCase().includes(searchText)
+    );
 
     return (
         <body>
@@ -107,7 +107,7 @@ function CodeView({ searchQuery }) {
                             </tr>
                             </thead>
                             <tbody className="bg-white dark:text-white">
-                            {filteredMembers.map(member => (
+                            {filteredData.map(member => (
                                 <tr key={member.id} className="text-zinc-700 dark:text-black">
                                     {/*<td className="px-8 py-4 whitespace-no-wrap border-b border-text-black dark:border-zinc-200">*/}
                                     {/*    {member.memberId}*/}
