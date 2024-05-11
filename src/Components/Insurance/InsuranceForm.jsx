@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
 import './insdash.css';
 
-function CreateNInsuranceRecord( { isOpen, onClose } ) {
-  const [insurerName, setInsurerName] = useState('');
-  const [email, setEmail] = useState('');
-  const [tel, setTel] = useState('');
-  const [coverageDetails, setCoverageDetails] = useState('');
-  const [effectiveDate, setEffectiveDate] = useState('');
-  const [expiryDate, setExpiryDate] = useState('');
-  const [premiumAmount, setPremiumAmount] = useState('');
+function CreateNInsuranceRecord({ isOpen, onClose }) {
+  const [memberId, setMemberId] = useState('');
+  const [name, setName] = useState('');
+  const [address, setAddress] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [payerId, setPayerId] = useState('');
+  const [activeStatus, setActiveStatus] = useState('');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
+  const [zip, setZip] = useState('');
 
   const handleCreate = async (event) => {
     const form = document.getElementById('patientForm');
     event.preventDefault();
     const formData = new FormData(form);
+  
+
     // Send the form data as a POST request using fetch
     try {
       const response = await fetch('https://dulanga.azurewebsites.net/api/innobothealth/insurance/create', {
@@ -23,29 +27,30 @@ function CreateNInsuranceRecord( { isOpen, onClose } ) {
         },
         body: formData,
       });
-        if (response.ok) {
-            console.log("Form Submitted");
-            formRef.current.reset();
-        } else {
-          console.error('Failed to submit form');
-        }
-
+      if (response.ok) {
+        console.log("Form Submitted");
+        formRef.current.reset();
+      } else {
+        console.error('Failed to submit form');
+      }
     }
     catch (error) {
-        console.error('Error :', error);
-        alert('Failed to Submit Form, Please try again later!');
+      console.error('Error :', error);
+      alert('Failed to Submit Form, Please try again later!');
     }
   }
 
   const handleReset = () => {
     // Handle reset button click logic
-    setInsurerName('');
-    setEmail('');
-    setTel('');
-    setCoverageDetails('');
-    setEffectiveDate('');
-    setExpiryDate('');
-    setPremiumAmount('');
+    setMemberId('');
+    setName('');
+    setAddress('');
+    setPhoneNumber('');
+    setPayerId('');
+    setActiveStatus('');
+    setCity('');
+    setState('');
+    setZip('');
   };
 
   const handleCancel = () => {
@@ -53,87 +58,118 @@ function CreateNInsuranceRecord( { isOpen, onClose } ) {
   };
 
   return (
-   <div className={`modal-overlay ${isOpen ? "open" : ''}`}>
-     <div className="modal-content">
-         <button className="text-zinc-600 hover:text-red-900" onClick={handleCancel}>
-             <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor">
-             <path
+    <div className={`modal-overlay ${isOpen ? "open" : ''}`}>
+      <div className="modal-content">
+        <button className="text-zinc-600 hover:text-red-900" onClick={handleCancel}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth="4"
               d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
+            />
+          </svg>
+        </button>
         <form name="patientForm" id="patientForm" onSubmit={handleCreate}>
           <div className="insurance-record-container">
             <h2>Create New Insurance Record</h2>
             <div className="form-group">
-              <label htmlFor="insurerName">Insurer Name</label>
+              <label htmlFor="memberId">Member ID</label>
               <input
+                name= {"memberId"}
                 type="text"
-                id="insurerName"
-                value={insurerName}
-                onChange={(e) => setInsurerName(e.target.value)}
+                id="memberId"
+                value={memberId}
+                onChange={(e) => setMemberId(e.target.value)}
+              />
+            
+            </div>
+            <div className="form-group">
+              <label htmlFor="name">Name</label>
+              <input
+                name = {"name"}
+                type="text"
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
             <div className="form-group">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="address">Address</label>
               <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                name = {"address"}
+                type="text"
+                id="address"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
               />
             </div>
             <div className="form-group">
-              <label htmlFor="tel">Tel</label>
-              <input
+              <label htmlFor="phoneNumber">Phone Number</label>
+              <input 
+                name = {"phoneNumber"}
                 type="tel"
-                id="tel"
-                value={tel}
-                onChange={(e) => setTel(e.target.value)}
+                id="phoneNumber"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
               />
+             
             </div>
             <div className="form-group">
-              <label htmlFor="coverageDetails">Coverage Details</label>
+              <label htmlFor="payerId">Payer ID</label>
               <input
+                name = {"payerId"}
                 type="text"
-                id="coverageDetails"
-                value={coverageDetails}
-                onChange={(e) => setCoverageDetails(e.target.value)}
+                id="payerId"
+                value={payerId}
+                onChange={(e) => setPayerId(e.target.value)}
+
+              />
+                    </div>
+            <div className="form-group">
+              <label htmlFor="activeStatus">Active Status</label>
+              <input
+                name= {"activeStatus"}
+                type="text"
+                id="activeStatus"
+                value={activeStatus}
+                onChange={(e) => setActiveStatus(e.target.value)}
               />
             </div>
             <div className="form-group">
-              <label htmlFor="effectiveDate">Effective Date</label>
+              <label htmlFor="city">City</label>
               <input
-                type="date"
-                id="effectiveDate"
-                value={effectiveDate}
-                onChange={(e) => setEffectiveDate(e.target.value)}
+                name = {"city"}
+                type="text"
+                id="city"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
               />
             </div>
             <div className="form-group">
-              <label htmlFor="expiryDate">Expiry Date</label>
+              <label htmlFor="state">State</label>
               <input
-                type="date"
-                id="expiryDate"
-                value={expiryDate}
-                onChange={(e) => setExpiryDate(e.target.value)}
+                name = {"state"}
+                type="text"
+                id="state"
+                value={state}
+                onChange={(e) => setState(e.target.value)}
               />
             </div>
             <div className="form-group">
-              <label htmlFor="premiumAmount">Premium Amount</label>
+              <label htmlFor="zip">ZIP</label>
               <input
-                type="number"
-                id="premiumAmount"
-                value={premiumAmount}
-                onChange={(e) => setPremiumAmount(e.target.value)}
+                name ={"zip"}
+                type="text"
+                id="zip"
+                value={zip}
+                onChange={(e) => setZip(e.target.value)}
               />
             </div>
             <div className="button-group">
@@ -146,8 +182,8 @@ function CreateNInsuranceRecord( { isOpen, onClose } ) {
             </div>
           </div>
         </form>
-       </div>
-   </div>
+      </div>
+    </div>
   );
 }
 
