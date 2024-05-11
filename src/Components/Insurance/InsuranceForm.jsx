@@ -10,10 +10,32 @@ function CreateNInsuranceRecord( { isOpen, onClose } ) {
   const [expiryDate, setExpiryDate] = useState('');
   const [premiumAmount, setPremiumAmount] = useState('');
 
-  const handleCreate = () => {
-    // Handle create button click logic
-    console.log('Create button clicked');
-  };
+  const handleCreate = async (event) => {
+    const form = document.getElementById('patientForm');
+    event.preventDefault();
+    const formData = new FormData(form);
+    // Send the form data as a POST request using fetch
+    try {
+      const response = await fetch('https://dulanga.azurewebsites.net/api/innobothealth/insurance/create', {
+        method: 'POST',
+        header: {
+          'Accept': 'application/json'
+        },
+        body: formData,
+      });
+        if (response.ok) {
+            console.log("Form Submitted");
+            formRef.current.reset();
+        } else {
+          console.error('Failed to submit form');
+        }
+
+    }
+    catch (error) {
+        console.error('Error :', error);
+        alert('Failed to Submit Form, Please try again later!');
+    }
+  }
 
   const handleReset = () => {
     // Handle reset button click logic
@@ -48,80 +70,82 @@ function CreateNInsuranceRecord( { isOpen, onClose } ) {
               />
             </svg>
           </button>
-        <div className="insurance-record-container">
-          <h2>Create New Insurance Record</h2>
-          <div className="form-group">
-            <label htmlFor="insurerName">Insurer Name</label>
-            <input
-              type="text"
-              id="insurerName"
-              value={insurerName}
-              onChange={(e) => setInsurerName(e.target.value)}
-            />
+        <form name="patientForm" id="patientForm" onSubmit={handleCreate}>
+          <div className="insurance-record-container">
+            <h2>Create New Insurance Record</h2>
+            <div className="form-group">
+              <label htmlFor="insurerName">Insurer Name</label>
+              <input
+                type="text"
+                id="insurerName"
+                value={insurerName}
+                onChange={(e) => setInsurerName(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="tel">Tel</label>
+              <input
+                type="tel"
+                id="tel"
+                value={tel}
+                onChange={(e) => setTel(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="coverageDetails">Coverage Details</label>
+              <input
+                type="text"
+                id="coverageDetails"
+                value={coverageDetails}
+                onChange={(e) => setCoverageDetails(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="effectiveDate">Effective Date</label>
+              <input
+                type="date"
+                id="effectiveDate"
+                value={effectiveDate}
+                onChange={(e) => setEffectiveDate(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="expiryDate">Expiry Date</label>
+              <input
+                type="date"
+                id="expiryDate"
+                value={expiryDate}
+                onChange={(e) => setExpiryDate(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="premiumAmount">Premium Amount</label>
+              <input
+                type="number"
+                id="premiumAmount"
+                value={premiumAmount}
+                onChange={(e) => setPremiumAmount(e.target.value)}
+              />
+            </div>
+            <div className="button-group">
+              <button className="reset-btn" onClick={handleReset}>
+                Reset
+              </button>
+              <button className="create-btn" onClick={handleCreate}>
+                Create
+              </button>
+            </div>
           </div>
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="tel">Tel</label>
-            <input
-              type="tel"
-              id="tel"
-              value={tel}
-              onChange={(e) => setTel(e.target.value)}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="coverageDetails">Coverage Details</label>
-            <input
-              type="text"
-              id="coverageDetails"
-              value={coverageDetails}
-              onChange={(e) => setCoverageDetails(e.target.value)}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="effectiveDate">Effective Date</label>
-            <input
-              type="date"
-              id="effectiveDate"
-              value={effectiveDate}
-              onChange={(e) => setEffectiveDate(e.target.value)}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="expiryDate">Expiry Date</label>
-            <input
-              type="date"
-              id="expiryDate"
-              value={expiryDate}
-              onChange={(e) => setExpiryDate(e.target.value)}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="premiumAmount">Premium Amount</label>
-            <input
-              type="number"
-              id="premiumAmount"
-              value={premiumAmount}
-              onChange={(e) => setPremiumAmount(e.target.value)}
-            />
-          </div>
-          <div className="button-group">
-            <button className="reset-btn" onClick={handleReset}>
-              Reset
-            </button>
-            <button className="create-btn" onClick={handleCreate}>
-              Create
-            </button>
-          </div>
-        </div>
+        </form>
        </div>
    </div>
   );
