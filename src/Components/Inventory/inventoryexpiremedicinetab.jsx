@@ -51,7 +51,7 @@ const inventoryexpiremedicinetab = () => {
     const fetchData = async () => {
       try {
         // const response = await axios.get("https://dulanga.sliit.xyz/api/innobothealth/medicine/all");
-        const response = await axios.get("https://dulanga.azurewebsites.net/api/innobothealth/medicine/ex");
+        const response = await axios.get("http://api.innobot.dulanga.com/api/innobothealth/medicine/ex");
         setData(response.data);
         setFilteredData(response.data);
       } catch (error) {
@@ -73,7 +73,7 @@ const inventoryexpiremedicinetab = () => {
     const confirmDeleteAction = window.confirm("Are you sure you want to delete this item?");
     if (confirmDeleteAction) {
       try {
-        await axios.delete(`https://dulanga.azurewebsites.net/api/innobothealth/medicine/${medicineName}`);
+        await axios.delete(`http://api.innobot.dulanga.com/api/innobothealth/medicine/${medicineName}`);
         console.log("Item deleted successfully:", medicineName);
         const newData = data.filter((item) => item.medicineName !== medicineName);
         setData(newData);
@@ -89,7 +89,7 @@ const inventoryexpiremedicinetab = () => {
   };
   const handleDownloadPDF = async () => {
     try {
-      const response = await axios.get("https://dulanga.azurewebsites.net/api/innobothealth/medicine/generate-pdf/expired", {
+      const response = await axios.get("http://api.innobot.dulanga.com/api/innobothealth/medicine/generate-pdf/expired", {
         responseType: 'blob', // Important for receiving binary data
       });
 
