@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Auth.css';
 import '../../App.css';
 import Video from '../../LoginAssets/video.mp4';
+import bgClip from '../common/images/bgClip.mp4';
 import logo from '../../LoginAssets/logo.png';
 import { FaUserShield } from 'react-icons/fa';
 import { BsFillShieldLockFill } from 'react-icons/bs';
@@ -91,8 +92,11 @@ const Auth = () => {
   };
 
   return (
-    <div className='min-h-screen flex items-center justify-center bg-zinc-200'>
-      <div className="grid grid-col-2 h-full rounded-lg">
+    <div className='min-h-screen flex items-center justify-center bg-zinc-200 bg-opacity-50'>
+        <video className="absolute inset-0 object-cover w-full h-full" autoPlay muted loop>
+            <source src={bgClip} type="video/mp4" />
+          </video>
+      <div className="grid grid-col-2 h-full rounded-lg bg-opacity-50">
         <div className="flex w-full max-w-7xl shadow-lg rounded-lg bg-white">
           <div className="w-1/2 bg-white p-8 grid grid-col-2">
             <div className="mb-o">
