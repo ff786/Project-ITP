@@ -60,11 +60,11 @@ function FeeScheduleManagement() {
     setFilteredData(result);
   }, [search, data]);
 
-  const handleDelete = async (mem_ID) => {
+  const handleDelete = async (ctp_code) => {
     const confirmDeleteAction = window.confirm('Are you sure you want to delete this item?');
     if (confirmDeleteAction) {
       try {
-        await axios.delete(`http://api.innobot.dulanga.com/api/innobothealth/code/delete?id=${id}`);
+        await axios.delete(`https://dulanga.azurewebsites.net/api/innobothealth/insurance/${ctp_code}`);
         const newData = data.filter((item) => item.ctp_code !== ctp_code);
         setData(newData);
         setLoading(true);
