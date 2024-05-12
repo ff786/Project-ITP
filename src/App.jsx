@@ -12,6 +12,7 @@ import UpdateAppointment from './Components/UpdateAppointment/UpdateAppointment'
 import ClaimForm from './Components/ClaimManage/ClaimForm'
 import UpdateForm from './Components/UpdateClaim/UpdateForm'
 import OverviewClaim from './Components/ClaimOverview/OverviewClaim'
+import AssignEmp from './Components/ClaimOverview/AssignEmp'
 import Diagnosis from './Components/PnD/Diagnosis.jsx'
 import PndView from './Components/ViewPND/PndView.jsx'
 import NotifyForm from './Components/NotifyForm/NotifyForm.jsx'
@@ -82,6 +83,10 @@ const router = createBrowserRouter([
   {
     path: '/ClaimOverview',
     element: <div><OverviewClaim /> </div>
+  },
+  {
+    path: '/ClaimAssign',
+    element: <div><AssignEmp /> </div>
   },
   {
     path: '/PnD',

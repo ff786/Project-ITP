@@ -49,6 +49,7 @@ function ClaimModify({ searchQuery }) {
         );
     });
 
+
   return (
      <div className="container mx-fill p-4 bg-white dark:bg-zinc-500 w-auto">
           <div className="overflow-x-auto">
@@ -71,7 +72,7 @@ function ClaimModify({ searchQuery }) {
                     Phone Number
                   </th>
                   <th className="text-left px-6 text-xs font-medium text-zinc-600 dark:text-white uppercase tracking-wider">
-                    email
+                    Email
                   </th>
                   <th className="text-left px-6 text-xs font-medium text-zinc-600 dark:text-white uppercase tracking-wider">
                     Status

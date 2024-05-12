@@ -57,7 +57,7 @@ button[type="claim"] {
     padding: 5px;
     width: 200px;
     height: 50px;
-    background-color: #FFFFFF;
+    background: rgba(255, 255, 255, 0.3);
     color: #02072D;
     border: 1px solid #02072D;
     border-radius: 9px;
@@ -74,7 +74,7 @@ button[type="search"] {
     padding: 5px;
     width: 150px;
     height: 50px;
-    background-color: #FFFFFF;
+    background: rgba(255, 255, 255, 0.3);
     color: #02072D;
     border: 1px solid #02072D;
     border-radius: 9px;
