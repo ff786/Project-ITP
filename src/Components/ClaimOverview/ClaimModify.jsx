@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import UpdateForm from '../UpdateClaim/UpdateForm.jsx'
 
 import Table from 'react-bootstrap/Table';
@@ -8,8 +8,13 @@ import Table from 'react-bootstrap/Table';
 function ClaimModify({ searchQuery }) {
 
     const [members, setMembers] = useState([]);
+    const navigate = useNavigate();
 
         useEffect(() => {
+
+          if (!sessionStorage.getItem("access_token")) {
+              navigate("/");
+          }
           // Fetch data from backend when component mounts
           axios.get('http://api.innobot.dulanga.com/api/innobothealth/claim/getAll')
             .then(response => {
