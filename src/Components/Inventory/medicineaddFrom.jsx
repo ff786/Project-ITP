@@ -2,6 +2,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 
 import { useForm, Controller } from 'react-hook-form';
@@ -31,7 +32,8 @@ const medicineaddFrom = () => {
   const Submitprocess = async (data) => {
 
     if (isExpiryDateInvalid) {
-      alert('Expiry date cannot be in the past');
+      // alert('Expiry date cannot be in the past');
+      Swal.fire("Expiry date cannot be in the past");
     }
     try {
       const selectedSupplierName = data.supplierName;
@@ -59,7 +61,8 @@ const medicineaddFrom = () => {
     const selectedDateObj = new Date(selectedDate);
 
     if (selectedDateObj < currentDate) {
-      alert('Expiry date cannot be in the past');
+      // alert('Expiry date cannot be in the past');
+      Swal.fire("Expiry date cannot be in the past");
       setValue('expireDate', '');
       setIsExpiryDateInvalid(true);
       return;
