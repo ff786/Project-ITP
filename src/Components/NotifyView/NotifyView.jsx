@@ -107,6 +107,21 @@ function NotifyView() {
         });
     }
 
+    const handleDownloadCSV = () => {
+        const csvContent = "ID,Subject,DateTime,To,Message,Acknowledged Status\n"
+            + data.map(item => `${item.id},${item.subject}, ${item.deliveredTime},${item.firstName + item.lastName}, ${item.message.replace(/\n/g, ' ')}, ${item.acknowledged}`).join("\n");
+
+        const blob = new Blob([csvContent], { type: 'text/csv' });
+
+        const a = document.createElement('a');
+
+        a.href = window.URL.createObjectURL(blob);
+        a.download = 'report.csv';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    };
+
     return (
         <div>
             <Topbar />
@@ -133,6 +148,12 @@ function NotifyView() {
                             value={searchQuery}
                             onChange={handleSearch}
                         />
+                        <button type="button"
+                                className="bg-red-500 text-white px-4 py-2 rounded-lg"
+                                onClick={handleDownloadCSV}
+                                style={{fontFamily: 'arial', fontSize: '18px', marginLeft: '20px'}}
+                        >Download Report
+                        </button>
                         {filteredData.map(item => (
                             <div key={item.id} style={{width: '100%'}}
                                  className="bg-white dark:bg-white-700 shadow-xl rounded-lg p-4 mb-4">
