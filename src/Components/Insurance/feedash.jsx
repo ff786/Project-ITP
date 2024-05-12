@@ -10,14 +10,14 @@ function FeeScheduleManagement() {
   const [loading, setLoading] = useState(false);
 
   const columnTable = [
-    { name: 'mem_ID', selector: 'mem_ID' },
-    { name: 'Name', selector: 'name' },
-    { name: 'Address', selector: 'address' },
-    { name: 'Phone Number', selector: 'phone_number' },
-    { name: 'Payer ID', selector: 'payID' },
-    { name: 'City', selector: 'city' },
-    { name: 'State', selector: 'state' },
-    { name: 'ZIP', selector: 'zip' },
+    { name: 'mem_ID', selector: (row) => row.mem_ID },
+    { name: 'Name', selector: (row) => row.name },
+    { name: 'Address', selector: (row) => row.address },
+    { name: 'Phone Number', selector: (row) => row.phone_number },
+    { name: 'Payer ID', selector: (row) => row.payID },
+    { name: 'City', selector: (row) => row.city },
+    { name: 'State', selector: (row) => row.state },
+    { name: 'ZIP', selector: (row) => row.zip },
     {
       name: 'Action',
       cell: (row) => (

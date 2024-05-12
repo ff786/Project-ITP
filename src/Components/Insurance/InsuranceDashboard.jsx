@@ -6,15 +6,17 @@ import InsuranceMenu from './menu.jsx';
 import FeeScheduleManagement from './feedash.jsx'
 import { Link } from 'react-router-dom';
 import { Tabs, TabsHeader, TabsBody, Tab, TabPanel } from "@material-tailwind/react";
+import { useTable } from 'react-table';
 
 
 const InsuranceDashboard = () => {
     
-    const [CreateInsuranceRecord, setCreateInsuranceRecord ] = useState("CreateNInsuranceRecord");
+    const [activeTab, setActiveTab ] = useState("insurance");
+    const CreateInsuranceRecord = () =>  {
+        return <InsuranceForm />;
 
-   
-    const [activeTab, setActiveTab ] = useState("CreateNInsuranceRecord");
-    
+    };
+
 
     const data = [
         {
