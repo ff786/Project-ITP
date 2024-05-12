@@ -8,7 +8,8 @@ import Sidebar from '../common/sidebar/Sidebar';
 import SideNav from '../common/SideNav/sideNav';
 import { saveAs } from 'file-saver';
 import { FaDownload } from 'react-icons/fa';
-
+import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
+import innobotLogo from './innobotlogo.png';
 import backgroundImage from './background.jpg';
 
 function User() {
@@ -132,6 +133,7 @@ function User() {
       return acc;
     }, { SMS: false, EMAIL: false, SYS: false });
     setNotipref(preferences);
+    setIsEditMode(true); // Set isEditMode to true when editing a user
   };
 
   const handleSaveEdit = async () => {
@@ -196,6 +198,179 @@ function User() {
     document.body.appendChild(link);
     link.click();
   };
+
+
+  const downloadPDF = async () => {
+    try {
+      // Create a new PDF document
+      const pdfDoc = await PDFDocument.create();
+      const page = pdfDoc.addPage([600, 800]); // Adjust page size as needed
+  
+      // Add company logo
+      const imageBytes = await fetch(innobotLogo).then((res) => res.arrayBuffer());
+      const image = await pdfDoc.embedPng(imageBytes);
+      const logoDimensions = image.scale(0.5); // Adjust logo size as needed
+      page.drawImage(image, {
+        x: 50,
+        y: 700,
+        width: logoDimensions.width,
+        height: logoDimensions.height,
+      });
+  
+      // Define table properties
+      const tableX = 50;
+      let tableY = 600;
+      const cellMargin = 5;
+      const cellHeight = 20;
+      const headerTextSize = 12;
+      const rowTextSize = 10;
+      const headerBackgroundColor = rgb(0.8, 0.8, 0.8);
+      const rowBackgroundColor = rgb(0.9, 0.9, 0.9);
+  
+      // Add summary
+      page.drawText('User Summary', {
+        x: tableX,
+        y: tableY,
+        size: headerTextSize + 2,
+        color: rgb(0, 0, 0),
+      });
+      tableY -= 30;
+  
+      const totalUsers = filteredUsers.length;
+      const totalCoordinators = filteredUsers.filter(user => user.role === 'COORDINATOR').length;
+      const totalAdmins = filteredUsers.filter(user => user.role === 'ADMIN').length;
+      const totalStaff = filteredUsers.filter(user => user.role === 'STAFF').length;
+  
+      page.drawText(`Total Users: ${totalUsers}`, {
+        x: tableX,
+        y: tableY,
+        size: rowTextSize,
+        color: rgb(0, 0, 0),
+      });
+      tableY -= 20;
+      page.drawText(`Total Coordinators: ${totalCoordinators}`, {
+        x: tableX,
+        y: tableY,
+        size: rowTextSize,
+        color: rgb(0, 0, 0),
+      });
+      tableY -= 20;
+      page.drawText(`Total Admins: ${totalAdmins}`, {
+        x: tableX,
+        y: tableY,
+        size: rowTextSize,
+        color: rgb(0, 0, 0),
+      });
+      tableY -= 20;
+      page.drawText(`Total Staff: ${totalStaff}`, {
+        x: tableX,
+        y: tableY,
+        size: rowTextSize,
+        color: rgb(0, 0, 0),
+      });
+      tableY -= 50;
+  
+      // Add table headers with borders
+      const tableHeaders = ['Username', 'First Name', 'Last Name', 'Email', 'Role'];
+      page.drawRectangle({
+        x: tableX,
+        y: tableY,
+        width: 450,
+        height: cellHeight,
+        color: headerBackgroundColor,
+      });
+      let currentX = tableX + cellMargin;
+      tableHeaders.forEach((header, index) => {
+        page.drawText(header, {
+          x: currentX,
+          y: tableY + cellMargin,
+          size: headerTextSize,
+          color: rgb(0, 0, 0),
+        });
+        currentX += 90; // Adjust column width
+        if (index < tableHeaders.length - 1) {
+          page.drawLine({
+            start: { x: currentX, y: tableY },
+            end: { x: currentX, y: tableY + cellHeight },
+            thickness: 1,
+            color: rgb(0, 0, 0),
+          });
+        }
+      });
+  
+      // Add table data with borders
+      let currentY = tableY - cellHeight;
+      for (let i = 0; i < filteredUsers.length; i++) {
+        const user = filteredUsers[i];
+        currentY -= cellHeight;
+        currentX = tableX + cellMargin;
+        page.drawRectangle({
+          x: tableX,
+          y: currentY,
+          width: 450,
+          height: cellHeight,
+          color: rowBackgroundColor,
+        });
+        const rowData = [user.username, user.firstName, user.lastName, user.email, user.role];
+        rowData.forEach((data, index) => {
+          page.drawText(data, {
+            x: currentX,
+            y: currentY + cellMargin,
+            size: rowTextSize,
+            color: rgb(0, 0, 0),
+          });
+          currentX += 90; // Adjust column width
+          if (index < rowData.length - 1) {
+            page.drawLine({
+              start: { x: currentX, y: currentY },
+              end: { x: currentX, y: currentY + cellHeight },
+              thickness: 1,
+              color: rgb(0, 0, 0),
+            });
+          }
+        });
+      }
+  
+      // Add footer
+      const date = new Date().toLocaleDateString();
+      const footerText = `Generated on: ${date}`;
+      const footerSize = 10;
+      const footerOffset = 30;
+      page.drawText(footerText, {
+        x: 50,
+        y: 50,
+        size: footerSize,
+        color: rgb(0, 0, 0),
+      });
+  
+      // Add closing lines
+      const closingLines = 'Thank you for choosing Innobot!';
+      const closingSize = 12;
+      const closingOffset = 50;
+      page.drawText(closingLines, {
+        x: 50,
+        y: 20,
+        size: closingSize,
+        color: rgb(0, 0, 0),
+      });
+  
+      // Save the PDF to a Uint8Array
+      const pdfBytes = await pdfDoc.save();
+  
+      // Convert Uint8Array to Blob
+      const pdfBlob = new Blob([pdfBytes], { type: 'application/pdf' });
+  
+      // Trigger download
+      saveAs(pdfBlob, 'user_report.pdf');
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      showCustomPopup('Failed to generate PDF report. Please try again later.');
+    }
+  };
+  
+  
+
+
   return (
     <div >
       
@@ -354,6 +529,9 @@ function User() {
           <button onClick={toggleMode} className="unique-button">Switch to {isEditMode ? 'Add' : 'Edit'} Mode</button>
           <button onClick={downloadCSV} className="download-btn-unique">
             <FaDownload className="download-icon-unique" /> Download CSV
+          </button>
+          <button onClick={downloadPDF} className="download-btn-unique">
+          <FaDownload className="download-icon-unique" />   Download PDF
           </button>
         </div>
       </div>
