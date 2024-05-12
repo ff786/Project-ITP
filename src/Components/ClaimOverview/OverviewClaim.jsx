@@ -18,7 +18,6 @@ function OverviewClaim () {
     const [totalClaims, setTotalClaims] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
 
-
     const toggleCreateClaim = () => {
         setCreateClaim(!CreateClaim);
     }
