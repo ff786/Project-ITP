@@ -108,6 +108,7 @@ const InventoryAllMedicineTab = () => {
             reverseButtons: true
         });
 
+
         if (confirmDeleteAction.isConfirmed) {
             try {
                 await axios.delete(`http://localhost:8080/api/innobothealth/medicine/${medicineName}`);
