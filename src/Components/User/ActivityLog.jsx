@@ -1,23 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './ActivityLog.css'; // Importing CSS stylesheet
+import './ActivityLog.css'; // Importing my CSS stylesheet
 import Topbar from '../common/topbar/Topbar';
-import Navbar from './UserNavbar.jsx';
+import Navbar from './UserNavbar';
 
-function ActivityLogWithTimestamps() {
+function ActivityLog() {
   const [selectedUser, setSelectedUser] = useState(null);
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
-  const [filteredActivities, setFilteredActivities] = useState([]);
-  const [users, setUsers] = useState([]); // State for storing user list
+  const [userActivities, setUserActivities] = useState([]);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetchUsers(); // Fetch users when the component mounts
+    fetchUsers();
   }, []);
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('https://dulanga.azurewebsites.net/api/innobothealth/admin/getAll');
+      const response = await axios.get('http://api.innobot.dulanga.com/api/innobothealth/admin/getAll');
       setUsers(response.data);
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -25,78 +23,59 @@ function ActivityLogWithTimestamps() {
   };
 
   useEffect(() => {
-    fetchActivities();
-  }, [selectedUser, startDate, endDate]);
-
-  const fetchActivities = async () => {
-    if (!selectedUser || !startDate || !endDate) return;
-
-    try {
-        const response = await axios.get(`http://api.innobot.dulanga.com/activity-log/${selectedUser}`, {
-            params: {
-                startDate: startDate.toISOString(),
-                endDate: endDate.toISOString()
-            }
-        });
-        setFilteredActivities(response.data);
-    } catch (error) {
-        console.error('Error fetching activities:', error);
+    if (selectedUser) {
+      fetchUserActivities();
     }
-};
+  }, [selectedUser]);
 
+  const fetchUserActivities = async () => {
+    try {
+      const response = await axios.get(`http://api.innobot.dulanga.com/api/innobothealth/activity-log/${selectedUser}`);
+      setUserActivities(response.data);
+    } catch (error) {
+      console.error('Error fetching user activities:', error);
+    }
+  };
 
   const handleUserSelect = (userId) => {
     setSelectedUser(userId);
   };
 
-  // Function to fetch login and logout times for a user
-  const fetchUserLoginLogoutTimes = async (userId) => {
-    try {
-      const response = await axios.get(`https://your-backend-api-url/user/${userId}/login-logout-times`);
-      // Handle response to set login and logout times for the user
-    } catch (error) {
-      console.error('Error fetching login/logout times:', error);
-    }
-  };
-
   return (
-    <div className="activity-log-container-Unique ">
+    <div className="activity-log-container-Unique">
       <Topbar />
       <Navbar />
-      <div className="activity-log-Unique ">
+      <div className="activity-log-Unique">
         <h1>Activity Log</h1>
-        <div className="filter-container-Unique ">
+        <div className="filter-container-Unique">
           {/* User select dropdown */}
-          <select className="user-select-Unique " onChange={(e) => handleUserSelect(parseInt(e.target.value))}>
+          <select className="user-select-Unique" onChange={(e) => handleUserSelect(e.target.value)}>
             <option value="">Select User</option>
             {/* Render options from fetched users */}
             {users.map(user => (
-              <option key={user.id} value={user.id}>{user.name}</option>
+              <option key={user._id} value={user._id}>{`${user.firstName} ${user.lastName}`}</option>
             ))}
           </select>
-          {/* Date range inputs */}
-          <div className="date-range-Unique ">
-            <input type="date" onChange={(e) => setStartDate(new Date(e.target.value))} />
-            <span>to</span>
-            <input type="date" onChange={(e) => setEndDate(new Date(e.target.value))} />
-          </div>
-          {/* Filter button */}
-          <button className="filter-btn-Unique " onClick={fetchActivities}>Filter</button>
         </div>
         {/* Render activity list */}
-        {/* Render activity list */}
-        <ul className="activity-list-Unique ">
-    {filteredActivities.map(activity => (
-        <li key={activity.id} className="activity-item-Unique ">
-            <span className="activity-description-Unique ">{activity.description}</span>
-            <span className="activity-timestamp-Unique ">Login: {activity.loginTime} - Logout: {activity.logoutTime}</span>
-        </li>
-    ))}
-</ul>
-
+        <ul className="activity-list-Unique">
+          {userActivities.map(activity => (
+            <li key={activity._id} className="activity-item-Unique">
+              <div>
+                <strong>User ID:</strong> {activity.userId}
+              </div>
+              <div>
+                <strong>Timestamp:</strong> {activity.timestamp}
+              </div>
+              <div>
+                <strong>Event:</strong> {activity.event}
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
 }
 
-export default ActivityLogWithTimestamps;
+export default ActivityLog;
