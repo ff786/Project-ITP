@@ -15,6 +15,10 @@ function NotifyView() {
 
     useEffect(() => {
 
+        if (!sessionStorage.getItem("access_token")) {
+            navigate("/");
+        }
+
         let timerInterval;
         Swal.fire({
             title: "Fetching Notifications",
@@ -41,7 +45,7 @@ function NotifyView() {
             try {
                 const response = await axios.get('http://api.innobot.dulanga.com/api/innobothealth/notification/getAll', {
                     headers : {
-                        'Authorization' : 'Bearer '.concat('eyJhbGciOiJIUzI1NiJ9.eyJ0eXAiOiJhY2Nlc3MtdG9rZW4iLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiQURNSU4ifV0sImlzRW1haWxWZXJpZmllZCI6ZmFsc2UsInN1YiI6ImR1bGFib3lAZHVsYW5nYS5jb20iLCJpYXQiOjE3MTQyOTQ1ODgsImV4cCI6MTcxNjg4NjU4OH0.7bjK-KKIzeGUQiKHrtsIgNeG_5fW_MOGOBSTijJsp1k')
+                        'Authorization' : 'Bearer '.concat(sessionStorage.getItem("access_token"))
                     }
                 });
                 setData(response.data);
@@ -82,7 +86,7 @@ function NotifyView() {
                 setData(updatedData);
                 axios.delete("http://api.innobot.dulanga.com/api/innobothealth/notification/delete/".concat(item.id), {
                     headers: {
-                        'Authorization' : 'Bearer '.concat('eyJhbGciOiJIUzI1NiJ9.eyJ0eXAiOiJhY2Nlc3MtdG9rZW4iLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiQURNSU4ifV0sImlzRW1haWxWZXJpZmllZCI6ZmFsc2UsInN1YiI6ImR1bGFib3lAZHVsYW5nYS5jb20iLCJpYXQiOjE3MTM5ODc1MDcsImV4cCI6MTcxNjU3OTUwN30.CiCUQmJ6d6i3iUX9m9rGV0YcSLgApRBzfUnC2aqu17k')
+                        'Authorization' : 'Bearer '.concat(sessionStorage.getItem("access_token"))
                     }
                 }).catch(reason => {
                     Swal.fire({

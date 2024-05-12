@@ -14,7 +14,7 @@ const NotifyForm = () => {
     const navigate = useNavigate();
 
     const [options, setOptions] = useState([])
-    const [category, setCategory] = useState('');
+    const [category, setCategory] = useState('Custom');
     const [receivertype, setReceiverType] = useState('ADMIN');
     const [receiver, setReceiver] = useState('');
     const [subject, setSubject] = useState('');
@@ -29,15 +29,45 @@ const NotifyForm = () => {
 
         e.preventDefault();
 
-        // if (!category || !receivertype || !receiver || !subject || !message || !priority || !notificationType) {
-        //     alert('Please fill in all the required fields');
-        //     return;
-        // }
+        const selectedDate = new Date(dateSchd);
+        const selectedTime = new Date(`1970-01-01T${timeSchd}`);
+        const selectedDateTime = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(), selectedTime.getHours(), selectedTime.getMinutes(), 0, 0);
 
-        if (new Date(dateSchd.concat("T").concat(timeSchd).concat(":00")) < new Date(Date.now())) {
-            alert('scheduled date and time cannot be a previous date!');
+        if (isNaN(selectedDateTime) || selectedDateTime < new Date()) {
+            alert('Scheduled date and time have passed! Please select a valid date and time.');
             return;
         }
+
+        if (category === '') {
+            alert('Please select a valid category!');
+            return;
+        }
+
+        if (receivertype === '') {
+            alert('Please select a valid receiver type!');
+            return;
+        }
+
+        if (receiver === '') {
+            alert('Please select a receiver!');
+            return;
+        }
+
+        if (subject === '') {
+            alert('Please type a subject!');
+            return;
+        }
+
+        if (message === '') {
+            alert('Please type a message!');
+            return;
+        }
+
+        if (priority === '') {
+            alert('Please type a message!');
+            return;
+        }
+
 
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
@@ -69,7 +99,7 @@ const NotifyForm = () => {
                     "scheduledDateTime" : dateSchd.concat("T").concat(timeSchd).concat(":00")
                 }, {
                     headers : {
-                        'Authorization' : 'Bearer '.concat('eyJhbGciOiJIUzI1NiJ9.eyJ0eXAiOiJhY2Nlc3MtdG9rZW4iLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiQURNSU4ifV0sImlzRW1haWxWZXJpZmllZCI6ZmFsc2UsInN1YiI6ImR1bGFib3lAZHVsYW5nYS5jb20iLCJpYXQiOjE3MTQyOTQ1ODgsImV4cCI6MTcxNjg4NjU4OH0.7bjK-KKIzeGUQiKHrtsIgNeG_5fW_MOGOBSTijJsp1k')
+                        'Authorization' : 'Bearer '.concat(sessionStorage.getItem("access_token"))
                     }
                 });
 
@@ -94,9 +124,14 @@ const NotifyForm = () => {
     }
 
     useEffect(() => {
+
+        if (!sessionStorage.getItem("access_token")) {
+            navigate("/");
+        }
+
         axios.get('http://api.innobot.dulanga.com/api/innobothealth/user/getUsers?userType='.concat(receivertype), {
             headers : {
-                // 'Authorization' : 'Bearer '.concat('eyJhbGciOiJIUzI1NiJ9.eyJ0eXAiOiJhY2Nlc3MtdG9rZW4iLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiQURNSU4ifV0sImlzRW1haWxWZXJpZmllZCI6ZmFsc2UsInN1YiI6ImR1bGFib3lAZHVsYW5nYS5jb20iLCJpYXQiOjE3MTM4NDg5NDQsImV4cCI6MTcxMzkzNTM0NH0.XSlBNiAyD9jYVR5uWUWEPOLo-PWf9HXa-K6AkboDrSI')
+                'Authorization' : 'Bearer '.concat(sessionStorage.getItem("access_token"))
             }
         }).then(value => {
             setOptions(value.data);
@@ -109,7 +144,7 @@ const NotifyForm = () => {
         setReceiverType(event.target.value);
         axios.get('http://api.innobot.dulanga.com/api/innobothealth/user/getUsers?userType='.concat(event.target.value), {
             headers : {
-                // 'Authorization' : 'Bearer '.concat('eyJhbGciOiJIUzI1NiJ9.eyJ0eXAiOiJhY2Nlc3MtdG9rZW4iLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiQURNSU4ifV0sImlzRW1haWxWZXJpZmllZCI6ZmFsc2UsInN1YiI6ImR1bGFib3lAZHVsYW5nYS5jb20iLCJpYXQiOjE3MTM4NDg5NDQsImV4cCI6MTcxMzkzNTM0NH0.XSlBNiAyD9jYVR5uWUWEPOLo-PWf9HXa-K6AkboDrSI')
+                'Authorization' : 'Bearer '.concat(sessionStorage.getItem("access_token"))
             }
         }).then(value => {
             setOptions(value.data);
