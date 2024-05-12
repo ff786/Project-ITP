@@ -24,6 +24,7 @@
   --smallestFontSize: .75rem;
 }
 
+
 .flex {
   display: flex;
   align-items: center;
@@ -100,9 +101,6 @@ img, video {
   height: 100vh;
   width: 100%;
   margin: auto;
-  background-image: url("./Components/Login/worldwide_img.jpg");
-    background-size: cover;
-    background-position: center;
   overflow: hidden;
   box-shadow: 0 7px 50px rgb(214, 223, 213);
 }

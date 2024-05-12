@@ -144,10 +144,10 @@ const SideNav = () => {
                         <i className="bx bx-file"></i>
                         <span>Claims</span>
                       </a>
-                      <a href="#" className="link flex">
+                      {/* <a href="#" className="link flex">
                         <i className="bx bx-user-circle"></i>
                         <span>Patients</span>
-                      </a>
+                      </a> */}
                       <a href="NotifyView" className="link flex">
                         <i className="bx bx-bell"></i>
                         <span>Notifications</span>

@@ -9,7 +9,11 @@ body {
     sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-image: url('./src/Components/common/images/bgpic1.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
 }
+
 
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

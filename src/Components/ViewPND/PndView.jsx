@@ -4,7 +4,7 @@ import icon_prof from '../ClaimManage/icon_prof.png'
 import notify from '../ClaimManage/notify.png'
 import '../../App.css'
 import '../ClaimManage/ClaimForm.css'
-import Sidebar from '../common/sidebar/Sidebar.jsx'
+import SideNav from '../common/SideNav/sideNav.jsx'
 import search from '../common/search/Search.jsx'
 import '../PnD/Diagnosis.css'
 import '../ClaimOverview/overView.css'
@@ -59,7 +59,7 @@ function CodeModify({ searchQuery }) {
             </div>
             <div className="mid">
                 <div>
-                    <Sidebar />
+                    <SideNav />
                 </div>
 
                 <div className="mid">
