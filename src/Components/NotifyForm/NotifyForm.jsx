@@ -8,10 +8,19 @@ import DropDownWithSearch from "../dropdown/DropdownWithSearch.jsx";
 import axios from "axios";
 import Swal from 'sweetalert2'
 import { useNavigate } from "react-router-dom";
+import {getAnalytics, logEvent, setUserProperties} from "firebase/analytics";
 
 const NotifyForm = () => {
 
     const navigate = useNavigate();
+
+    const analytics = getAnalytics();
+    setUserProperties(analytics, {
+        user: 'Dulanga Wimalagunasekara',
+        Date: new Date()
+    });
+
+    logEvent(analytics,'test_event', { date : Date.now(), platform : "Innobot-FE-SLIIT"});
 
     const [options, setOptions] = useState([])
     const [category, setCategory] = useState('Custom');
