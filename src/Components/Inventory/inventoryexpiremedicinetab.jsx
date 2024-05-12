@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from 'react-router-dom';
 import DataTable from 'react-data-table-component';
+import Swal from 'sweetalert2';
 
 const inventoryexpiremedicinetab = () => {
   const [data, setData] = useState([]);
@@ -69,9 +70,36 @@ const inventoryexpiremedicinetab = () => {
     setFilteredData(result);
   }, [search, data]);
 
+  // const handleDelete = async (medicineName) => {
+  //   const confirmDeleteAction = window.confirm("Are you sure you want to delete this item?");
+  //   if (confirmDeleteAction) {
+  //     try {
+  //       await axios.delete(`http://api.innobot.dulanga.com/api/innobothealth/medicine/${medicineName}`);
+  //       console.log("Item deleted successfully:", medicineName);
+  //       const newData = data.filter((item) => item.medicineName !== medicineName);
+  //       setData(newData);
+  //       setLoading(true);
+  //       setFilteredData(newData);
+  //       setLoading(true);
+  //     } catch (error) {
+  //       console.log("Error deleting item:", error);
+  //     }
+  //   } else {
+  //     console.log("Delete action canceled for item:", medicineName);
+  //   }
+  // };
   const handleDelete = async (medicineName) => {
-    const confirmDeleteAction = window.confirm("Are you sure you want to delete this item?");
-    if (confirmDeleteAction) {
+    const confirmDeleteAction = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel!",
+      reverseButtons: true
+    });
+
+    if (confirmDeleteAction.isConfirmed) {
       try {
         await axios.delete(`http://api.innobot.dulanga.com/api/innobothealth/medicine/${medicineName}`);
         console.log("Item deleted successfully:", medicineName);
@@ -80,16 +108,37 @@ const inventoryexpiremedicinetab = () => {
         setLoading(true);
         setFilteredData(newData);
         setLoading(true);
+
+        // Show success message
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
+        });
       } catch (error) {
         console.log("Error deleting item:", error);
+        // Show error message
+        Swal.fire({
+          title: "Error",
+          text: "Failed to delete item. Please try again later.",
+          icon: "error"
+        });
       }
-    } else {
+    } else if (confirmDeleteAction.dismiss === Swal.DismissReason.cancel) {
       console.log("Delete action canceled for item:", medicineName);
+      // Show cancellation message
+      Swal.fire({
+        title: "Cancelled",
+        text: "Your deletion action has been cancelled.",
+        icon: "info"
+      });
     }
   };
+
+
   const handleDownloadPDF = async () => {
     try {
-      const response = await axios.get("http://api.innobot.dulanga.com/api/innobothealth/medicine/generate-pdf/expired", {
+      const response = await axios.get("http://localhost:8080/api/innobothealth/medicine/generate-pdf/expired", {
         responseType: 'blob', // Important for receiving binary data
       });
 
