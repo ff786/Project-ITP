@@ -44,7 +44,8 @@
     "styled-components": "^6.1.8",
     "sweetalert2": "^11.6.13",
     "toast": "^0.5.4",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "pdf-lib": "^1.17.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
